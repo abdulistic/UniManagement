@@ -1,0 +1,46 @@
+﻿body {
+    background: linear-gradient(90deg,#efd5d5, white);
+}
+
+.water {
+    position: relative;
+    background: url('../Images/Restaursnt Recipes pics/16TOPREST-slide-SWJW-jumbo.jpg') no-repeat;
+    background-size: cover;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    back border-radius: 5px;
+    margin: 0 auto;
+}
+
+.fish1 {
+    max-width: 100%;
+    height: auto;
+    position: absolute;
+    -webkit-transform: translate(-50%, -50%) translateZ(50px);
+    -moz-transform: translate(-50%, -50%) translateZ(50px);
+    -ms-transform: translate(-50%, -50%) translateZ(50px);
+    -o-transform: translate(-50%, -50%) translateZ(50px);
+    transform: translate(-50%, -50%) translateZ(50px);
+}
+
+@media (max-width: 768px) {
+
+    .water {
+        height: 300px;
+    }
+
+    .fish {
+        max-width: 60%;
+    }
+}
+.grad1 {
+    background: linear-gradient(90deg,#c8adad, white);
+}
+.grad2 {
+    background: linear-gradient(90deg,#c8adad, white);
+}
+.grad3 {
+    background: linear-gradient(-90deg, #c8adad, white);
+}
+
+

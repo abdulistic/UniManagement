@@ -1,0 +1,6 @@
+﻿@using Restaurent.Models
+@model IEnumerable<SelectListItem>
+
+
+@Html.DropDownList("Provinces", Model, " - Select Province - ", new { @class = "form-control dropdwn", required = "required" })
+<small id="provinceLabel"></small>

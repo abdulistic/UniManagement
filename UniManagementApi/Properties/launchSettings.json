@@ -1,0 +1,34 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/UniManagementApi",
+      "sslPort": 0
+    }
+    //"iisExpress": {
+    //  "applicationUrl": "http://localhost:31399",
+    //  "sslPort": 44346
+    //}
+  },
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "IIS": {
+      "commandName": "IIS",
+      "launchBrowser": false,
+      "launchUrl": "admin/start",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "UniManagementApi": {
+      "commandName": "IIS",
+      "launchBrowser": false,
+      "launchUrl": "Admin/Start",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:5000"
+    }
+  }
+}

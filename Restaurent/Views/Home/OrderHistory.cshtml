@@ -1,0 +1,59 @@
+﻿@using Restaurant.ClassLibrary.PakClassified
+@using Restaurant.ClassLibrary.UsersMgt
+@using Restaurent.Models
+@model IEnumerable<OrderModel>
+@{
+    ViewBag.Title = "ConfirmOrder";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    User user = (User)Session[WebUtil.CurrentUser];
+    Order order = ViewBag.Order;
+
+    var a = 1;
+
+}
+
+
+<div class="jumbotron text-xs-center" style="margin-top:30px">
+    <div class="container">
+        <h1 class="display-3">Hi, @user.FullName</h1>
+        <p class="lead"><strong>Dear Valued Customer!</strong></p>
+        <p class="lead">Thank you for choosing Gustavo's.</p>
+        <hr>
+        <p>
+            Having trouble? <a href="">Contact us</a>
+        </p>
+        <p class="lead">
+            <a class="btn btn-primary btn-sm" href="/home/home" role="button">Continue to homepage</a>
+        </p>
+    </div>
+</div>
+<div class="container">
+    <h1 style="text-align:center"><b>Order History</b></h1>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Address</th>
+                <th scope="col">Order #</th>
+                <th scope="col">Price</th>
+                <th scope="col">Date</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var h in Model)
+            {
+                <tr>
+                    <th scope="row">@a</th>
+                    <td>@h.Address, @h.City @h.Country</td>
+                    <td>@h.Id</td>
+                    <td>@h.Price</td>
+                    <td>@h.dateTime</td>
+                    <td>@h.Status</td>
+                </tr>
+                a++;
+            }
+           
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,85 @@
+﻿@using Restaurant.ClassLibrary.PakClassified;
+@using Restaurent.Models
+@model EditItemModel
+
+@{
+    List<SelectListItem> status = new AdvertisementsHandler().GetStatus().ToSelectItemList();
+}
+
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    @using (Html.BeginForm("EditFoodItem", "Products", FormMethod.Post, new { id = "editform", enctype = "multipart/form-data" }))
+    {
+
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-dark">
+                    <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body progress-bar-info" >
+                    <h1 style="text-align:center">Edit Item (@Model.Name)</h1>
+                    <div id="signupToggle" class="container-fluid   bg-dark" style="margin-left:17%">
+
+                        <div class="w3-codespan">
+
+                           
+                            <div class="form-group">
+                                <div class="input-group ">
+                                    @Html.TextBox("Id", null, new { @class = "form-control hidden", required = "required", placeholder = "Id", value = Model.Id })
+                                    <br />
+                                    <br />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group col-lg-10 col-md-10 col-sm-10">
+                                    <label for="Name">Item Name:</label>
+                                    @Html.TextBox("Name", null, new { @class = "form-control", type = "text", placeholder = "First Name", value = Model.Name })
+                                    <small id="fnameLabel"></small>
+                                    <br />
+                                    <br />
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="input-group col-lg-10 col-md-10 col-sm-10">
+                                    <label for="Price">Price:</label>
+                                    @Html.TextBox("Price", null, new { @class = "form-control", type = "number", required = "required", placeholder = "Password", value = Model.Name })
+                                    <small id="passwordLabel"></small>
+                                    <br />
+                                    <br />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-group col-lg-10 col-md-10 col-sm-10">
+                                    <label style="padding-right:20px">Status:</label>
+                                    @foreach (var t in status)
+                                    {
+                                        <label style="font-weight:normal;padding-right:10px">@Html.RadioButton("Status", t.Value, t.Selected) @t.Text</label>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <div class="input-group col-lg-10 col-md-10 col-sm-10">
+
+                                    <label style="font-weight:normal">@Html.CheckBox("IsFeatured") Featured</label>
+                                    @*<input @(Convert.ToBoolean(Model.IsFeatured) == true ? "checked='checked'" : string.Empty) type="checkbox" />*@
+
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button id="updateItem" type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+    }
+</div>

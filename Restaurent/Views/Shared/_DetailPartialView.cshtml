@@ -1,0 +1,128 @@
+﻿@using Restaurent.Models
+@model ProductDetailsModel
+@{
+    // List<DetailExtrasModel> objExtras = ViewBag.RecipeExtras;
+    var Cal = 0;
+    var Fat = 0;
+    var Sat = 0;
+    var Tra = 0;
+    var Cho = 0;
+    var Sod = 0;
+    var Car = 0;
+    var Fib = 0;
+    var Sug = 0;
+    var Pro = 0;
+}
+
+<div style="font-family: 'Titillium Web', sans-serif;margin:0px" class="modal" id="modal-name">
+    <div class="modal-sandbox"></div>
+    <div class="modal-box">
+        <div class="modal-header">
+            
+            <h1 style="text-align:center">@Model.Title</h1>
+            @*<div style="margin:0px; padding:0px" class="close-modal">&#10006;</div>*@
+        </div>
+
+        <div style="margin-top:0px; margin-bottom:0px; background-color:#ffffff" class="modal-body">
+            <div style="margin:0px; padding:0px" class="close-modal">&#10006;</div>
+
+            <div style="margin:0px" class="container">
+                <div class="row">
+
+                
+                    <div class="row">
+                        <div class="col-lg-9 no-padding lib-item" data-category="view">
+                            <div class="lib-panel">
+                                <div class="row box-shadow">
+                                    <div class="col-lg-4">
+                                        <img class="lib-img-show" src="@Url.Content(Model.ImageUrl)">
+                                    </div>
+                                    <div style="margin-left:30px" class="col-lg-7">
+                                        <div class="lib-row lib-header">
+                                          <h1 style="text-align:center">Description</h1>
+                                            <div class="lib-header-seperator"></div>
+                                        </div>
+
+                                        <h5>@Model.Description</h5>
+
+                                </div>
+
+                                    <div style="margin-left:10px; text-align:center; align-content:center" class="align-content-center">
+                                        <div id="Extra_check_box" style="text-align:center">
+                                            <h3 style="color:darkslategray">Add Extras</h3>
+
+                                            <div style="margin-left:0px; align-content:center" class="form-group form-inline">
+                                                @foreach (var e in Model.DetailExtrasModel)
+                                                {
+                                                    <label style="font-family: 'Titillium Web', sans-serif;font-weight:normal; margin-left: 15px">@Html.CheckBox(e.Name, new { @class = "extras", id=e.Id })<span style="margin-left:3px">@e.Name</span><span style="margin-left:10px"><small> (Rs. @e.Price/-)</small></span></label>
+
+
+                                                }
+
+                                            </div>
+                                        </div>
+
+                                        <table class="rtable" >
+                                            <thead>
+                                                <tr>
+                                                    <th style="font-family: 'Titillium Web', sans-serif;"><h5>Calories</h5></th>
+                                                    <th style="font-family: 'Titillium Web', sans-serif;"><h5>Fat</h5></th>
+                                                    <th style="font-family: 'Titillium Web', sans-serif;"><h5>Saturated Fat</h5></th>
+                                                    <th style="font-family: 'Titillium Web', sans-serif;"><h5>Trans Fat</h5></th>
+                                                    <th style="font-family: 'Titillium Web', sans-serif;"><h5>Cholestrol</h5></th>
+                                                    <th style="font-family: 'Titillium Web', sans-serif;"><h5>Sodium</h5></th>
+                                                    <th style="font-family: 'Titillium Web', sans-serif;"><h5>Carbohydrates</h5></th>
+                                                    <th style="font-family: 'Titillium Web', sans-serif;"><h5>Fiber</h5></th>
+                                                    <th style="font-family: 'Titillium Web', sans-serif;"><h5>Sugar</h5></th>
+                                                    <th style="font-family: 'Titillium Web', sans-serif;"><h5>Protein</h5></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                             
+                                                    <td><h3 style="color:crimson; font-family: 'Titillium Web', sans-serif" id="fCalories">@Model.Calories</h3></td>
+                                                    <td><h3 style="color:crimson; font-family: 'Titillium Web', sans-serif" id="fFat">@Model.Fat</h3></td>
+                                                    <td><h3 style="color:crimson; font-family: 'Titillium Web', sans-serif" id="fSaturatedFat">@Model.SaturatedFat</h3></td>
+                                                    <td><h3 style="color:crimson; font-family: 'Titillium Web', sans-serif" id="fTransFat">@Model.TransFat</h3></td>
+                                                    <td><h3 style="color:crimson; font-family: 'Titillium Web', sans-serif" id="fCholestrol">@Model.Cholestrol</h3></td>
+                                                    <td><h3 style="color:crimson; font-family: 'Titillium Web', sans-serif" id="fSodium">@Model.Sodium</h3></td>
+                                                    <td><h3 style="color:crimson; font-family: 'Titillium Web', sans-serif" id="fCarbohydrates">@Model.Carbohydrates</h3></td>
+                                                    <td><h3 style="color:crimson; font-family: 'Titillium Web', sans-serif" id="fFiber">@Model.Fiber</h3></td>
+                                                    <td><h3 style="color:crimson; font-family: 'Titillium Web', sans-serif" id="fSugar">@Model.Sugar</h3></td>
+                                                    <td><h3 style="color:crimson; font-family: 'Titillium Web', sans-serif" id="fProtein">@Model.Protein</h3></td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            @*<p>@Model.Description</p>*@
+           @* <p>Laboriosam voluptas, iure rem provident laborum culpa atque fugit inventore sit. Corrupti dolore architecto inventore officia, odit totam voluptatem laboriosam tempore reiciendis, et neque, consequuntur. Non, tenetur? Tempore reprehenderit tenetur nemo asperiores alias commodi assumenda architecto minima numquam repellendus debitis nulla, rerum officia itaque, sunt nihil sequi quod perspiciatis, animi quas voluptates velit aperiam voluptatem.</p>*@
+          
+            <img class="modal_image hidden" src="@Url.Content(Model.ImageUrl)" alt="" />
+            <span id="detailID" class="hidden product_id_modal"><small>@Model.Id</small></span>
+            <span class="product_modal_price hidden">@string.Format("Rs.{0:N0}/-", Model.Price)</span>
+            <span class="product_modal_name hidden">@Model.Title</span>
+          
+            @*<button id="#yourModal" class="close-modal" data-dismiss="modal">Close!</button>*@
+
+
+            <button type="button" class="add_to_cart_custm" data-modal="modal-name">Add To Cart</button>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+

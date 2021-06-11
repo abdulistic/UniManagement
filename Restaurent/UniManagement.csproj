@@ -1,0 +1,542 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A6580D50-C0AF-4DB1-90BD-8E4AE7EC0909}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Restaurent</RootNamespace>
+    <AssemblyName>Restaurent</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.4.1\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.4.1\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.4.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.4.1\lib\net45\Microsoft.AI.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.4.1\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.4.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PayPal, Version=1.9.1.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayPal.1.9.1\lib\net451\PayPal.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.0\lib\net45\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdvertisementController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LocationsController.cs" />
+    <Compile Include="Controllers\PaypalController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\TeacherController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AddProductModel.cs" />
+    <Compile Include="Models\AdminOrderDetailModel.cs" />
+    <Compile Include="Models\AdminOrderModel.cs" />
+    <Compile Include="Models\AdvDetailsModel.cs" />
+    <Compile Include="Models\AdvStatusModel.cs" />
+    <Compile Include="Models\AdvSummaryModel.cs" />
+    <Compile Include="Models\AlertModel.cs" />
+    <Compile Include="Models\ApproveRejectModel.cs" />
+    <Compile Include="Models\CartedItemsModel.cs" />
+    <Compile Include="Models\CartItemModel.cs" />
+    <Compile Include="Models\CheckoutModel.cs" />
+    <Compile Include="Models\ChefDetailExtrasModel.cs" />
+    <Compile Include="Models\ChefOrderDetailModel.cs" />
+    <Compile Include="Models\ChefOrderModel.cs" />
+    <Compile Include="Models\Configuration.cs" />
+    <Compile Include="Models\CustomerDetailsModel.cs" />
+    <Compile Include="Models\DashboardModel.cs" />
+    <Compile Include="Models\DDLViewModel.cs" />
+    <Compile Include="Models\DetailExtrasModel.cs" />
+    <Compile Include="Models\EditItemModel.cs" />
+    <Compile Include="Models\ExtrasModel.cs" />
+    <Compile Include="Models\FeaturedRecipesModel.cs" />
+    <Compile Include="Models\FeedbackModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\ModelsHelper.cs" />
+    <Compile Include="Models\OrderDetailModel.cs" />
+    <Compile Include="Models\OrderModel.cs" />
+    <Compile Include="Models\ProductDetailsModel.cs" />
+    <Compile Include="Models\SignUpModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\AdminService.cs" />
+    <Compile Include="Service\HttpClientService.cs" />
+    <Compile Include="Service\TeacherService.cs" />
+    <Compile Include="ViewModels\UserVM.cs" />
+    <Compile Include="WebUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\AboutUsStyleSheet.css" />
+    <Content Include="Content\Admincss\Cloudeflareanimate352StyleSheet.css" />
+    <Content Include="Content\Admincss\CloudeFlareAwesomeFont440StyleSheet.css" />
+    <Content Include="Content\Admincss\cloudFlarelibs500StyleSheet.css" />
+    <Content Include="Content\Admincss\cloudFlaretwitter337StyleSheet.css" />
+    <Content Include="Content\Admincss\Codepenjaca90StyleSheet.css" />
+    <Content Include="Content\Admincss\CrudTable.css" />
+    <Content Include="Content\Admincss\DataTable.css" />
+    <Content Include="Content\Admincss\datatables.min.css" />
+    <Content Include="Content\AdminStyleSheet.css" />
+    <Content Include="Content\AdProdStyleSheet.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\BS400beta.css" />
+    <Content Include="Content\ByCategoryStyleSheet.css" />
+    <Content Include="Content\CheckboxStyleSheet.css" />
+    <Content Include="Content\CheckoutStyleSheet.css" />
+    <Content Include="Content\CloudflareFontStyleSheet.css" />
+    <Content Include="Content\DashBoardStyleSheet.css" />
+    <Content Include="Content\DetailCardStyleSheet.css" />
+    <Content Include="Content\FailureView.css" />
+    <Content Include="Content\fAlluraStyleSheet.css" />
+    <Content Include="Content\fLatoStyleSheet.css" />
+    <Content Include="Content\fontRobotoStyleSheet.css" />
+    <Content Include="Content\Form.css" />
+    <Content Include="Content\HomeStyleSheet.css" />
+    <Content Include="Content\LoginStyleSheet.css" />
+    <Content Include="Content\main.css" />
+    <Content Include="Content\ManageStyleSheet.css" />
+    <Content Include="Content\maxcdnStyleSheet.css" />
+    <Content Include="Content\MyStyleSheet.css" />
+    <Content Include="Content\mytestStyleSheet.css" />
+    <Content Include="Content\NuteTableStyleSheet.css" />
+    <Content Include="Content\OrderStyleSheet.css" />
+    <Content Include="Content\Sample.css" />
+    <Content Include="Content\SignUpStyleSheet.css" />
+    <Content Include="Content\TestStyleSheet.css" />
+    <Content Include="Content\UserProfile.css" />
+    <Content Include="css\bootstrap-grid.css" />
+    <Content Include="css\bootstrap-grid.min.css" />
+    <Content Include="css\bootstrap-reboot.css" />
+    <Content Include="css\bootstrap-reboot.min.css" />
+    <Content Include="css\bootstrap.css" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="DataImages\products\636478339153302841_1.jpg" />
+    <Content Include="DataImages\products\636478339153302841_2.png" />
+    <Content Include="DataImages\products\636478339992252285_1.jpg" />
+    <Content Include="DataImages\products\636478339992252285_2.png" />
+    <Content Include="DataImages\products\636478343672118928_1.jpg" />
+    <Content Include="DataImages\products\636478343672118928_2.png" />
+    <Content Include="DataImages\products\636478982125442690_1.jpg" />
+    <Content Include="DataImages\products\636478982125442690_2.jpg" />
+    <Content Include="DataImages\products\636478982125442690_3.jpg" />
+    <Content Include="DataImages\products\636481048672003800_1.jpg" />
+    <Content Include="DataImages\products\636481048672003800_2.jpg" />
+    <Content Include="DataImages\products\636481050653593908_1.jpg" />
+    <Content Include="DataImages\products\636481050653593908_2.jpg" />
+    <Content Include="DataImages\products\636481058904884485_1.jpg" />
+    <Content Include="DataImages\products\636481058904884485_2.png" />
+    <Content Include="DataImages\products\636481059900582334_1.jpg" />
+    <Content Include="DataImages\products\636481059900582334_2.png" />
+    <Content Include="DataImages\products\636482785267310671_1.jpg" />
+    <Content Include="DataImages\products\636482785267310671_2.jpg" />
+    <Content Include="DataImages\products\636487064748267407_1.jpg" />
+    <Content Include="DataImages\products\636487064748267407_2.jpg" />
+    <Content Include="DataImages\products\636494870476501448_1.jpg" />
+    <Content Include="DataImages\products\636494870476501448_2.jpg" />
+    <Content Include="DataImages\products\636496616942966482_1.jpg" />
+    <Content Include="DataImages\products\636496617450500657_1.jpg" />
+    <Content Include="DataImages\products\636516421274928754_1.jpg" />
+    <Content Include="DataImages\products\636516423806277879_1.jpg" />
+    <Content Include="DataImages\products\636516426121404490_1.jpg" />
+    <Content Include="DataImages\products\636516427587343122_1.jpg" />
+    <Content Include="DataImages\products\636516442867067558_1.jpg" />
+    <Content Include="DataImages\products\636516445354835603_1.jpg" />
+    <Content Include="DataImages\products\636516445933790466_1.jpg" />
+    <Content Include="DataImages\products\636516446637441886_1.jpg" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Banners\b1.jpg" />
+    <Content Include="Images\Banners\b2.jpg" />
+    <Content Include="Images\Banners\b3.jpg" />
+    <Content Include="Images\Banners\b4.jpg" />
+    <Content Include="Images\Cafe\HRC_Florence_dining-0141.jpg" />
+    <Content Include="Images\Cafe\images.jpg" />
+    <Content Include="Images\Cafe\k.jpg" />
+    <Content Include="Images\Cafe\logo_wayback_dark-outline.png" />
+    <Content Include="Images\Cafe\london6.jpg" />
+    <Content Include="Images\Cafe\person.png" />
+    <Content Include="Images\Cafe\SetRatioSize10001000-Grand-Union-Cafe-Gallery.jpg" />
+    <Content Include="Images\Cover\beef.jpg" />
+    <Content Include="Images\Cover\blurrybg1.jpg" />
+    <Content Include="Images\Cover\blurrybg2.png" />
+    <Content Include="Images\Cover\burgercover.jpg" />
+    <Content Include="Images\Cover\BurgerCover1.jpg" />
+    <Content Include="Images\Cover\burgercover2.jpg" />
+    <Content Include="Images\Cover\burgernusret.jpg" />
+    <Content Include="Images\Cover\food-drink-burger-banner_1384345234.jpg" />
+    <Content Include="Images\Cover\grilled-beef.jpg" />
+    <Content Include="Images\Cover\img-new-burger-banner.jpg" />
+    <Content Include="Images\Cover\nusret-nisantasi-4.jpg" />
+    <Content Include="Images\Cover\pizza-in-hazel-park-michigan.jpg" />
+    <Content Include="Images\Cover\pizza2.png" />
+    <Content Include="Images\Cover\pizzacover.jpeg" />
+    <Content Include="Images\Front images\images.jpg" />
+    <Content Include="Images\Front images\Japanese-Chef-Jacket-Overalls-Chef-Black-Chef-Uniform-Coverall-Canteen-Wear-Short-Sleeved-Shirt-Apron-White.jpg" />
+    <Content Include="Images\Front images\kitchen.jpg" />
+    <Content Include="Images\Front images\logo.png" />
+    <Content Include="Images\Front images\los-pollos-hermanos.jpg" />
+    <Content Include="Images\Front images\restaurant-staff.jpg" />
+    <Content Include="Images\Jpb-Restaurant_Swissotel_Sydney_A.DAVENPORT_-7-720x480.jpg" />
+    <Content Include="Images\maxresdefault.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\16TOPREST-slide-SWJW-jumbo.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\1be8c8b24190f7f0a9e20426500babfbca2d75e6.jfif" />
+    <Content Include="Images\Restaursnt Recipes pics\20150119-pressure-cooker-chicken-stew-food-lab-11-thumb-1500xauto-418088.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\20161201-crispy-roast-potatoes-29-thumb-1500xauto-435281.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\500.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\5a21dc73c8511918fa55832c0ef64d59--coffee-shop-logo-coffee-shops.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\Asian-Glazed-Chicken-Thighs-122.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\belvedere_home_11.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\best-restaurants-jpb-01_470x250.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\bombay-biryani-recipe.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\chef-making-ok-sign-over-white-background_1368-2804.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\Chef.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\cheff.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\d6e7206ba37667e09fb49e68e156e44d.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\download.jfif" />
+    <Content Include="Images\Restaursnt Recipes pics\FreeGreatPicture.com-49998-white-coat-children39s-chef-character.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\gordon-ramsay-chef-500x375.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\gusto-cafe.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\hyderabadi-dum-biryani.jpg.image.784.410.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\images.jfif" />
+    <Content Include="Images\Restaursnt Recipes pics\jpb-restaurant.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\Jpb-Restaurant_Swissotel_Sydney_A.DAVENPORT_-7-720x480.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\Logo Type __.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\rice.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\TCC_herobanner_001.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\TCC_herobanner_002.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\women-s-chef-uniform-500x500.jpg" />
+    <Content Include="Images\Restaursnt Recipes pics\wp72044030_05_06.jpg" />
+    <Content Include="Images\TCC_herobanner_001.jpg" />
+    <Content Include="Images\TCC_herobanner_002.jpg" />
+    <Content Include="Images\temp\i1.jpg" />
+    <Content Include="Images\temp\i2.jpg" />
+    <Content Include="Images\temp\i3.jpg" />
+    <Content Include="Images\temp\nophoto.png" />
+    <Content Include="Images\temp\s2.jpg" />
+    <Content Include="Images\temp\s3.png" />
+    <Content Include="Images\topadv.jpg" />
+    <Content Include="Images\user.jpg" />
+    <Content Include="js\bootstrap.bundle.js" />
+    <Content Include="js\bootstrap.bundle.min.js" />
+    <Content Include="js\bootstrap.js" />
+    <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\vanilla_tilt.min.js" />
+    <Content Include="Scripts\AdminJavascript\CloudflareLibs311JavaScript.js" />
+    <Content Include="Scripts\AdminJavascript\CloudFlareTwitter337JavaScript.js" />
+    <Content Include="Scripts\AdminJavascript\dataTable.js" />
+    <Content Include="Scripts\AdminJavascript\FontAwesomeJavaScript.js" />
+    <Content Include="Scripts\AdminJavascript\ManageClasses.js" />
+    <Content Include="Scripts\AdminJavascript\ManageProduct.js" />
+    <Content Include="Scripts\AdminJavascript\ManageStudents.js" />
+    <Content Include="Scripts\AdminJavascript\ManageSubject.js" />
+    <Content Include="Scripts\AdminJavascript\ManageUsers.js" />
+    <Content Include="Scripts\ajaxLibs1112JavaScript.js" />
+    <Content Include="Scripts\ajaxLibsJavaScript.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="css\bootstrap-grid.css.map" />
+    <Content Include="css\bootstrap-grid.min.css.map" />
+    <Content Include="css\bootstrap-reboot.css.map" />
+    <Content Include="css\bootstrap-reboot.min.css.map" />
+    <Content Include="css\bootstrap.css.map" />
+    <Content Include="css\bootstrap.min.css.map" />
+    <Content Include="js\bootstrap.bundle.js.map" />
+    <Content Include="js\bootstrap.bundle.min.js.map" />
+    <Content Include="js\bootstrap.js.map" />
+    <Content Include="js\bootstrap.min.js.map" />
+    <Content Include="FontFile\9oRPNYsQpS4zjuA_hQgWDto.woff2" />
+    <Content Include="FontFile\9oRPNYsQpS4zjuA_iwgW.woff2" />
+    <Content Include="FontFile\S6uyw4BMUTPHjx4wXg.woff2" />
+    <Content Include="FontFile\S6uyw4BMUTPHjxAwXjeu.woff2" />
+    <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\BS400beta2JavaScript.js" />
+    <Content Include="Scripts\ByCategory.js" />
+    <Content Include="Scripts\Checkout.js" />
+    <Content Include="Scripts\Cloudflare1126popper.js" />
+    <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.2.1.js" />
+    <Content Include="Scripts\jquery-3.2.1.min.js" />
+    <Content Include="Scripts\jquery-3.2.1.slim.js" />
+    <Content Include="Scripts\jquery-3.2.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\libsJavaScript.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\myscript.js" />
+    <Content Include="Scripts\Orders.js" />
+    <Content Include="Scripts\RegistrationForm.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_MainLayout.cshtml" />
+    <Content Include="Views\Home\Home.cshtml" />
+    <Content Include="Views\Home\Test.cshtml" />
+    <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.2.1.min.map" />
+    <Content Include="Views\Shared\_AdminLayoutPage.cshtml" />
+    <Content Include="Views\Home\ContactUs.cshtml" />
+    <Content Include="Views\Shared\_FeaturedRecipesView.cshtml" />
+    <Content Include="Views\Home\ByCategory.cshtml" />
+    <Content Include="Views\Shared\_CategoryPartialView.cshtml" />
+    <Content Include="Views\Home\Checkout.cshtml" />
+    <Content Include="Views\Home\Admin.cshtml" />
+    <Content Include="Views\Products\AddProduct.cshtml" />
+    <Content Include="Views\Users\Login.cshtml" />
+    <Content Include="Views\Users\Signup.cshtml" />
+    <Content Include="Views\Home\Test2.cshtml" />
+    <Content Include="Views\Products\ManageProduct.cshtml" />
+    <Content Include="Views\Shared\_DetailPartialView.cshtml" />
+    <Content Include="Views\Shared\_ChefLayoutPage.cshtml" />
+    <Content Include="Views\Home\Chef.cshtml" />
+    <Content Include="Views\Products\Orders.cshtml" />
+    <Content Include="Views\Home\ConfirmOrder.cshtml" />
+    <Content Include="Views\Products\Statistics.cshtml" />
+    <Content Include="Views\Home\OrderHistory.cshtml" />
+    <Content Include="Views\Users\UserProfile.cshtml" />
+    <Content Include="Views\Products\UserFeedback.cshtml" />
+    <Content Include="Views\Home\AboutUs.cshtml" />
+    <Content Include="Views\Shared\_ExtraNutritionPartialView.cshtml" />
+    <Content Include="Views\Shared\_UserDetailsPartialView.cshtml" />
+    <Content Include="Views\Shared\_CityPartialView.cshtml" />
+    <Content Include="Views\Shared\_ProvincesCityPartialView.cshtml" />
+    <Content Include="Views\Shared\_CartedItemsPartialView.cshtml" />
+    <Content Include="Views\Shared\_EditItemPartialView.cshtml" />
+    <Content Include="Views\Paypal\Index.cshtml" />
+    <Content Include="Views\Paypal\SuccessView.cshtml" />
+    <Content Include="Views\Paypal\FailureView.cshtml" />
+    <Content Include="Views\Shared\_AdminShared.cshtml" />
+    <Content Include="Views\Admin\DashBoard.cshtml" />
+    <Content Include="Views\Admin\UserManagement.cshtml" />
+    <Content Include="Views\Admin\Test.cshtml" />
+    <Content Include="Views\Admin\ClassManagement.cshtml" />
+    <Content Include="Views\Admin\SubjectManagement.cshtml" />
+    <Content Include="Views\Shared\_TeacherShared.cshtml" />
+    <Content Include="Views\Teacher\TeacherManagement.cshtml" />
+    <Content Include="Views\Admin\StudentManagement.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\Advertisement\" />
+    <Folder Include="Views\Locations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Scripts\jquery-1.9.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Restaurant.ClassLibrary\UniManagement.ClassLibrary.csproj">
+      <Project>{f5ccfa4a-e239-4819-8320-1ba64a5986c9}</Project>
+      <Name>UniManagement.ClassLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>61106</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:61106/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

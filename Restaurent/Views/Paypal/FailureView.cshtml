@@ -1,0 +1,50 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>FailureView</title>
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/bootstrap-grid.min.css" rel="stylesheet" />
+    <link href="~/css/bootstrap-reboot.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Content/FailureView.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+
+        <div class="container" style="text-align:center; margin-top:150px">
+            <div class="ui middle aligned center aligned grid">
+                <div class="ui eight wide column">
+
+                    <form class="ui large form">
+
+                        <div class="ui icon negative message">
+                            <i class="warning icon"></i>
+                            <div class="content">
+                                <div class="header">
+                                   <h1>Oops! Something went wrong.</h1>
+                                </div>
+                                <p>While trying to reserve money from your account</p>
+                            </div>
+
+                        </div>
+
+                        <a class="btn btn-warning btn-lg" href="/Paypal/PaymentWithPayment">Try again</a> 
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> 
+      
+
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+</body>
+</html>

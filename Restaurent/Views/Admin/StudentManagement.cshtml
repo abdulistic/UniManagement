@@ -1,0 +1,121 @@
+﻿@using Restaurant.ClassLibrary.ViewModel;
+
+@model SubjectMgtVM
+
+@{
+    ViewBag.Title = "StudentManagement";
+    Layout = "~/Views/Shared/_AdminShared.cshtml";
+
+    List<SelectListItem> teachers = Model.ClassList;
+}
+
+
+@section myLink{
+
+    <link rel="stylesheet" type="text/css" href="~/Content/Admincss/datatables.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link href="~/Content/Admincss/DataTable.css" rel="stylesheet" />
+}
+
+<div style="margin:100px"
+     class="row">
+    <div id="admin" class="col s12">
+        <div class="card material-table">
+            <div class="table-header">
+                <span class="table-title">Material Datatable</span>
+                <div class="actions">
+                    <a href="#addEmployeeModal" data-toggle="modal" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">person_add</i></a>
+                    <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
+                </div>
+            </div>
+            <table id="datatable">
+                <thead>
+                    <tr>
+                        <th>Student Id</th>
+                        <th>Student Name</th>
+                        <th>Class Assigned</th>
+                        <th>Added On</th>
+                        <th class="ten td_Action">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var m in Model?.SubjectList)
+                    {
+                        <tr>
+                            <td>@m.SubjectId</td>
+                            <td>@m.SubjectName</td>
+                            <td data-className="@m.ClassName">@m.ClassName</td>
+                            <td>@m.CreatedOn.ToString("dd MMM yyyy")</td>
+                            <td class="td_Action">
+                                <a href="#" data-id="@m.SubjectId" class="edit editItem" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#" data-id="@m.SubjectId" class="delete delItem" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Edit Modal HTML -->
+<div id="editEmployeeModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            @using (Html.BeginForm("AssignClass", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Employee</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    @Html.TextBoxFor(m => m.AddSubject.SubjectId, new { @class = "form-control hidden", placeholder = "First Name", id = "editId", style = "display: none;" })
+                    <div class="form-group">
+                        <label>Assign Class *</label>
+                        @Html.DropDownListFor(m => m.AddSubject.ClassId, teachers, "- Select Class -", new { @class = " dropdwn", id = "editClass" })
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-info" value="Save">
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- Delete Modal HTML -->
+<div id="deleteEmployeeModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Employee</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete these Records?</p>
+                    <p class="text-warning"><small>This action cannot be undone.</small></p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    @*<input type="submit" class="btn btn-danger" value="Delete">*@
+                    <a href="#" class="btn btn-danger" id="delItemOkBtn">Delete</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section myScript{
+
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" type="text/javascript"></script>
+
+    <script src="~/Scripts/AdminJavascript/dataTable.js" type="text/javascript"></script>
+    <script src="~/Scripts/AdminJavascript/ManageStudents.js" type="text/javascript"></script>
+}
+

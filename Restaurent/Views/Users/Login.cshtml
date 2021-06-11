@@ -1,0 +1,52 @@
+﻿@using Restaurent.Models
+@model LoginModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+    @*<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />*@
+    <link href="~/Content/LoginStyleSheet.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div> 
+@if (Model == null)
+{
+
+    using (Html.BeginForm("Login", "Users", new { rURL = ViewBag.ReturnURL }, FormMethod.Post, null))
+    {
+    <div class="main-form">
+        <i class="logo"></i>
+        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Username" })
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+        <label style="font-weight:normal">@Html.CheckBoxFor(m => m.RememberMe) Remeber Me</label>   
+      
+        <input type="submit" value="Sign in">
+        <div>
+            <a href="#" title="">Don't have an account?</a>
+            <a href="/users/signup" title="">Sign Up</a>
+        </div>
+    </div>
+    }
+
+
+
+
+
+  
+
+
+
+
+
+}
+    </div>
+</body>
+</html>
