@@ -33,4 +33,10 @@ namespace Restaurant.ClassLibrary.ViewModel
         public List<SelectListItem> TeachersList { get; set; }
         public List<SelectListItem> ClassList { get; set; }
     }
+
+    public class TestMgtVM
+    {
+        public TestVM AddTest { get; set; }
+        public List<TestVM> TestList { get; set; }
+    }
 }

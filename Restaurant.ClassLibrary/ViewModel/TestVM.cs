@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -20,8 +21,13 @@ namespace Restaurant.ClassLibrary.ViewModel
             get { return testName; }
             set { testName = value; }
         }
+        public int TotalMarks { get; set; }
         public int SubjectId { get; set; }
+        public int TestResultId { get; set; }
         public string SubjectName { get; set; }
+
+        [DisplayName("Test Date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime CreatedOn { get; set; }
     }
 }

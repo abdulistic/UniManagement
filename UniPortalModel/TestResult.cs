@@ -5,13 +5,13 @@ using System.Collections.Generic;
 
 namespace UniPortalModel
 {
-    public partial class UniTest
+    public partial class TestResult
     {
+        public int ResultId { get; set; }
+        public long StudentId { get; set; }
         public int TestId { get; set; }
-        public string TestName { get; set; }
         public DateTime CreatedOn { get; set; }
         public bool IsActive { get; set; }
-        public int SubjectId { get; set; }
-        public int TotalMarks { get; set; }
+        public string StudentMarks { get; set; }
     }
 }

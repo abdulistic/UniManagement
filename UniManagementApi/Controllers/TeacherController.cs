@@ -43,15 +43,30 @@ namespace UniManagementApi.Controllers
         }
 
         [HttpPost]
-        public async Task<Response> AddTest(TestVM model)
+        public async Task<Response> AddTest([FromBody]TestVM model)
         {
             return await service.AddTest(model);
         }
+
+        [HttpPost]
+        public async Task<Response> AddTestResult([FromBody] TestVM model)
+        {
+            return await service.AddTestResult(model);
+        }
+
 
         [HttpGet]
         public async Task<TestVM> GetTestById(long id)
         {
             return await service.GetTestById(id);
         }
+
+        [HttpGet]
+        public async Task<TestMgtVM> GetTestResults(int id)
+        {
+            return await service.GetTestResults(id);
+        }
+
+
     }
 }

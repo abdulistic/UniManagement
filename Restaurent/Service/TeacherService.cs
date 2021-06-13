@@ -15,6 +15,8 @@ namespace Restaurent.Service
         Task<Response> AddTest(TestVM model);
         Task<TestVM> GetTestById(int id);
         Task<List<TestVM>> GetTestList(int id);
+        Task<TestMgtVM> GetTestResults(int id);
+        Task<Response> AddTestResult(TestVM model);
     }
 
     public class TeacherService : ITeacherService
@@ -55,12 +57,42 @@ namespace Restaurent.Service
             return response;
         }
 
+        public async Task<TestMgtVM> GetTestResults(int id)
+        {
+            TestMgtVM response = new TestMgtVM();
+            try
+            {
+                string json = await httpClient.GetAsync($"{TeacherRoutes.GetTestResults}?id={id}");
+                response = JsonConvert.DeserializeObject<TestMgtVM>(json);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return response;
+        }
+
         public async Task<Response> AddTest(TestVM model)
         {
             Response response = new Response();
             try
             {
                 string json = await httpClient.PostAsync($"{TeacherRoutes.AddTest}", model);
+                response = JsonConvert.DeserializeObject<Response>(json);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return response;
+        }
+
+        public async Task<Response> AddTestResult(TestVM model)
+        {
+            Response response = new Response();
+            try
+            {
+                string json = await httpClient.PostAsync($"{TeacherRoutes.AddTestResult}", model);
                 response = JsonConvert.DeserializeObject<Response>(json);
             }
             catch (Exception ex)

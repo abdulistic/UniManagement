@@ -370,6 +370,8 @@
     <Content Include="Scripts\AdminJavascript\ManageProduct.js" />
     <Content Include="Scripts\AdminJavascript\ManageStudents.js" />
     <Content Include="Scripts\AdminJavascript\ManageSubject.js" />
+    <Content Include="Scripts\AdminJavascript\ManageTest.js" />
+    <Content Include="Scripts\AdminJavascript\ManageTestResults.js" />
     <Content Include="Scripts\AdminJavascript\ManageUsers.js" />
     <Content Include="Scripts\ajaxLibs1112JavaScript.js" />
     <Content Include="Scripts\ajaxLibsJavaScript.js" />
@@ -472,6 +474,8 @@
     <Content Include="Views\Shared\_TeacherShared.cshtml" />
     <Content Include="Views\Teacher\TeacherManagement.cshtml" />
     <Content Include="Views\Admin\StudentManagement.cshtml" />
+    <Content Include="Views\Teacher\TestManagement.cshtml" />
+    <Content Include="Views\Teacher\TestResults.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -678,7 +678,10 @@ namespace UniManagementApi.Services
             {
                 List<UniClass> classList = await context.UniClasses.Where(x => x.IsActive ?? false).ToListAsync();
                 List<AssignClassStudent> classStudents = await context.AssignClassStudents.ToListAsync();
-                List<User> userList = await context.Users.Where(x => x.IsActive ?? false && x.RoleId == (int)RoleEnum.Student).ToListAsync();
+
+                List<User> allUsers = await context.Users.Where(x => x.IsActive ?? false).ToListAsync();
+
+                List<User> userList = allUsers.Where(x => x.RoleId == (int)RoleEnum.Student).ToList();
 
                 int classId = 0;
                 string className;

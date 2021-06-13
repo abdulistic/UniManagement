@@ -54,29 +54,54 @@ namespace Restaurent.Controllers
 
             await service.DeleteTestById(id);
 
-            return RedirectToAction("TestManagement");
+            return RedirectToAction("TeacherManagement");
         }
 
         public async Task<ActionResult> TestManagement(int id)
         {
             User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/dashBoard" });
+            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "teacher/testmanagement" });
 
-            List<TestVM> tests = new List<TestVM>();
-            tests = await service.GetTestList(id);
+            TestMgtVM tests = new TestMgtVM();
+            tests.TestList = await service.GetTestList(id);
+            ViewBag.SubjectId = id;
 
             return View(tests);
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddTest(TestVM data)
+        public async Task<ActionResult> AddTest(TestMgtVM data)
         {
             User user = (User)Session[WebUtil.CurrentUser];
             if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/dashBoard" });
 
-            await service.AddTest(data);
+            await service.AddTest(data.AddTest);
 
-            return RedirectToAction("TestManagement");
+            return RedirectToAction("TeacherManagement");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddTestResult(TestMgtVM data)
+        {
+            User user = (User)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/dashBoard" });
+
+            await service.AddTestResult(data.AddTest);
+
+            return RedirectToAction("TeacherManagement");
+        }
+
+
+        public async Task<ActionResult> TestResults(int id)
+        {
+            User user = (User)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "teacher/testmanagement" });
+
+            TestMgtVM tests = new TestMgtVM();
+            tests = await service.GetTestResults(id);
+            ViewBag.SubjectId = id;
+
+            return View(tests);
         }
     }
 }

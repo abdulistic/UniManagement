@@ -19,6 +19,7 @@ namespace UniPortalModel
 
         public virtual DbSet<AssignClassStudent> AssignClassStudents { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
+        public virtual DbSet<TestResult> TestResults { get; set; }
         public virtual DbSet<UniClass> UniClasses { get; set; }
         public virtual DbSet<UniTest> UniTests { get; set; }
         public virtual DbSet<User> Users { get; set; }
@@ -56,6 +57,19 @@ namespace UniPortalModel
                 entity.Property(e => e.SubjectName)
                     .IsRequired()
                     .HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<TestResult>(entity =>
+            {
+                entity.HasKey(e => e.ResultId);
+
+                entity.ToTable("TestResult");
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.StudentMarks)
+                    .IsRequired()
+                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<UniClass>(entity =>
