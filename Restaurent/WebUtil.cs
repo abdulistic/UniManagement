@@ -72,5 +72,8 @@ namespace Restaurent
         public const string GetTestList = BaseURL + "GetTestList";
         public const string GetTestResults = BaseURL + "GetTestResults";
         public const string AddTestResult = BaseURL + "AddTestResult";
+        public const string GetStudentList = BaseURL + "GetStudentList";
+        public const string GetStudentSubjects = BaseURL + "GetStudentSubjects";
+        public const string GetTestResultsBySubjectId = BaseURL + "GetTestResultsBySubjectId";
     }
 }

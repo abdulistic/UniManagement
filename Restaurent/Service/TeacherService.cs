@@ -16,7 +16,11 @@ namespace Restaurent.Service
         Task<TestVM> GetTestById(int id);
         Task<List<TestVM>> GetTestList(int id);
         Task<TestMgtVM> GetTestResults(int id);
+        Task<TestMgtVM> GetStudentList(int id);
         Task<Response> AddTestResult(TestVM model);
+        Task<List<SubjectVM>> GetStudentSubjects(int id);
+        Task<TestMgtVM> GetTestResultsBySubjectId(int subjectId, int studentId);
+        Task LoginForChat(string username, string password);
     }
 
     public class TeacherService : ITeacherService
@@ -130,6 +134,63 @@ namespace Restaurent.Service
 
             }
             return response;
+        }
+
+        public async Task<TestMgtVM> GetStudentList(int id)
+        {
+            TestMgtVM response = new TestMgtVM();
+            try
+            {
+                string json = await httpClient.GetAsync($"{TeacherRoutes.GetStudentList}?id={id}");
+                response = JsonConvert.DeserializeObject<TestMgtVM>(json);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return response;
+        }
+
+        public async Task<List<SubjectVM>> GetStudentSubjects(int id)
+        {
+            List<SubjectVM> response = new List<SubjectVM>();
+            try
+            {
+                string json = await httpClient.GetAsync($"{TeacherRoutes.GetStudentSubjects}?id={id}");
+                response = JsonConvert.DeserializeObject<List<SubjectVM>>(json);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return response;
+        }
+
+        public async Task<TestMgtVM> GetTestResultsBySubjectId(int subjectId, int studentId)
+        {
+            TestMgtVM response = new TestMgtVM();
+            try
+            {
+                string json = await httpClient.GetAsync($"{TeacherRoutes.GetTestResultsBySubjectId}?subjectId={subjectId}&studentId={studentId}");
+                response = JsonConvert.DeserializeObject<TestMgtVM>(json);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return response;
+        }
+
+        public async Task LoginForChat(string username, string password)
+        {
+            try
+            {
+                string json = await httpClient.GetAsync($"http://localhost/ChatApp/Account/LoginChat?username={username}&password={password}");
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }

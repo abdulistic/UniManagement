@@ -22,6 +22,7 @@ namespace Restaurant.ClassLibrary.ViewModel
         }
         public long TeacherId { get; set; }
         public string TeacherName { get; set; }
+        public int Grades { get; set; }
         public int ClassId { get; set; }
         public string ClassName { get; set; }
 

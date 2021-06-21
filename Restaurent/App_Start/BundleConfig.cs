@@ -1,4 +1,8 @@
-﻿using System.Web;
+﻿using BundleTransformer.Core.Builders;
+using BundleTransformer.Core.Bundles;
+using BundleTransformer.Core.Orderers;
+using BundleTransformer.Core.Resolvers;
+using System.Web;
 using System.Web.Optimization;
 
 namespace Restaurent
@@ -26,6 +30,16 @@ namespace Restaurent
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            var nullBulider = new NullBuilder();
+            var nullOrderer = new NullOrderer();
+
+            BundleResolver.Current = new CustomBundleResolver();
+            var commonStyleBundle = new CustomStyleBundle("~/Bundle/sass");
+
+            commonStyleBundle.Include("~/css/chat.scss");
+            commonStyleBundle.Orderer = nullOrderer;
+            bundles.Add(commonStyleBundle);
         }
     }
 }

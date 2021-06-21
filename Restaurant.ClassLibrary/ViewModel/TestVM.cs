@@ -21,6 +21,7 @@ namespace Restaurant.ClassLibrary.ViewModel
             get { return testName; }
             set { testName = value; }
         }
+        public int TestScore { get; set; }
         public int TotalMarks { get; set; }
         public int SubjectId { get; set; }
         public int TestResultId { get; set; }

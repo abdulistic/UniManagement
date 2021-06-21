@@ -21,7 +21,16 @@ namespace Restaurent.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return Redirect("http://localhost/ChatApp/Account/Register");
+        }
+
+        public async  Task<ActionResult> Register()
+        {
+            string username = "abdulirehmankhan3333@gmail.com";
+            string password = "Password1";
+            await service.LoginForChat(username, password);
+
+            return RedirectToAction("TeacherManagement");
         }
 
         public async Task<ActionResult> TeacherManagement()
@@ -103,5 +112,18 @@ namespace Restaurent.Controllers
 
             return View(tests);
         }
+
+        public async Task<ActionResult> StudentList(int id)
+        {
+            User user = (User)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "teacher/testmanagement" });
+
+            TestMgtVM tests = new TestMgtVM();
+            tests = await service.GetStudentList(id);
+
+            return View(tests);
+        }
+
+
     }
 }

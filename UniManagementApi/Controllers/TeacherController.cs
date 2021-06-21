@@ -67,6 +67,24 @@ namespace UniManagementApi.Controllers
             return await service.GetTestResults(id);
         }
 
+        [HttpGet]
+        public async Task<TestMgtVM> GetStudentList(int id)
+        {
+            return await service.GetStudentList(id);
+        }
+
+        [HttpGet]
+        public async Task<List<SubjectVM>> GetStudentSubjects(int id)
+        {
+            return await service.GetStudentSubjects(id);
+        }
+
+        [HttpGet]
+        public async Task<TestMgtVM> GetTestResultsBySubjectId(int subjectId, int studentId)
+        {
+            return await service.GetTestResultsBySubjectId(subjectId, studentId);
+        }
+
 
     }
 }
