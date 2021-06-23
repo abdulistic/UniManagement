@@ -13,6 +13,7 @@ namespace Restaurant.ClassLibrary.ViewModel
             set { userId = value; }
         }
 
+        public int ChatRoomId { get; set; }
 
         private string userName;
         [Required]
@@ -23,6 +24,8 @@ namespace Restaurant.ClassLibrary.ViewModel
             get { return userName; }
             set { userName = value; }
         }
+
+        public string RegId { get; set; }
 
         private string password;
 

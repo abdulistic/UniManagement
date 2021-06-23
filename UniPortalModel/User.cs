@@ -17,5 +17,6 @@ namespace UniPortalModel
         public DateTime CreatedOn { get; set; }
         public int RoleId { get; set; }
         public bool? IsActive { get; set; }
+        public string RegId { get; set; }
     }
 }

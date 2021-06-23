@@ -85,6 +85,36 @@ namespace UniManagementApi.Controllers
             return await service.GetTestResultsBySubjectId(subjectId, studentId);
         }
 
+        [HttpGet]
+        public async Task<List<UserVM>> GetChatUserList(int id)
+        {
+            return await service.GetChatUserList(id);
+        }
+
+        [HttpPost]
+        public async Task<Response> AddChatRoom([FromBody] ChatInfoVM model)
+        {
+            return await service.AddChatRoom(model);
+        }
+
+        [HttpPost]
+        public async Task<Response> AddChat([FromBody]ChatVM model)
+        {
+            return await service.AddChat(model);
+        }
+
+
+        [HttpGet]
+        public async Task<List<UserVM>> GetChatPeople(int id)
+        {
+            return await service.GetChatPeople(id);
+        }
+
+        [HttpGet]
+        public async Task<List<ChatVM>> GetChatRoomHistory(int id)
+        {
+            return await service.GetChatRoomHistory(id);
+        }
 
     }
 }

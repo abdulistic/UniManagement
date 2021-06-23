@@ -21,6 +21,11 @@ namespace Restaurent.Service
         Task<List<SubjectVM>> GetStudentSubjects(int id);
         Task<TestMgtVM> GetTestResultsBySubjectId(int subjectId, int studentId);
         Task LoginForChat(string username, string password);
+        Task<List<UserVM>> GetChatUserList(int id);
+        Task<Response> AddChat(ChatVM model);
+        Task<Response> AddChatRoom(ChatInfoVM model);
+        Task<List<UserVM>> GetChatPeople(int id);
+        Task<List<ChatVM>> GetChatRoomHistory(int id);
     }
 
     public class TeacherService : ITeacherService
@@ -82,6 +87,36 @@ namespace Restaurent.Service
             try
             {
                 string json = await httpClient.PostAsync($"{TeacherRoutes.AddTest}", model);
+                response = JsonConvert.DeserializeObject<Response>(json);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return response;
+        }
+
+        public async Task<Response> AddChat(ChatVM model)
+        {
+            Response response = new Response();
+            try
+            {
+                string json = await httpClient.PostAsync($"{TeacherRoutes.AddChat}", model);
+                response = JsonConvert.DeserializeObject<Response>(json);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return response;
+        }
+
+        public async Task<Response> AddChatRoom(ChatInfoVM model)
+        {
+            Response response = new Response();
+            try
+            {
+                string json = await httpClient.PostAsync($"{TeacherRoutes.AddChatRoom}", model);
                 response = JsonConvert.DeserializeObject<Response>(json);
             }
             catch (Exception ex)
@@ -180,6 +215,54 @@ namespace Restaurent.Service
             }
             return response;
         }
+
+        public async Task<List<UserVM>> GetChatUserList(int id)
+        {
+            List<UserVM> response = new List<UserVM>();
+            try
+            {
+                string json = await httpClient.GetAsync($"{TeacherRoutes.GetChatUserList}?id={id}");
+                response = JsonConvert.DeserializeObject<List<UserVM>>(json);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return response;
+        }
+
+        public async Task<List<UserVM>> GetChatPeople(int id)
+        {
+            List<UserVM> response = new List<UserVM>();
+            try
+            {
+                string json = await httpClient.GetAsync($"{TeacherRoutes.GetChatPeople}?id={id}");
+                response = JsonConvert.DeserializeObject<List<UserVM>>(json);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return response;
+        }
+
+
+         public async Task<List<ChatVM>> GetChatRoomHistory(int id)
+        {
+            List<ChatVM> response = new List<ChatVM>();
+            try
+            {
+                string json = await httpClient.GetAsync($"{TeacherRoutes.GetChatRoomHistory}?id={id}");
+                response = JsonConvert.DeserializeObject<List<ChatVM>>(json);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return response;
+        }
+
+
 
         public async Task LoginForChat(string username, string password)
         {

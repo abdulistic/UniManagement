@@ -298,110 +298,10 @@
                     <div id="result" class="list-group"></div>
                 </form>
             </div>
-            <ul class="list">
-                <li class="clearfix">
-                    <a href="">
-                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" />
-                        <div class="about">
-                            <div style="color:aliceblue" class="name">Vincent Porter</div>
-                            <div class="status">
-                                <i class="fa fa-circle online"></i> online
-                            </div>
-                        </div>
-                    </a>
-                </li>
-
-                <li class="clearfix">
-                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_02.jpg" alt="avatar" />
-                    <div class="about">
-                        <div class="name">Aiden Chavez</div>
-                        <div class="status">
-                            <i class="fa fa-circle offline"></i> left 7 mins ago
-                        </div>
-                    </div>
-                </li>
-
-                <li class="clearfix">
-                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_03.jpg" alt="avatar" />
-                    <div class="about">
-                        <div class="name">Mike Thomas</div>
-                        <div class="status">
-                            <i class="fa fa-circle online"></i> online
-                        </div>
-                    </div>
-                </li>
-
-                <li class="clearfix">
-                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_04.jpg" alt="avatar" />
-                    <div class="about">
-                        <div class="name">Erica Hughes</div>
-                        <div class="status">
-                            <i class="fa fa-circle online"></i> online
-                        </div>
-                    </div>
-                </li>
-
-                <li class="clearfix">
-                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_05.jpg" alt="avatar" />
-                    <div class="about">
-                        <div class="name">Ginger Johnston</div>
-                        <div class="status">
-                            <i class="fa fa-circle online"></i> online
-                        </div>
-                    </div>
-                </li>
-
-                <li class="clearfix">
-                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_06.jpg" alt="avatar" />
-                    <div class="about">
-                        <div class="name">Tracy Carpenter</div>
-                        <div class="status">
-                            <i class="fa fa-circle offline"></i> left 30 mins ago
-                        </div>
-                    </div>
-                </li>
-
-                <li class="clearfix">
-                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_07.jpg" alt="avatar" />
-                    <div class="about">
-                        <div class="name">Christian Kelly</div>
-                        <div class="status">
-                            <i class="fa fa-circle offline"></i> left 10 hours ago
-                        </div>
-                    </div>
-                </li>
-
-                <li class="clearfix">
-                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_08.jpg" alt="avatar" />
-                    <div class="about">
-                        <div class="name">Monica Ward</div>
-                        <div class="status">
-                            <i class="fa fa-circle online"></i> online
-                        </div>
-                    </div>
-                </li>
-
-                <li class="clearfix">
-                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_09.jpg" alt="avatar" />
-                    <div class="about">
-                        <div class="name">Dean Henry</div>
-                        <div class="status">
-                            <i class="fa fa-circle offline"></i> offline since Oct 28
-                        </div>
-                    </div>
-                </li>
-
-                <li class="clearfix">
-                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_10.jpg" alt="avatar" />
-                    <div class="about">
-                        <div class="name">Peyton Mckinney</div>
-                        <div class="status">
-                            <i class="fa fa-circle online"></i> online
-                        </div>
-                    </div>
-                </li>
-            </ul>
+            <ul id="addedPeople" class="list"> </ul>
         </div>
+
+        <input type="text" id="currentUserId" onkeyup="changeInput(this.value)" style="display: none;" value=@ViewBag.SubjectId>
 
         <div class="chat">
             <div class="chat-header clearfix">
@@ -415,7 +315,7 @@
             </div> <!-- end chat-header -->
 
             <div class="chat-history">
-                <ul>
+                <ul id="chatHistory">
                     <li class="clearfix">
                         <div class="message-data align-right">
                             <span class="message-data-time">10:10 AM, Today</span> &nbsp; &nbsp;
@@ -474,11 +374,13 @@
 
             <div class="chat-message clearfix">
                 <textarea name="message-to-send" id="message-to-send" placeholder="Type your message" rows="3"></textarea>
+                <input type="text" id="recieverId" >
+                <input type="text" id="chatRoomId" >
 
                 <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
                 <i class="fa fa-file-image-o"></i>
 
-                <button>Send</button>
+                <button id="messageSendBtn">Send</button>
 
             </div> <!-- end chat-message -->
 
@@ -617,7 +519,155 @@
 
     </script>
     <script>
-        var people = ['Jamila', 'Lakenya', 'Eulalia', 'Jules', 'Li', 'Titus', 'Marybelle', 'Loan', 'Rolland', 'Leisa', 'Noe', 'Elin', 'Bernice', 'Karly', 'Barton', 'India', 'Bradley', 'Rudolph', 'Cassandra', 'Vita', 'Justin', 'Edna', 'Scarlett', 'Rasheeda', 'Essie', 'Sabra', 'Eleanore', 'Christal', 'Moses', 'Rachelle', 'Shakira', 'Jona', 'Christa', 'Elaina', 'Frederica', 'Lashawn', 'Jody', 'Amanda', 'Marcellus', 'Rodney', 'Kenyatta', 'Maybell', 'Christel', 'Angle', 'Harris', 'Talia', 'Brendon', 'Reginald', 'Celestine', 'Etta'];
+        var people;
+
+        $(document).ready(function () {
+            getChatPeople();
+
+        });
+
+        function getSeachSuggest() {
+            $.ajax(
+                {
+                    url: "/student/GetChatUserList"
+                }
+            ).done(function (result) {
+                people = new Array();
+                result.forEach(function (item) {
+                    item.UserName = item.FirstName + " " + item.LastName;
+                    people.push(item);
+                });
+
+            });
+        }
+
+        function getChat(userId) {
+
+            $.ajax(
+                {
+                    url: "/student/GetChat?id=" + userId
+                }
+            ).done(function (result) {
+                document.getElementById("addedPeople").innerHTML = "";
+                result.forEach(function (item) {
+                    debugger
+
+                    if (item) {
+
+
+
+                        document.getElementById("addedPeople").innerHTML
+                            += '<li>'
+                            + '<div class="message-data">'
+                            + '<span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>'
+                            + '<span class="message-data-time">10:12 AM, Today</span>'
+                            + '</div>'
+                            + '<div class="message my-message">'
+                            + 'Are we meeting today? Project has been already finished and I have results to show you.'
+                            + '</div>'
+                            + '</li>'
+
+                        document.getElementById("addedPeople").innerHTML
+                            += '<li class="clearfix">'
+                            + '<div class="message-data align-right">'
+                            + '<span class="message-data-time">10:10 AM, Today</span> &nbsp; &nbsp;'
+                            + '<span class="message-data-name">Olia</span> <i class="fa fa-circle me"></i>'
+                            + '</div>'
+                            + '<div class="message other-message float-right">'
+                            + 'Are we meeting today? Project has been already finished and I have results to show you.'
+                            + '</div>'
+                            + '</li>'
+
+                    }
+
+                });
+
+
+            });
+
+        }
+
+        function getChatPeople(value) {
+
+            if (value) {
+
+                $.ajax(
+                    {
+                        url: "/student/AddChatRoom?id=" + value
+                    }
+                ).done(function (result) {
+                    document.getElementById("addedPeople").innerHTML = "";
+
+                    $("#recieverId").val(result[0].UserId);
+                    $("#chatRoomId").val(result[0].ChatRoomId);
+
+
+
+
+                    result.forEach(function (item) {
+
+                        document.getElementById("addedPeople").innerHTML
+                            += '<li class="clearfix">'
+                            + '<a class="chatPerson" data-id="' + item.UserId + '" href="">'
+                            + '<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" />'
+                            + '<div class="about">'
+                            + '<div style="color:aliceblue" class="name">' + item.FirstName + ' ' + item.LastName + '</div>'
+                            + '<div class="status">'
+                            + '<i class="fa fa-circle online"></i> online'
+                            + '</div>'
+                            + '</div>'
+                            + '</a>'
+                            + '</li>'
+
+                    });
+
+
+                    getChat(result[0].UserId)
+                    getSeachSuggest();
+                });
+
+
+
+
+
+
+
+
+            }
+            else {
+                $.ajax(
+                    {
+                        url: "/student/GetChatPeople"
+                    }
+                ).done(function (result) {
+
+                    $("#recieverId").val(result[0].UserId);
+
+                    result.forEach(function (item) {
+
+                        document.getElementById("addedPeople").innerHTML
+                            += '<li class="clearfix">'
+                            + '<a class="chatPerson" data-id="' + item.UserId + '" href="">'
+                            + '<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" />'
+                            + '<div class="about">'
+                            + '<div style="color:aliceblue" class="name">' + item.FirstName + ' ' + item.LastName + '</div>'
+                            + '<div class="status">'
+                            + '<i class="fa fa-circle online"></i> online'
+                            + '</div>'
+                            + '</div>'
+                            + '</a>'
+                            + '</li>'
+
+                    });
+
+                    getSeachSuggest();
+                });
+            }
+
+
+
+
+        }
 
         function matchPeople(input) {
             var reg = new RegExp(input.split("").join("\\w*").replace(/\W/, ""), "i");
@@ -626,7 +676,7 @@
                 return res;
             }
             for (var i = 0, len = people.length; i < len; i++) {
-                if (people[i].match(reg)) {
+                if (people[i].UserName.match(reg)) {
                     res.push(people[i]);
                 }
             }
@@ -637,19 +687,59 @@
             var autoCompleteResult = matchPeople(val);
             document.getElementById("result").innerHTML = "";
             for (var i = 0, limit = 10, len = autoCompleteResult.length; i < len && i < limit; i++) {
-                document.getElementById("result").innerHTML += "<a class='list-group-item list-group-item-action' href='#' onclick='setSearch(\"" + autoCompleteResult[i] + "\")'>" + autoCompleteResult[i] + "</a>";
+                document.getElementById("result").innerHTML += "<a data-id='" + autoCompleteResult[i].UserId + "' class='userSelected list-group-item list-group-item-action' href='#' onclick='setSearch(\"" + autoCompleteResult[i].UserId + "\")'>" + autoCompleteResult[i].UserName + "</a>";
             }
         }
 
-
         function setSearch(value) {
             debugger
-            document.getElementById('search').value = value;
+            getChatPeople(value);
             document.getElementById("result").innerHTML = "";
         }
 
+        $(document).on('click', '.chatPerson', function (e) {
+            debugger;
+            e.preventDefault();
+            var usertId = $(this).attr('data-id');
+
+            getChat(usertId);
+
+            $("#recieverId").val(usertId);
+        });
+
+        $(document).on('click', '.messageSendBtn', function (e) {
+            debugger;
+            e.preventDefault();
+            var usertId = $(this).attr('data-id');
+
+            var message = $('#message-to-send').val();
+            var recieverId = $('#recieverId').val();
+            var chatRoomId = $('#chatRoomId').val();
+
+
+            var dataObject = JSON.stringify({
+                'Email': $('#inpEmail').val(),
+                'Name': $('#inpName').val(),
+                'PhoneNumber': $('#inpPhone').val(),
+                'Message': $('#inpMessage').val()
+            });
+
+            $.ajax({
+                url: '/student/addchat',
+                type: 'POST',
+                contentType: 'application/json',
+                done: submissionSucceeded,
+                fail: submissionFailed,
+                data: dataObject
+            }).done(function (result) {
+
+                debugger
+
+            });
+
+            $("#recieverId").val(usertId);
+        });
 
     </script>
-
 </body>
 </html>

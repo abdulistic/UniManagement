@@ -39,7 +39,7 @@ namespace Restaurent
 
     public static class AdminRoutes 
     {
-        public const string BaseURL = "http://192.168.0.101/UniManagementApi/";
+        public const string BaseURL = "http://localhost/UniManagementApi/";
 
         public const string Start = BaseURL + "admin/start";
         public const string AddUser = BaseURL + "admin/AddUser";
@@ -62,7 +62,7 @@ namespace Restaurent
 
     public static class TeacherRoutes
     {
-        public const string BaseURL = "http://192.168.0.101/UniManagementApi/teacher/";
+        public const string BaseURL = "http://localhost/UniManagementApi/teacher/";
 
 
         public const string GetSubjectList = BaseURL + "GetSubjectList";
@@ -75,5 +75,10 @@ namespace Restaurent
         public const string GetStudentList = BaseURL + "GetStudentList";
         public const string GetStudentSubjects = BaseURL + "GetStudentSubjects";
         public const string GetTestResultsBySubjectId = BaseURL + "GetTestResultsBySubjectId";
+        public const string GetChatUserList = BaseURL + "GetChatUserList";
+        public const string GetChatPeople = BaseURL + "GetChatPeople";
+        public const string GetChatRoomHistory = BaseURL + "GetChatRoomHistory";
+        public const string AddChatRoom = BaseURL + "AddChatRoom";
+        public const string AddChat = BaseURL + "AddChat";
     }
 }

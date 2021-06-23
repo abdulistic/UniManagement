@@ -18,6 +18,9 @@ namespace UniPortalModel
         }
 
         public virtual DbSet<AssignClassStudent> AssignClassStudents { get; set; }
+        public virtual DbSet<Chat> Chats { get; set; }
+        public virtual DbSet<ChatRoom> ChatRooms { get; set; }
+        public virtual DbSet<ChatRoomMember> ChatRoomMembers { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<TestResult> TestResults { get; set; }
         public virtual DbSet<UniClass> UniClasses { get; set; }
@@ -42,6 +45,35 @@ namespace UniPortalModel
                 entity.HasKey(e => e.AssignClassId);
 
                 entity.ToTable("AssignClassStudent");
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<Chat>(entity =>
+            {
+                entity.ToTable("Chat");
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.Message).HasMaxLength(1500);
+            });
+
+            modelBuilder.Entity<ChatRoom>(entity =>
+            {
+                entity.ToTable("ChatRoom");
+
+                entity.Property(e => e.ChatRoomName)
+                    .IsRequired()
+                    .HasMaxLength(150);
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<ChatRoomMember>(entity =>
+            {
+                entity.HasKey(e => e.MemberId);
+
+                entity.ToTable("ChatRoomMember");
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
             });
@@ -123,6 +155,10 @@ namespace UniPortalModel
                 entity.Property(e => e.Password).IsRequired();
 
                 entity.Property(e => e.PhoneNumber).HasMaxLength(100);
+
+                entity.Property(e => e.RegId)
+                    .HasMaxLength(150)
+                    .HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.UserName)
                     .IsRequired()

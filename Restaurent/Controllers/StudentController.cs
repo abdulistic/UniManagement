@@ -53,8 +53,57 @@ namespace Restaurent.Controllers
         {
             User user = (User)Session[WebUtil.CurrentUser];
             if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "student/chat" });
+            ViewBag.SubjectId = 4;
+
 
             return View();
+        }
+
+
+        public async Task<JsonResult> GetChatUserList()
+        {
+            List<UserVM> chatUsers = new List<UserVM>();
+            chatUsers = await service.GetChatUserList(4);
+
+            return Json(chatUsers, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public async Task<JsonResult> GetChatPeople()
+        {
+            List<UserVM> chatUsers = new List<UserVM>();
+            chatUsers = await service.GetChatPeople(4);
+
+            return Json(chatUsers, JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<JsonResult> GetChat(int id)
+        {
+            List<ChatVM> chatUsers = new List<ChatVM>();
+            chatUsers = await service.GetChatRoomHistory(id);
+
+
+            return Json(chatUsers, JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<JsonResult> AddChatRoom(int id)
+        {
+            await service.AddChatRoom(new ChatInfoVM { SenderId = 4, RecieverId = id });
+
+            List<UserVM> chatUsers = new List<UserVM>();
+            chatUsers = await service.GetChatPeople(4);
+
+            return Json(chatUsers, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> AddChat(ChatVM model)
+        {
+            model.SenderId = 4;
+
+            await service.AddChat(model);
+
+            return Json("{'message':'Success'}", JsonRequestBehavior.AllowGet);
         }
     }
 }

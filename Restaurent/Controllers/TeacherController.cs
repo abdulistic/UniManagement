@@ -124,6 +124,14 @@ namespace Restaurent.Controllers
             return View(tests);
         }
 
+        public async Task<ActionResult> GetChatUserList()
+        {
+            List<UserVM> chatUsers = new List<UserVM>();
+            chatUsers = await service.GetChatUserList(4);
+
+            return View(chatUsers);
+        }
+
 
     }
 }

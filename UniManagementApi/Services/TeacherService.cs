@@ -22,6 +22,11 @@ namespace UniManagementApi.Services
         Task<Response> AddTestResult(TestVM model);
         Task<List<SubjectVM>> GetStudentSubjects(int id);
         Task<TestMgtVM> GetTestResultsBySubjectId(int subjectId, int studentId);
+        Task<List<UserVM>> GetChatUserList(int id);
+        Task<Response> AddChat(ChatVM model);
+        Task<Response> AddChatRoom(ChatInfoVM model);
+        Task<List<UserVM>> GetChatPeople(int id);
+        Task<List<ChatVM>> GetChatRoomHistory(int id);
     }
 
     public class TeacherService : ITeacherService
@@ -105,6 +110,74 @@ namespace UniManagementApi.Services
 
             return response;
         }
+
+        public async Task<Response> AddChatRoom(ChatInfoVM model)
+        {
+            Response response = new Response();
+            try
+            {
+                if (model != null)
+                {
+                    User sender = context.Users?.FirstOrDefault(x => x.UserId == model.SenderId);
+                    User reciever = context.Users?.FirstOrDefault(x => x.UserId == model.RecieverId);
+
+                    List<User> chatUsers = new List<User>() { sender, reciever };
+
+                    string chatRoomName = Xor(new Guid(sender.RegId), new Guid(reciever.RegId)).ToString();
+
+                    ChatRoom chatRoom = await context.ChatRooms?.FirstOrDefaultAsync(x => x.ChatRoomName.Equals(chatRoomName));
+
+                    if (chatRoom == null)
+                    {
+                        ChatRoom registration = new ChatRoom()
+                        {
+                            ChatRoomName = chatRoomName,
+                            CreatedOn = DateTime.Now
+                        };
+
+
+                        context.ChatRooms.Add(registration);
+                        await context.SaveChangesAsync();
+
+                        if (registration.ChatRoomId > 0)
+                        {
+                            List<ChatRoomMember> chatMember = chatUsers.Select(x => new ChatRoomMember
+                            {
+                                ChatRoomId = registration.ChatRoomId,
+                                MemberUserId = x.UserId,
+                                CreatedOn = DateTime.Now,
+
+                            }).ToList();
+
+
+                            context.ChatRoomMembers.AddRange(chatMember);
+                            await context.SaveChangesAsync();
+
+                            response.Status = ResponseStatus.OK;
+                            response.Message = "Registration successful.";
+                        }
+                        else
+                        {
+                            response.Status = ResponseStatus.Error;
+                            response.Message = "Registration failed.";
+                        }
+                    }
+                }
+                else
+                {
+                    response.Status = ResponseStatus.Error;
+                    response.Message = "Registration failed.";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = ResponseStatus.Error;
+                response.Message = ex.Message;
+            }
+
+            return response;
+        }
+
 
         public async Task<Response> DeleteTestById(int id)
         {
@@ -340,6 +413,52 @@ namespace UniManagementApi.Services
             return response;
         }
 
+        public async Task<Response> AddChat(ChatVM model)
+        {
+            Response response = new Response();
+            try
+            {
+                if (model != null)
+                {
+                    Chat registration = new Chat()
+                    {
+                        ChatRoomId = model.ChatRoomId,
+                        Message = model.Message,
+                        RecieverId = (int)model.RecieverId,
+                        SenderId = (int)model.SenderId,
+                        CreatedOn = DateTime.Now,
+                    };
+
+
+                    context.Chats.Add(registration);
+                    await context.SaveChangesAsync();
+
+                    if (registration.ChatId > 0)
+                    {
+                        response.Status = ResponseStatus.OK;
+                        response.Message = "Registration successful.";
+                    }
+                    else
+                    {
+                        response.Status = ResponseStatus.Error;
+                        response.Message = "Registration failed.";
+                    }
+                }
+                else
+                {
+                    response.Status = ResponseStatus.Error;
+                    response.Message = "Registration failed.";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = ResponseStatus.Error;
+                response.Message = ex.Message;
+            }
+
+            return response;
+        }
+
         public async Task<TestMgtVM> GetStudentList(int id)
         {
             TestMgtVM subjectMgt = new TestMgtVM();
@@ -371,6 +490,90 @@ namespace UniManagementApi.Services
 
                     }).ToList();
                 }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return subjectMgt;
+        }
+
+        public async Task<List<UserVM>> GetChatUserList(int id)
+        {
+            List<UserVM> subjectMgt = new List<UserVM>();
+            List<User> userList = new List<User>();
+            try
+            {
+                User user = await context.Users.FirstAsync(x => x.UserId == id);
+
+                if (user.RoleId == (int)RoleEnum.Student)
+                {
+                    AssignClassStudent studentClass = context.AssignClassStudents.FirstOrDefault(x => x.StudentId == id);
+                    List<AssignClassStudent> classStudents = await context.AssignClassStudents.Where(x => x.StudentId != id).Where(x => x.ClassId == studentClass.ClassId).ToListAsync();
+                    List<Subject> subjects = await context.Subjects.Where(x => x.IsActive).Where(s => s.ClassId == studentClass.ClassId).ToListAsync();
+
+                    userList = await context.Users.Where(x => x.IsActive ?? false).
+                        Where(s => classStudents.Select(a => a.StudentId).ToList().Contains(s.UserId)).ToListAsync();
+
+                    List<User> teacherList = await context.Users.Where(x => x.IsActive ?? false).
+                        Where(s => subjects.Select(a => a.TeacherId).ToList().Contains(s.UserId)).ToListAsync();
+
+                    userList.AddRange(teacherList);
+                }
+                else if (user.RoleId == (int)RoleEnum.Teacher)
+                {
+                    List<Subject> subjects = await context.Subjects.Where(x => x.IsActive).Where(s => s.TeacherId == user.UserId).ToListAsync();
+
+                    List<UniClass> classes = await context.UniClasses.Where(x => x.IsActive ?? false)
+                        .Where(s => subjects.Select(c => c.ClassId).Contains(s.ClassId)).ToListAsync();
+
+                    List<AssignClassStudent> classStudents = await context.AssignClassStudents
+                        .Where(x => classes.Select(s => s.ClassId).ToList().Contains(x.ClassId ?? 0)).ToListAsync();
+
+                    userList = await context.Users.Where(x => x.IsActive ?? false).
+                        Where(s => classStudents.Select(a => a.StudentId).ToList().Contains(s.UserId)).ToListAsync();
+
+                    List<User> teacherList = await context.Users.Where(x => x.IsActive ?? false).
+                        Where(s => s.RoleId == (int)RoleEnum.Teacher).ToListAsync();
+
+                    List<User> admins = await context.Users.Where(x => x.IsActive ?? false).
+                        Where(s => s.RoleId == (int)RoleEnum.Admin).ToListAsync();
+
+                    userList.AddRange(teacherList);
+                    userList.AddRange(admins);
+                }
+
+                List<ChatRoom> chatRooms = context.ChatRooms.ToList();
+
+                foreach (User item in userList)
+                {
+                    bool exists = (chatRooms?.Any(s => s.ChatRoomName == Xor(new Guid(item.RegId), new Guid(user.RegId)).ToString())) ?? false;
+                    if (!exists)
+                    {
+                        subjectMgt.Add(
+                            new UserVM
+                            {
+                                FirstName = item.FirstName,
+                                LastName = item.LastName,
+                                RegId = item.RegId,
+                                UserId = item.UserId
+
+                            });
+                    }
+                        
+                }
+
+                //subjectMgt = userList
+                //    .Where(x => !(chatRooms?.Count > 0) && (chatRooms.Any(s => s.ChatRoomName == Xor(new Guid(x.RegId), new Guid(user.RegId)).ToString())))
+                //    .Select(s => new UserVM
+                //    {
+                //        FirstName = s.FirstName,
+                //        LastName = s.LastName,
+                //        RegId = s.RegId,
+                //        UserId = s.UserId
+
+                //    }).ToList();
             }
             catch (Exception ex)
             {
@@ -482,6 +685,88 @@ namespace UniManagementApi.Services
             }
 
             return subjectMgt;
+        }
+
+
+        public async Task<List<UserVM>> GetChatPeople(int id)
+        {
+            List<UserVM> userList = new List<UserVM>();
+
+            try
+            {
+                List<ChatRoomMember> myChats = await context.ChatRoomMembers.Where(x => x.MemberUserId == id).ToListAsync();
+                List<ChatRoomMember> chatRecipient = await context.ChatRoomMembers.Where(u => u.MemberUserId != id)
+                    .Where(x => myChats.Select(s => s.ChatRoomId).ToList().Contains(x.ChatRoomId)).ToListAsync();
+
+                List<User> users = await context.Users.Where(x => chatRecipient.Select(x => x.MemberUserId).ToList().Contains(x.UserId)).ToListAsync();
+
+                if (users?.Count > 0)
+                {
+                    userList = users.Select(x => new UserVM()
+                    {
+                        UserId = (int)x.UserId,
+                        FirstName = x.FirstName,
+                        LastName = x.LastName,
+                        CreatedOn = x.CreatedOn,
+                        ChatRoomId = chatRecipient?.FirstOrDefault(s => s.MemberUserId == x.UserId)?.ChatRoomId ?? 0
+
+                    }).OrderByDescending(o => o.CreatedOn).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return userList;
+        }
+
+        public async Task<List<ChatVM>> GetChatRoomHistory(int id)
+        {
+            List<ChatVM> chatList = new List<ChatVM>();
+
+            try
+            {
+                List<Chat> myChats = await context.Chats.Where(x => x.ChatRoomId == id).ToListAsync();
+
+
+                if (myChats?.Count > 0)
+                {
+                    chatList = myChats.Select(x => new ChatVM()
+                    {
+                        ChatId = (int)x.ChatId,
+                        Message = x.Message,
+                        SenderId = x.SenderId,
+                        CreatedOn = x.CreatedOn
+
+                    }).OrderBy(o => o.CreatedOn).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return chatList;
+        }
+
+
+
+        public Guid Xor(Guid g1, Guid g2)
+        {
+            var ba1 = g1.ToByteArray();
+            var ba2 = g2.ToByteArray();
+            var ba3 = new byte[16];
+
+            for (int i = 0; i < 16; i++)
+            {
+                ba3[i] = (byte)(ba1[i] ^ ba2[i]);
+            }
+
+
+            //bool exists = chatRooms?.Count > 0 ? chatRooms.Any(s => s.ChatRoomName == (new Guid(ba3)).ToString()) : false;
+
+            return new Guid(ba3);
         }
     }
 }
