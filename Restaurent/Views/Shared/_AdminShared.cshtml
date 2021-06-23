@@ -1,8 +1,6 @@
-﻿@using Restaurant.ClassLibrary.PakClassified
-@using Restaurant.ClassLibrary.ViewModel
+﻿@using Restaurant.ClassLibrary.ViewModel
 @using Restaurent.Models
 @{
-    List<SelectListItem> categories = new AdvertisementsHandler().GetCategories().ToSelectItemList();
     UserVM user = (UserVM)Session[WebUtil.CurrentUser];
 }
 
@@ -44,7 +42,7 @@
             </div>
             <div class="header-icons-group">
                 @*<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> @currentUser.FullName <span class="caret"></span></a>*@
-                <div class="c-header-icon basket">@*<span class="glyphicon glyphicon-user"></span>*@<h5 style="margin-left:5px; text-align:center"> @user.FirstName @user.LastName</h5></div>
+                <div class="c-header-icon basket">@*<span class="glyphicon glyphicon-user"></span>*@<h5 style="margin-left:5px; text-align:center"> @user.FirstName</h5></div>
                 <div class="c-header-icon logout"><a href="/users/logout"><i class="fa fa-power-off"></i></a></div>
             </div>
         </div>
@@ -98,14 +96,14 @@
                             </div>
                         </a>
                     </li>
-                    @*<li class="c-menu__item has-submenu" data-toggle="tooltip" title="Statistics">
-                        <a href="/Admin/SubjectManagement">
+                    <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Statistics">
+                        <a href="/Admin/StudentManagement">
                             <div class="c-menu__item__inner">
                                 <i class="fa fa-bar-chart"></i>
                                 <div class="c-menu-item__title"><span>Statistics</span></div>
                             </div>
                         </a>
-                    </li>*@
+                    </li>
                 </ul>
             </nav>
         </div>

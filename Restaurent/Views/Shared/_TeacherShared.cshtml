@@ -1,8 +1,6 @@
-﻿@using Restaurant.ClassLibrary.PakClassified
-@using Restaurant.ClassLibrary.ViewModel
+﻿@using Restaurant.ClassLibrary.ViewModel
 @using Restaurent.Models
 @{
-    List<SelectListItem> categories = new AdvertisementsHandler().GetCategories().ToSelectItemList();
     UserVM user = (UserVM)Session[WebUtil.CurrentUser];
 }
 
