@@ -27,8 +27,7 @@ namespace Restaurent.Service
         Task<Response> DeleteSubjectById(long subjectId);
         Task<Response> AssignClass(SubjectVM model);
         Task<Response> DeassignClass(long userId);
-
-
+        Task<UserVM> GetUser(UserVM model);
     }
 
     public class AdminService : IAdminService
@@ -255,6 +254,21 @@ namespace Restaurent.Service
             {
                 string json = await httpClient.GetAsync($"{AdminRoutes.DeassignClass}?userId={userId}");
                 response = JsonConvert.DeserializeObject<Response>(json);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return response;
+        }
+
+        public async Task<UserVM> GetUser(UserVM model)
+        {
+            UserVM response = new UserVM();
+            try
+            {
+                string json = await httpClient.PostAsync($"{AdminRoutes.GetUser}", model);
+                response = JsonConvert.DeserializeObject<UserVM>(json);
             }
             catch (Exception ex)
             {

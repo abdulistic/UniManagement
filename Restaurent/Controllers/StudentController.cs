@@ -28,22 +28,22 @@ namespace Restaurent.Controllers
 
         public async Task<ActionResult> SubjectsList()
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "student/SubjectsList" });
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Student))) return RedirectToAction("Login", "Users", new { returnUrl = "student/SubjectsList" });
 
             List<SubjectVM> subjects = new List<SubjectVM>();
-            subjects = await service.GetStudentSubjects(4);
+            subjects = await service.GetStudentSubjects((int)user.UserId);
 
             return View(subjects);
         }
 
         public async Task<ActionResult> SubjectTestResults(int subjectId)
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = $"student/GetTestResultsBySubjectId?subjectId={subjectId}" });
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Student))) return RedirectToAction("Login", "Users", new { returnUrl = $"student/GetTestResultsBySubjectId?subjectId={subjectId}" });
 
             TestMgtVM testResults = new TestMgtVM();
-            testResults = await service.GetTestResultsBySubjectId(subjectId, 4);
+            testResults = await service.GetTestResultsBySubjectId(subjectId, (int)user.UserId);
 
             return View(testResults);
         }
@@ -51,9 +51,9 @@ namespace Restaurent.Controllers
 
         public ActionResult Chat()
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "student/chat" });
-            ViewBag.SubjectId = 4;
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null)) return RedirectToAction("Login", "Users", new { returnUrl = "student/chat" });
+            ViewBag.SubjectId = user.UserId;
 
 
             return View();
@@ -62,8 +62,11 @@ namespace Restaurent.Controllers
 
         public async Task<JsonResult> GetChatUserList()
         {
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null)) return null;
+
             List<UserVM> chatUsers = new List<UserVM>();
-            chatUsers = await service.GetChatUserList(7);
+            chatUsers = await service.GetChatUserList((int)user.UserId);
 
             return Json(chatUsers, JsonRequestBehavior.AllowGet);
         }
@@ -71,8 +74,11 @@ namespace Restaurent.Controllers
 
         public async Task<JsonResult> GetChatPeople()
         {
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null)) return null;
+
             List<UserVM> chatUsers = new List<UserVM>();
-            chatUsers = await service.GetChatPeople(7);
+            chatUsers = await service.GetChatPeople((int)user.UserId);
 
             return Json(chatUsers, JsonRequestBehavior.AllowGet);
         }
@@ -88,10 +94,13 @@ namespace Restaurent.Controllers
 
         public async Task<JsonResult> AddChatRoom(int id)
         {
-            await service.AddChatRoom(new ChatInfoVM { SenderId = 7, RecieverId = id });
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null)) return null;
+
+            await service.AddChatRoom(new ChatInfoVM { SenderId = user.UserId, RecieverId = id });
 
             List<UserVM> chatUsers = new List<UserVM>();
-            chatUsers = await service.GetChatPeople(7);
+            chatUsers = await service.GetChatPeople((int)user.UserId);
 
             return Json(chatUsers, JsonRequestBehavior.AllowGet);
         }
@@ -99,7 +108,10 @@ namespace Restaurent.Controllers
         [HttpPost]
         public async Task<JsonResult> AddChat(ChatVM model)
         {
-            model.SenderId = 7;
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null)) return null;
+
+            model.SenderId = user.UserId;
 
             await service.AddChat(model);
 

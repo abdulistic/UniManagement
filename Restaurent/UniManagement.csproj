@@ -174,11 +174,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\AdvertisementController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LocationsController.cs" />
-    <Compile Include="Controllers\PaypalController.cs" />
-    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -223,6 +218,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\AboutUsStyleSheet.css" />
+    <Content Include="Content\Admincss\Chat.css" />
     <Content Include="Content\Admincss\Cloudeflareanimate352StyleSheet.css" />
     <Content Include="Content\Admincss\CloudeFlareAwesomeFont440StyleSheet.css" />
     <Content Include="Content\Admincss\cloudFlarelibs500StyleSheet.css" />
@@ -383,6 +379,7 @@
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\vanilla_tilt.min.js" />
+    <Content Include="Scripts\AdminJavascript\Chat.js" />
     <Content Include="Scripts\AdminJavascript\CloudflareLibs311JavaScript.js" />
     <Content Include="Scripts\AdminJavascript\CloudFlareTwitter337JavaScript.js" />
     <Content Include="Scripts\AdminJavascript\dataTable.js" />

@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniPortalModel", "UniPortal
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniManagementApi", "UniManagementApi\UniManagementApi.csproj", "{5C9B8B4F-0057-438A-9957-671E7A50EAA2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatApp", "..\..\..\..\..\..\Web Projects\ChatApp-master\ChatApp\ChatApp.csproj", "{33BBF491-B28F-4037-BB03-2056CA8D2F92}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{5C9B8B4F-0057-438A-9957-671E7A50EAA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C9B8B4F-0057-438A-9957-671E7A50EAA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C9B8B4F-0057-438A-9957-671E7A50EAA2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{33BBF491-B28F-4037-BB03-2056CA8D2F92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{33BBF491-B28F-4037-BB03-2056CA8D2F92}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{33BBF491-B28F-4037-BB03-2056CA8D2F92}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{33BBF491-B28F-4037-BB03-2056CA8D2F92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

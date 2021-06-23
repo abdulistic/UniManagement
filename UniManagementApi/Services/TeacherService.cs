@@ -475,7 +475,8 @@ namespace UniManagementApi.Services
 
                 List<User> userList = await context.Users.Where(x => x.IsActive ?? false).Where(x => studentIds.Contains(x.UserId)).ToListAsync();
 
-                List<TestResult> resultList = await context.TestResults.Where(x => x.IsActive).Where(s => s.TestId == id).ToListAsync();
+                List<TestResult> resultList = await context.TestResults.Where(x => x.IsActive)
+                    .Where(s => userList.Select(a=>a.UserId).ToList().Contains(s.TestId)).ToListAsync();
 
                 List<UniTest> uniTests = await context.UniTests.Where(x => x.IsActive).
                     Where(s => resultList.Select(o => o.TestId).ToList().Contains(s.TestId)).ToListAsync();
@@ -535,7 +536,7 @@ namespace UniManagementApi.Services
                         Where(s => classStudents.Select(a => a.StudentId).ToList().Contains(s.UserId)).ToListAsync();
 
                     List<User> teacherList = await context.Users.Where(x => x.IsActive ?? false).
-                        Where(s => s.RoleId == (int)RoleEnum.Teacher).ToListAsync();
+                        Where(s => s.RoleId == (int)RoleEnum.Teacher).Where(x => x.UserId != id).ToListAsync();
 
                     List<User> admins = await context.Users.Where(x => x.IsActive ?? false).
                         Where(s => s.RoleId == (int)RoleEnum.Admin).ToListAsync();

@@ -31,6 +31,8 @@ namespace UniManagementApi.Services
         Task<Response> DeleteClassById(long classId);
         Task<Response> DeleteSubjectById(long subjectId);
         Task<Response> DeassignClass(long userId);
+
+        Task<UserVM> GetUser(UserVM model);
     }
 
     public class AdminService : IAdminService
@@ -452,6 +454,44 @@ namespace UniManagementApi.Services
                         CreatedOn = user.CreatedOn
 
                     };
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return userVM;
+        }
+
+        public async Task<UserVM> GetUser(UserVM model)
+        {
+            UserVM userVM = new UserVM();
+            try
+            {
+
+                User user = await context.Users
+                    .FirstOrDefaultAsync(x => x.UserName.ToLower().Equals(model.UserName.ToLower()));
+
+                if (user != null)
+                {
+                    string dStr = passwordDecrypt(user.Password, configuration.GetValue<string>("EncryptionKey"));
+
+                    if (dStr.Equals(model.Password))
+                    {
+                        userVM = new UserVM()
+                        {
+                            UserId = user.UserId,
+                            UserName = user.UserName,
+                            FirstName = user.FirstName,
+                            LastName = user.LastName,
+                            RegId = user.RegId,
+                            Email = user.Email,
+                            PhoneNumber = user.PhoneNumber,
+                            Role = Enum.GetName(typeof(RoleEnum), user.RoleId),
+                            CreatedOn = user.CreatedOn
+                        }; 
+                    }
                 }
             }
             catch (Exception ex)

@@ -21,6 +21,9 @@ namespace Restaurent
         public const string Accepted = "Accepted";
         public const string Delivered = "Delivered";
         public const string Declined = "Declined";
+        public const string Admin = "Admin";
+        public const string Teacher = "Teacher";
+        public const string Student = "Student";
     }
 
     public enum ResponseStatus
@@ -57,6 +60,7 @@ namespace Restaurent
         public const string DeleteSubjectById = BaseURL + "admin/DeleteSubjectById";
         public const string DeassignClass = BaseURL + "admin/DeassignClass";
         public const string AssignClass = BaseURL + "admin/AssignClass";
+        public const string GetUser = BaseURL + "admin/GetUser";
 
     }
 

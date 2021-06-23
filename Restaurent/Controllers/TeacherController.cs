@@ -35,8 +35,8 @@ namespace Restaurent.Controllers
 
         public async Task<ActionResult> TeacherManagement()
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/dashBoard" });
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Teacher))) return RedirectToAction("Login", "Users", new { returnUrl = "teacher/teachermanagement" });
 
             List<SubjectVM> userMgt = new List<SubjectVM>();
             userMgt = await service.GetSubjectList(3);
@@ -47,8 +47,8 @@ namespace Restaurent.Controllers
         [HttpGet]
         public async Task<JsonResult> GetTestById(int id)
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return null;
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Teacher))) return null;
 
             TestVM userVM = await service.GetTestById(id);
 
@@ -58,8 +58,8 @@ namespace Restaurent.Controllers
         [HttpGet]
         public async Task<ActionResult> DeleteTestById(int id)
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/dashBoard" });
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Teacher))) return RedirectToAction("Login", "Users", new { returnUrl = "teacher/teachermanagement" });
 
             await service.DeleteTestById(id);
 
@@ -68,8 +68,8 @@ namespace Restaurent.Controllers
 
         public async Task<ActionResult> TestManagement(int id)
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "teacher/testmanagement" });
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Teacher))) return RedirectToAction("Login", "Users", new { returnUrl = "teacher/testmanagement" });
 
             TestMgtVM tests = new TestMgtVM();
             tests.TestList = await service.GetTestList(id);
@@ -81,8 +81,8 @@ namespace Restaurent.Controllers
         [HttpPost]
         public async Task<ActionResult> AddTest(TestMgtVM data)
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/dashBoard" });
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Teacher))) return RedirectToAction("Login", "Users", new { returnUrl = "teacher/teachermanagement" });
 
             await service.AddTest(data.AddTest);
 
@@ -92,8 +92,8 @@ namespace Restaurent.Controllers
         [HttpPost]
         public async Task<ActionResult> AddTestResult(TestMgtVM data)
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/dashBoard" });
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Teacher))) return RedirectToAction("Login", "Users", new { returnUrl = "teacher/teachermanagement" });
 
             await service.AddTestResult(data.AddTest);
 
@@ -103,8 +103,8 @@ namespace Restaurent.Controllers
 
         public async Task<ActionResult> TestResults(int id)
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "teacher/testmanagement" });
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Teacher))) return RedirectToAction("Login", "Users", new { returnUrl = "teacher/teachermanagement" });
 
             TestMgtVM tests = new TestMgtVM();
             tests = await service.GetTestResults(id);
@@ -113,21 +113,25 @@ namespace Restaurent.Controllers
             return View(tests);
         }
 
-        public async Task<ActionResult> StudentList(int id)
+        public async Task<ActionResult> StudentList()
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "teacher/testmanagement" });
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Teacher))) return RedirectToAction("Login", "Users", new { returnUrl = "teacher/teachermanagement" });
 
             TestMgtVM tests = new TestMgtVM();
-            tests = await service.GetStudentList(id);
+            tests = await service.GetStudentList((int)user.UserId);
 
             return View(tests);
         }
 
         public async Task<ActionResult> GetChatUserList()
         {
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Teacher))) return RedirectToAction("Login", "Users", new { returnUrl = "teacher/teachermanagement" });
+
+
             List<UserVM> chatUsers = new List<UserVM>();
-            chatUsers = await service.GetChatUserList(4);
+            chatUsers = await service.GetChatUserList((int)user.UserId);
 
             return View(chatUsers);
         }

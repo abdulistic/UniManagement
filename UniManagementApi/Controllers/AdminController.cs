@@ -123,5 +123,11 @@ namespace UniManagementApi.Controllers
             return await service.DeassignClass(userId);
         }
 
+        [HttpPost]
+        public async Task<UserVM> GetUser([FromBody]UserVM model)
+        {
+            return await service.GetUser(model);
+        }
+
     }
 }

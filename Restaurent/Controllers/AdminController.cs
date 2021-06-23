@@ -24,16 +24,16 @@ namespace Restaurent.Controllers
         // GET: Admin
         public ActionResult DashBoard()
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/dashBoard" });
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Admin))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/usermanagement" });
 
             return View();
         }
 
         public async Task<ActionResult> UserManagement()
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/dashBoard" });
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Admin))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/usermanagement" });
             UserMgtVM userMgt = new UserMgtVM();
             userMgt.UsersList = await service.GetUserList();
 
@@ -42,16 +42,16 @@ namespace Restaurent.Controllers
 
         public ActionResult Test()
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/dashBoard" });
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Admin))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/usermanagement" });
             return View();
         }
 
         [HttpPost]
         public async Task<ActionResult> AddUser(UserMgtVM data)
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/dashBoard" });
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Admin))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/usermanagement" });
 
             await service.AddUser(data.AddUser);
 
@@ -61,8 +61,8 @@ namespace Restaurent.Controllers
         [HttpGet]
         public async Task<JsonResult> GetUserById(long userId)
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return null;
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Admin))) return null;
 
             UserVM userVM = await service.GetUserById(userId);
 
@@ -72,8 +72,8 @@ namespace Restaurent.Controllers
         [HttpGet]
         public async Task<ActionResult> DeleteUserById(long userId)
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/dashBoard" });
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Admin))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/usermanagement" });
 
             await service.DeleteUserById(userId);
 
@@ -82,8 +82,8 @@ namespace Restaurent.Controllers
 
         public async Task<ActionResult> ClassManagement()
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/dashBoard" });
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Admin))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/usermanagement" });
             ClassMgtVM classMgt = new ClassMgtVM();
             classMgt.ClassList = await service.GetClassList();
 
@@ -94,8 +94,8 @@ namespace Restaurent.Controllers
         [HttpPost]
         public async Task<ActionResult> AddClass(ClassMgtVM data)
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/dashBoard" });
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Admin))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/usermanagement" });
 
             await service.AddClass(data.AddClass);
 
@@ -105,8 +105,8 @@ namespace Restaurent.Controllers
         [HttpGet]
         public async Task<JsonResult> GetClassById(long classId)
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return null;
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Admin))) return null;
 
             ClassVM userVM = await service.GetClassById(classId);
 
@@ -116,8 +116,8 @@ namespace Restaurent.Controllers
         [HttpGet]
         public async Task<ActionResult> DeleteClassById(long classId)
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/dashBoard" });
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Admin))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/usermanagement" });
 
             await service.DeleteClassById(classId);
 
@@ -126,8 +126,8 @@ namespace Restaurent.Controllers
 
         public async Task<ActionResult> SubjectManagement()
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/dashBoard" });
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Admin))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/usermanagement" });
             SubjectMgtVM subjectMgt = new SubjectMgtVM();
             subjectMgt = await service.GetSubjectList();
 
@@ -138,8 +138,8 @@ namespace Restaurent.Controllers
         [HttpPost]
         public async Task<ActionResult> AddSubject(SubjectMgtVM data)
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/dashBoard" });
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Admin))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/usermanagement" });
 
             await service.AddSubject(data.AddSubject);
 
@@ -149,8 +149,8 @@ namespace Restaurent.Controllers
         [HttpGet]
         public async Task<JsonResult> GetSubjectById(long subjectId)
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return null;
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Admin))) return null;
 
             SubjectVM userVM = await service.GetSubjectById(subjectId);
 
@@ -160,8 +160,8 @@ namespace Restaurent.Controllers
         [HttpGet]
         public async Task<ActionResult> DeleteSubjectById(long subjectId)
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/dashBoard" });
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Admin))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/usermanagement" });
 
             await service.DeleteSubjectById(subjectId);
 
@@ -170,8 +170,8 @@ namespace Restaurent.Controllers
 
         public async Task<ActionResult> StudentManagement()
         {
-            User user = (User)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/dashBoard" });
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null && user.Role.Equals(WebUtil.Admin))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/usermanagement" });
             SubjectMgtVM subjectMgt = new SubjectMgtVM();
             subjectMgt = await service.GetStudentList();
 
@@ -182,8 +182,8 @@ namespace Restaurent.Controllers
         [HttpPost]
         public async Task<ActionResult> AssignClass(SubjectMgtVM data)
         {
-            //User user = (User)Session[WebUtil.CurrentUser];
-            //if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/dashBoard" });
+            //UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            //if (!(user != null && user.Role.Equals(WebUtil.Admin))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/usermanagement" });
 
             await service.AssignClass(data.AddSubject);
 
@@ -193,8 +193,8 @@ namespace Restaurent.Controllers
         [HttpGet]
         public async Task<ActionResult> DeassignClass(int userId)
         {
-            //User user = (User)Session[WebUtil.CurrentUser];
-            //if (!(user != null && user.IsInRole(WebUtil.AdminRole))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/dashBoard" });
+            //UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            //if (!(user != null && user.Role.Equals(WebUtil.Admin))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/usermanagement" });
 
             await service.DeassignClass(userId);
 

@@ -1,9 +1,9 @@
 ﻿@using Restaurant.ClassLibrary.PakClassified
-@using Restaurant.ClassLibrary.UsersMgt
+@using Restaurant.ClassLibrary.ViewModel
 @using Restaurent.Models
 @{
     List<SelectListItem> categories = new AdvertisementsHandler().GetCategories().ToSelectItemList();
-    User user = (User)Session[WebUtil.CurrentUser];
+    UserVM user = (UserVM)Session[WebUtil.CurrentUser];
 }
 
 <!DOCTYPE html>
@@ -33,8 +33,8 @@
             <div class="c-header-icon has-dropdown">
                 <span class="c-badge c-badge--header-icon animated shake">21</span><i class="fa fa-bell"></i>
                 <div class="c-dropdown c-dropdown--notifications">
-                    <div class="c-dropdown__header">ADMIN PANEL</div>
-                    <div class="c-dropdown__content">ADMIN PANEL</div>
+                    <div class="c-dropdown__header">ADMIN</div>
+                    <div class="c-dropdown__content">ADMIN</div>
                 </div>
             </div>
             <div class="c-search">
@@ -44,7 +44,7 @@
             </div>
             <div class="header-icons-group">
                 @*<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> @currentUser.FullName <span class="caret"></span></a>*@
-                <div class="c-header-icon basket">@*<span class="glyphicon glyphicon-user"></span>*@<h5 style="margin-left:5px; text-align:center"> @user.FullName</h5></div>
+                <div class="c-header-icon basket">@*<span class="glyphicon glyphicon-user"></span>*@<h5 style="margin-left:5px; text-align:center"> @user.FirstName @user.LastName</h5></div>
                 <div class="c-header-icon logout"><a href="/users/logout"><i class="fa fa-power-off"></i></a></div>
             </div>
         </div>
@@ -58,7 +58,7 @@
                 <ul class="u-list">
 
                     <li class="c-menu__item is-active" data-toggle="tooltip" title="DASHBOARD">
-                        <a href="/ADMIN/DASHBOARD">
+                        <a href="/ADMIN/UserManagement">
                             <div class="c-menu__item__inner">
                                 <i class="fa fa-plane"></i>
                                 <div class="c-menu-item__title"><span>DASHBOARD</span></div>
@@ -82,7 +82,7 @@
                             </ul>
                         </li>*@
                     <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Add Products">
-                        <a href="/Admin/UserManagement">
+                        <a href="/Admin/ClassManagement">
                             <div class="c-menu__item__inner">
                                 <i class="fa fa-bar-chart"></i>
 
@@ -91,35 +91,21 @@
                         </a>
                     </li>
                     <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Manage Items">
-                        <a href="/Admin/ClassManagement">
+                        <a href="/Admin/SubjectManagement">
                             <div class="c-menu__item__inner">
                                 <i class="fa fa-cogs"></i>
                                 <div class="c-menu-item__title"><span>Manage Items</span></div>
                             </div>
                         </a>
                     </li>
-                    <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Statistics">
+                    @*<li class="c-menu__item has-submenu" data-toggle="tooltip" title="Statistics">
                         <a href="/Admin/SubjectManagement">
                             <div class="c-menu__item__inner">
                                 <i class="fa fa-bar-chart"></i>
                                 <div class="c-menu-item__title"><span>Statistics</span></div>
                             </div>
                         </a>
-                    </li>
-                    <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Feedbacks">
-                        <a href="/Products/UserFeedback">
-                            <div class="c-menu__item__inner">
-                                <i class="fa fa-puzzle-piece"></i>
-                                <div class="c-menu-item__title"><span>Feedbacks</span></div>
-                                @*<div class="c-menu-item__expand js-expand-submenu"><i class="fa fa-angle-down"></i></div>*@
-                            </div>
-                        </a>
-                        @*<ul class="c-menu__submenu u-list">
-                                <li>Payments</li>
-                                <li>Maps</li>
-                                <li>Notifications</li>
-                            </ul>*@
-                    </li>
+                    </li>*@
                 </ul>
             </nav>
         </div>
