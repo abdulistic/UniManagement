@@ -1,6 +1,4 @@
-﻿using Restaurant.ClassLibrary.PakClassified;
-using Restaurant.ClassLibrary.UsersMgt;
-using Restaurant.ClassLibrary.ViewModel;
+﻿using Restaurant.ClassLibrary.ViewModel;
 using Restaurent.Service;
 using System;
 using System.Collections.Generic;
