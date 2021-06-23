@@ -63,7 +63,7 @@ namespace Restaurent.Controllers
         public async Task<JsonResult> GetChatUserList()
         {
             List<UserVM> chatUsers = new List<UserVM>();
-            chatUsers = await service.GetChatUserList(4);
+            chatUsers = await service.GetChatUserList(7);
 
             return Json(chatUsers, JsonRequestBehavior.AllowGet);
         }
@@ -72,7 +72,7 @@ namespace Restaurent.Controllers
         public async Task<JsonResult> GetChatPeople()
         {
             List<UserVM> chatUsers = new List<UserVM>();
-            chatUsers = await service.GetChatPeople(4);
+            chatUsers = await service.GetChatPeople(7);
 
             return Json(chatUsers, JsonRequestBehavior.AllowGet);
         }
@@ -88,10 +88,10 @@ namespace Restaurent.Controllers
 
         public async Task<JsonResult> AddChatRoom(int id)
         {
-            await service.AddChatRoom(new ChatInfoVM { SenderId = 4, RecieverId = id });
+            await service.AddChatRoom(new ChatInfoVM { SenderId = 7, RecieverId = id });
 
             List<UserVM> chatUsers = new List<UserVM>();
-            chatUsers = await service.GetChatPeople(4);
+            chatUsers = await service.GetChatPeople(7);
 
             return Json(chatUsers, JsonRequestBehavior.AllowGet);
         }
@@ -99,7 +99,7 @@ namespace Restaurent.Controllers
         [HttpPost]
         public async Task<JsonResult> AddChat(ChatVM model)
         {
-            model.SenderId = 4;
+            model.SenderId = 7;
 
             await service.AddChat(model);
 

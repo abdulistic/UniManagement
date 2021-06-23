@@ -284,98 +284,179 @@
                 border-color: #1b1e21;
             }
     </style>
+
+    <style>
+        .loaderbody {
+            padding: 1em;
+            background: #2B3134;
+            color: #777;
+            text-align: center;
+            font-family: "Gill sans", sans-serif;
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin: 1em 0;
+            border-bottom: 1px dashed;
+            padding-bottom: 1em;
+            font-weight: lighter;
+        }
+
+        p {
+            font-style: italic;
+        }
+
+        .loader {
+            margin: 0 0 2em;
+            background-color: antiquewhite;
+            text-align: center;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            padding: 1em;
+            margin: 0 auto 1em;
+            align-items: center;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .loader-span {
+            width: 100%;
+            height: auto;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+
+        .chatloaderblock {
+            text-align: center;
+            /* May want to do this if there is risk the container may be narrower than the element inside */
+            white-space: nowrap;
+        }
+
+            /* The ghost, nudged to maintain perfect centering */
+            .chatloaderblock:before {
+                content: '';
+                display: inline-block;
+                height: 100%;
+                vertical-align: middle;
+                margin-right: -0.25em; /* Adjusts for spacing */
+            }
+
+
+        /* This parent can be any width and height */
+        .loaderblock {
+            text-align: center;
+            /* May want to do this if there is risk the container may be narrower than the element inside */
+            white-space: nowrap;
+        }
+
+            /* The ghost, nudged to maintain perfect centering */
+            .loaderblock:before {
+                content: '';
+                display: inline-block;
+                height: 50%;
+                vertical-align: middle;
+                margin-right: -0.25em; /* Adjusts for spacing */
+            }
+
+        /* The element to be centered, can also be of any width and height */
+        .loaderblock-centered {
+            display: inline-block;
+            vertical-align: middle;
+            width: 100%;
+        }
+
+
+        /*
+          Set the color of the icon
+        */
+        svg path,
+        svg rect {
+            fill: #FF6700;
+        }
+    </style>
 </head>
 
 <body>
 
     <div class="container clearfix">
-        <div class="people-list" id="people-list">
-            <div id="searchView" class="search">
+        <div style="height:70%" class="people-list" id="people-list">
+            <div style="height:50px" id="searchView" class="search">
                 <form class="form">
                     <div class="form-group">
-                        <input type="text" id="search" onkeyup="changeInput(this.value)" class="form-control form-control-lg" placeholder="Search">
+                        <input style="height:30px; color:antiquewhite" type="text" id="search" onkeyup="changeInput(this.value)" class="form-control form-control-lg" placeholder="Search">
                     </div>
                     <div id="result" class="list-group"></div>
                 </form>
             </div>
-            <ul id="addedPeople" class="list"> </ul>
+            <h2 style="vertical-align:central; margin-top: 20px; margin-left: 20px" class="special">People</h2>
+            <div class="loaderblock">
+                <div class="loaderblock-centered">
+                    <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                         width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                    <path fill="#000" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">
+                    <animateTransform attributeType="xml"
+                                      attributeName="transform"
+                                      type="rotate"
+                                      from="0 25 25"
+                                      to="360 25 25"
+                                      dur="0.6s"
+                                      repeatCount="indefinite" />
+    </path>
+  </svg>
+                </div>
+            </div>
+
+
+            <ul hidden id="addedPeople" class="list"> </ul>
         </div>
 
-        <input type="text" id="currentUserId" onkeyup="changeInput(this.value)" style="display: none;" value=@ViewBag.SubjectId>
+        <input type="text" id="currentUserId" style="display: none;" value=@ViewBag.SubjectId>
 
         <div class="chat">
-            <div class="chat-header clearfix">
+            <div style="height:50px" class="chat-header clearfix">
                 <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" />
 
                 <div class="chat-about">
-                    <div class="chat-with">Chat with Vincent Porter</div>
-                    <div class="chat-num-messages">already 1 902 messages</div>
+                    <div id="selectedPersonName" class="chat-with"></div>
+                    @*<div class="chat-num-messages">already 1 902 messages</div>*@
                 </div>
                 <i class="fa fa-star"></i>
             </div> <!-- end chat-header -->
 
-            <div class="chat-history">
-                <ul id="chatHistory">
-                    <li class="clearfix">
-                        <div class="message-data align-right">
-                            <span class="message-data-time">10:10 AM, Today</span> &nbsp; &nbsp;
-                            <span class="message-data-name">Olia</span> <i class="fa fa-circle me"></i>
-
-                        </div>
-                        <div class="message other-message float-right">
-                            Hi Vincent, how are you? How is the project coming along?
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="message-data">
-                            <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
-                            <span class="message-data-time">10:12 AM, Today</span>
-                        </div>
-                        <div class="message my-message">
-                            Are we meeting today? Project has been already finished and I have results to show you.
-                        </div>
-                    </li>
-
-                    <li class="clearfix">
-                        <div class="message-data align-right">
-                            <span class="message-data-time">10:14 AM, Today</span> &nbsp; &nbsp;
-                            <span class="message-data-name">Olia</span> <i class="fa fa-circle me"></i>
-
-                        </div>
-                        <div class="message other-message float-right">
-                            Well I am not sure. The rest of the team is not here yet. Maybe in an hour or so? Have you faced any problems at the last phase of the project?
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="message-data">
-                            <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
-                            <span class="message-data-time">10:20 AM, Today</span>
-                        </div>
-                        <div class="message my-message">
-                            Actually everything was fine. I'm very excited to show this to our team.
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="message-data">
-                            <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
-                            <span class="message-data-time">10:31 AM, Today</span>
-                        </div>
-                        <i class="fa fa-circle online"></i>
-                        <i class="fa fa-circle online" style="color: #AED2A6"></i>
-                        <i class="fa fa-circle online" style="color:#DAE9DA"></i>
-                    </li>
-
-                </ul>
+            <div style="height:70%" class="chat-history">
+                <div class="chatloaderblock">
+                    <div class="loaderblock-centered">
+                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                             width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                        <rect x="0" y="10" width="4" height="10" fill="#333" opacity="0.2">
+                        <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0s" dur="0.6s" repeatCount="indefinite" />
+                        <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0s" dur="0.6s" repeatCount="indefinite" />
+                        <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0s" dur="0.6s" repeatCount="indefinite" />
+    </rect>
+                        <rect x="8" y="10" width="4" height="10" fill="#333" opacity="0.2">
+                        <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+                        <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+                        <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+    </rect>
+                        <rect x="16" y="10" width="4" height="10" fill="#333" opacity="0.2">
+                        <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+                        <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+                        <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+    </rect>
+  </svg>
+                    </div>
+                </div>
+                <ul hidden id="chatHistory"></ul>
 
             </div> <!-- end chat-history -->
 
             <div class="chat-message clearfix">
-                <textarea name="message-to-send" id="message-to-send" placeholder="Type your message" rows="3"></textarea>
-                <input type="text" id="recieverId" >
-                <input type="text" id="chatRoomId" >
+                <textarea name="message-to-send" id="message-to-send" placeholder="Type your message" rows="2"></textarea>
+                <input type="text" id="recieverId" style="display: none;">
+                <input type="text" id="chatRoomId" style="display: none;">
 
                 <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
                 <i class="fa fa-file-image-o"></i>
@@ -522,7 +603,7 @@
         var people;
 
         $(document).ready(function () {
-            getChatPeople();
+            getChatPeople(null);
 
         });
 
@@ -532,6 +613,8 @@
                     url: "/student/GetChatUserList"
                 }
             ).done(function (result) {
+                $(".loaderblock").hide();
+                $("#addedPeople").show();
                 people = new Array();
                 result.forEach(function (item) {
                     item.UserName = item.FirstName + " " + item.LastName;
@@ -541,43 +624,52 @@
             });
         }
 
+
         function getChat(userId) {
+            debugger
+            $(".chatloaderblock").show();
+            $("#chatHistory").hide();
+            document.getElementById("chatHistory").innerHTML = "";
 
             $.ajax(
                 {
                     url: "/student/GetChat?id=" + userId
                 }
             ).done(function (result) {
-                document.getElementById("addedPeople").innerHTML = "";
+                $(".chatloaderblock").hide();
+                $("#chatHistory").show();
+                var currentUserId = $('#currentUserId').val();
+
                 result.forEach(function (item) {
                     debugger
+                    var d = new Date(parseInt(item.CreatedOn.substr(6)));
+                    var time = d.getHours() + ":" + d.getMinutes() + ", " + d.toDateString();
 
-                    if (item) {
+                    if (item.SenderId.toString() === currentUserId) {
 
-
-
-                        document.getElementById("addedPeople").innerHTML
+                        document.getElementById("chatHistory").innerHTML
                             += '<li>'
                             + '<div class="message-data">'
-                            + '<span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>'
-                            + '<span class="message-data-time">10:12 AM, Today</span>'
+                            + '<span class="message-data-name"><i class="fa fa-circle online"></i> Me</span>'
+                            + '<span class="message-data-time">' + time + '</span>'
                             + '</div>'
                             + '<div class="message my-message">'
-                            + 'Are we meeting today? Project has been already finished and I have results to show you.'
+                            + item.Message
                             + '</div>'
                             + '</li>'
+                    }
+                    else {
 
-                        document.getElementById("addedPeople").innerHTML
+                        document.getElementById("chatHistory").innerHTML
                             += '<li class="clearfix">'
                             + '<div class="message-data align-right">'
-                            + '<span class="message-data-time">10:10 AM, Today</span> &nbsp; &nbsp;'
-                            + '<span class="message-data-name">Olia</span> <i class="fa fa-circle me"></i>'
+                            + '<span class="message-data-time">' + time + '</span> &nbsp; &nbsp;'
+                            + '<span class="message-data-name">' + $("#selectedPersonName").text() + '</span> <i class="fa fa-circle me"></i>'
                             + '</div>'
                             + '<div class="message other-message float-right">'
-                            + 'Are we meeting today? Project has been already finished and I have results to show you.'
+                            + item.Message
                             + '</div>'
                             + '</li>'
-
                     }
 
                 });
@@ -588,7 +680,9 @@
         }
 
         function getChatPeople(value) {
-
+            $(".loaderblock").show();
+            $("#addedPeople").hide();
+            debugger
             if (value) {
 
                 $.ajax(
@@ -596,43 +690,39 @@
                         url: "/student/AddChatRoom?id=" + value
                     }
                 ).done(function (result) {
-                    document.getElementById("addedPeople").innerHTML = "";
 
-                    $("#recieverId").val(result[0].UserId);
-                    $("#chatRoomId").val(result[0].ChatRoomId);
+                    if (result.length > 0) {
+                        document.getElementById("addedPeople").innerHTML = "";
 
-
-
-
-                    result.forEach(function (item) {
-
-                        document.getElementById("addedPeople").innerHTML
-                            += '<li class="clearfix">'
-                            + '<a class="chatPerson" data-id="' + item.UserId + '" href="">'
-                            + '<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" />'
-                            + '<div class="about">'
-                            + '<div style="color:aliceblue" class="name">' + item.FirstName + ' ' + item.LastName + '</div>'
-                            + '<div class="status">'
-                            + '<i class="fa fa-circle online"></i> online'
-                            + '</div>'
-                            + '</div>'
-                            + '</a>'
-                            + '</li>'
-
-                    });
+                        $("#recieverId").val(result[0].UserId);
+                        $("#chatRoomId").val(result[0].ChatRoomId);
 
 
-                    getChat(result[0].UserId)
+
+
+                        result.forEach(function (item) {
+                            document.getElementById("addedPeople").innerHTML
+                                += '<li class="clearfix">'
+                                + '<a class="chatPerson" data-roomid="' + item.ChatRoomId + '" data-id="' + item.UserId + '" href="">'
+                                + '<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" />'
+                                + '<div class="about">'
+                                + '<div style="color:aliceblue" class="name">' + item.FirstName + ' ' + item.LastName + '</div>'
+                                + '<div class="status">'
+                                + '<i class="fa fa-circle online"></i> online'
+                                + '</div>'
+                                + '</div>'
+                                + '</a>'
+                                + '</li>'
+
+                        });
+
+                        $("#selectedPersonName").text(result[0].FirstName + ' ' + result[0].LastName);
+                        getChat(result[0].ChatRoomId)
+                    }
+
+
                     getSeachSuggest();
                 });
-
-
-
-
-
-
-
-
             }
             else {
                 $.ajax(
@@ -641,24 +731,32 @@
                     }
                 ).done(function (result) {
 
-                    $("#recieverId").val(result[0].UserId);
+                    if (result.length > 0) {
+                        debugger
+                        document.getElementById("addedPeople").innerHTML = "";
+                        $("#recieverId").val(result[0].UserId);
+                        $("#chatRoomId").val(result[0].ChatRoomId);
 
-                    result.forEach(function (item) {
+                        result.forEach(function (item) {
 
-                        document.getElementById("addedPeople").innerHTML
-                            += '<li class="clearfix">'
-                            + '<a class="chatPerson" data-id="' + item.UserId + '" href="">'
-                            + '<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" />'
-                            + '<div class="about">'
-                            + '<div style="color:aliceblue" class="name">' + item.FirstName + ' ' + item.LastName + '</div>'
-                            + '<div class="status">'
-                            + '<i class="fa fa-circle online"></i> online'
-                            + '</div>'
-                            + '</div>'
-                            + '</a>'
-                            + '</li>'
+                            document.getElementById("addedPeople").innerHTML
+                                += '<li class="clearfix">'
+                                + '<a class="chatPerson" data-roomid="' + item.ChatRoomId + '" data-id="' + item.UserId + '" href="">'
+                                + '<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" />'
+                                + '<div class="about">'
+                                + '<div style="color:aliceblue" class="name chatPerson">' + item.FirstName + ' ' + item.LastName + '</div>'
+                                + '<div class="status">'
+                                + '</div>'
+                                + '</div>'
+                                + '</a>'
+                                + '</li>'
 
-                    });
+                        });
+
+                        $("#selectedPersonName").text(result[0].FirstName + ' ' + result[0].LastName);
+                        getChat(result[0].ChatRoomId);
+                    }
+
 
                     getSeachSuggest();
                 });
@@ -701,44 +799,72 @@
             debugger;
             e.preventDefault();
             var usertId = $(this).attr('data-id');
+            var roomid = $(this).attr('data-roomid');
 
-            getChat(usertId);
+            //var name = $(this).closest('.chatPerson').text();
+
+            $("#selectedPersonName").text($(this).closest('.chatPerson').text());
+
+            //var serialNumber = $tr.find('td[data-className]').data('className');
+
+            getChat(roomid);
 
             $("#recieverId").val(usertId);
+            $("#chatRoomId").val(roomid);
         });
 
-        $(document).on('click', '.messageSendBtn', function (e) {
+        $(document).on('click', '#messageSendBtn', function (e) {
             debugger;
             e.preventDefault();
-            var usertId = $(this).attr('data-id');
 
             var message = $('#message-to-send').val();
-            var recieverId = $('#recieverId').val();
-            var chatRoomId = $('#chatRoomId').val();
+            if (message != '')
+            {
+                var recieverId = $('#recieverId').val();
+                var chatRoomId = $('#chatRoomId').val();
+
+                document.getElementById("chatHistory").innerHTML
+                    += '<li>'
+                    + '<div class="message-data">'
+                    + '<span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>'
+                    + '<span class="message-data-time">10:12 AM, Today</span>'
+                    + '</div>'
+                    + '<div class="message my-message">'
+                    + message
+                    + '</div>'
+                    + '</li>'
+
+                $('#message-to-send').val("")
 
 
-            var dataObject = JSON.stringify({
-                'Email': $('#inpEmail').val(),
-                'Name': $('#inpName').val(),
-                'PhoneNumber': $('#inpPhone').val(),
-                'Message': $('#inpMessage').val()
-            });
+                var dataObject = JSON.stringify({
+                    'ChatRoomId': chatRoomId,
+                    'Message': message,
+                    'RecieverId': recieverId,
+                });
 
-            $.ajax({
-                url: '/student/addchat',
-                type: 'POST',
-                contentType: 'application/json',
-                done: submissionSucceeded,
-                fail: submissionFailed,
-                data: dataObject
-            }).done(function (result) {
+                $.ajax({
+                    url: '/student/addchat',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    //done: submissionSucceeded,
+                    //fail: submissionFailed,
+                    data: dataObject
+                }).done(function (result) {
 
-                debugger
+                    debugger
+                });
+            }
 
-            });
-
-            $("#recieverId").val(usertId);
         });
+
+        //$(document).on('keypress', function (e) {
+        //    if (e.which == 13) {
+        //        debugger
+
+        //        $("#messageSendBtn").click();
+        //    }
+        //});
 
     </script>
 </body>
