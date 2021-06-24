@@ -33,7 +33,9 @@ namespace Restaurent.Controllers
             UserVM user = (UserVM)Session[WebUtil.CurrentUser];
             if (!(user != null && user.Role.Equals(WebUtil.Admin))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/usermanagement" });
             UserMgtVM userMgt = new UserMgtVM();
-            userMgt.UsersList = await service.GetUserList();
+            userMgt = new UserMgtVM();
+
+            userMgt.UsersList = await service.GetUserList(user.Token);
 
             return View(userMgt);
         }

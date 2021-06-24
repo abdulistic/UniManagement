@@ -1,10 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using Restaurant.ClassLibrary.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -490,7 +493,11 @@ namespace UniManagementApi.Services
                             PhoneNumber = user.PhoneNumber,
                             Role = Enum.GetName(typeof(RoleEnum), user.RoleId),
                             CreatedOn = user.CreatedOn
-                        }; 
+                        };
+
+                        AuthenticateResponse authenticate = Authenticate(userVM);
+
+                        userVM.Token = authenticate.Token;
                     }
                 }
             }
@@ -804,6 +811,33 @@ namespace UniManagementApi.Services
             return cryptTxt;
         }
 
+
+        public AuthenticateResponse Authenticate(UserVM model)
+        {
+            // return null if user not found
+            if (model == null) return null;
+
+            // authentication successful so generate jwt token
+            var token = generateJwtToken(model);
+
+            return new AuthenticateResponse(model, token);
+        }
+
+
+        private string generateJwtToken(UserVM user)
+        {
+            // generate token that is valid for 7 days
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(configuration.GetValue<string>("EncryptionKey"));
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[] { new Claim("UserId", user.UserId.ToString()), new Claim("Role", user.Role) }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
 
         #endregion
     }

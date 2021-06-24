@@ -1,16 +1,20 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.ClassLibrary.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UniManagementApi.AuthO;
 using UniManagementApi.Services;
 using UniPortalModel;
+using static Restaurant.ClassLibrary.ViewModel.AuthenticateResponse;
 using static UniManagementApi.SupportClasses.Utility;
 
 namespace UniManagementApi.Controllers
 {
+    //[Authorize(Policy = "RolePolicy")]
     [Produces("application/json")]
     public class AdminController : Controller
     {
@@ -28,6 +32,7 @@ namespace UniManagementApi.Controllers
         }
 
         [HttpPost]
+        //[Permission(new string[] { UserRoles.Admin })]
         public async Task<Response> AddUser([FromBody] UserVM model)
         {
             return await service.AddUser(model);
@@ -53,6 +58,7 @@ namespace UniManagementApi.Controllers
 
         
         
+        [Permission(new string[] { UserRoles.Student })]
         [HttpGet]
         public async Task<List<UserVM>> GetUserList()
         {

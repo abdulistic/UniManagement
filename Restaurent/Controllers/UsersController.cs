@@ -13,8 +13,6 @@ namespace Restaurent.Controllers
 {
     public class UsersController : Controller
     {
-        private static int city4Signup;
-
         private readonly IAdminService service;
 
         public UsersController()

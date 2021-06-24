@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\AuthenticateResponse.cs" />
     <Compile Include="ViewModel\ChatVM.cs" />
     <Compile Include="ViewModel\ClassVM.cs" />
     <Compile Include="ViewModel\SubjectVM.cs" />

@@ -69,6 +69,8 @@ namespace Restaurant.ClassLibrary.ViewModel
             set { email = value; }
         }
 
+        public string Token { get; set; }
+
         private string phoneNumber;
 
         [DataType(DataType.PhoneNumber)]

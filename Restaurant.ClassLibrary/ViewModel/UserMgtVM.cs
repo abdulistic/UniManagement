@@ -9,6 +9,12 @@ namespace Restaurant.ClassLibrary.ViewModel
 {
     public class UserMgtVM
     {
+        public UserMgtVM()
+        {
+            UsersList = new List<UserVM>();
+
+            AddUser = new UserVM();
+        }
         public UserVM AddUser { get; set; }
         public List<UserVM> UsersList { get; set; }
     }

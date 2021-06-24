@@ -15,7 +15,7 @@ namespace Restaurent.Service
         Task<Response> AddUser(UserVM model);
         Task<Response> AddClass(ClassVM model);
         Task<Response> AddSubject(SubjectVM model);
-        Task<List<UserVM>> GetUserList();
+        Task<List<UserVM>> GetUserList(string token);
         Task<List<ClassVM>> GetClassList();
         Task<SubjectMgtVM> GetSubjectList();
         Task<SubjectMgtVM> GetStudentList();
@@ -52,12 +52,12 @@ namespace Restaurent.Service
             return response;
         }
 
-        public async Task<List<UserVM>> GetUserList()
+        public async Task<List<UserVM>> GetUserList(string token)
         {
             List<UserVM> response = new List<UserVM>();
             try
             {
-                string json = await httpClient.GetAsync($"{AdminRoutes.GetUserList}");
+                string json = await httpClient.GetAsync($"{AdminRoutes.GetUserList}", token);
                 response = JsonConvert.DeserializeObject<List<UserVM>>(json);
             }
             catch (Exception ex)
