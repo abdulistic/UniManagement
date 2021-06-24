@@ -58,7 +58,7 @@ namespace UniManagementApi.Controllers
 
         
         
-        [Permission(new string[] { UserRoles.Student })]
+        [Permission(new string[] { UserRoles.Admin })]
         [HttpGet]
         public async Task<List<UserVM>> GetUserList()
         {

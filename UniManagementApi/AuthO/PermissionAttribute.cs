@@ -36,20 +36,20 @@ namespace UniManagementApi.AuthO
 
                     if (string.IsNullOrEmpty(userRegisterVM?.Role) || !_roleItem.Any(x => x == userRegisterVM?.Role))
                     {
-                        //context.Result = new CustomUnauthorizedResult("You have not sufficient permission to access requested resource.");
-                        return;
+                        context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
+                        //return;
                     }
                 }
                 else
                 {
-                    //context.Result = new CustomUnauthorizedResult("You have not sufficient permission to access requested resource.");
-                    return;
+                    context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
+                    //return;
                 }
             }
             else
             {
-                //context.Result = new CustomUnauthorizedResult("You have not sufficient permission to access requested resource.");
-                return;
+                context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
+                //return;
             }
         }
 
