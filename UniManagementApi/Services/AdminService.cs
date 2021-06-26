@@ -93,7 +93,8 @@ namespace UniManagementApi.Services
                                 Password = eStr + "",
                                 RoleId = Convert.ToInt32(model.Role),
                                 CreatedOn = DateTime.Now,
-                                IsActive = true
+                                IsActive = true,
+                                RegId = Guid.NewGuid().ToString()
                             };
 
 
@@ -371,7 +372,8 @@ namespace UniManagementApi.Services
                         Email = x.Email,
                         PhoneNumber = x.PhoneNumber,
                         Role = Enum.GetName(typeof(RoleEnum), x.RoleId),
-                        CreatedOn = x.CreatedOn
+                        CreatedOn = x.CreatedOn,
+                        RegId = x.RegId
 
                     }).ToList();
                 }
@@ -400,10 +402,9 @@ namespace UniManagementApi.Services
                     {
                         SubjectId = x.SubjectId,
                         SubjectName = x.SubjectName,
-                        TeacherName = $"{ userList.FirstOrDefault(s => s.UserId == x.TeacherId).FirstName} " +
-                        $"{userList.FirstOrDefault(s => s.UserId == x.TeacherId).LastName}",
+                        TeacherName = $"{ userList?.FirstOrDefault(s => s.UserId == x.TeacherId)?.FirstName ?? "N/A"} {userList?.FirstOrDefault(s => s.UserId == x.TeacherId)?.LastName}",
                         CreatedOn = x.CreatedOn,
-                        ClassName = classList.FirstOrDefault(s => s.ClassId == x.ClassId)?.ClassName
+                        ClassName = classList?.FirstOrDefault(s => s.ClassId == x.ClassId)?.ClassName ?? "N/A"
 
                     }).ToList();
                 }

@@ -21,7 +21,7 @@
     <div id="admin" class="col s12">
         <div class="card material-table">
             <div class="table-header">
-                <span class="table-title">Material Datatable</span>
+                <span class="table-title">Users List</span>
                 <div class="actions">
                     <a href="#addEmployeeModal" data-toggle="modal" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">person_add</i></a>
                     <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
@@ -30,18 +30,20 @@
             <table id="datatable">
                 <thead>
                     <tr>
+                        <th class="twenty">Registration ID</th>
                         <th class="fifteen">Name</th>
-                        <th class="twentyfive">Email</th>
-                        <th class="twenty">Phone No.</th>
-                        <th class="ten">Role</th>
-                        <th class="fifteen">Added On</th>
-                        <th class="ten td_Action">Action</th>
+                        <th class="twenty">Email</th>
+                        <th class="ten">Phone No.</th>
+                        <th class="five">Role</th>
+                        <th class="ten">Added On</th>
+                        <th class="five td_Action">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var m in Model.UsersList)
                     {
                     <tr>
+                        <td><small>@m.RegId</small> </td>
                         <td>@m.FirstName @m.LastName</td>
                         <td>@m.Email</td>
                         <td>@m.PhoneNumber</td>
