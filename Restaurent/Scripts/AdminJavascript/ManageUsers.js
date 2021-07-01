@@ -24,8 +24,9 @@ $(document).on('click', '.delItem', function (e) {
     debugger;
     e.preventDefault();
     var usertId = $(this).attr('data-id');
+    var subjectId = $("#editUserId").val();
 
-    $('#delItemOkBtn').attr('href', '/admin/deleteuserbyid?userId=' + usertId);
+    $('#delItemOkBtn').attr('href', '/admin/deleteuserbyid?userId=' + usertId + '&subjectId=' + subjectId);
     $('#deleteEmployeeModal').modal('toggle');
 });
 

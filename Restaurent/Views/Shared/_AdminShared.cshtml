@@ -12,12 +12,7 @@
     <title>@ViewBag.Title</title>
     <meta charset='UTF-8'>
     <meta name="robots" content="noindex">
-    <link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
-    <link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
-    <link rel="canonical" href="https://codepen.io/jaca90/pen/vZJZMx?depth=everything&order=popularity&page=10&q=statistics&show_forks=false" />
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css'>
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'>
+    <link rel='stylesheet prefetch' href='~/css/twitter-boostrap-min.less'>
     <link href="~/Content/AdminStyleSheet.css" rel="stylesheet" />
 
     @RenderSection("myLink", false)
@@ -42,24 +37,24 @@
             </div>
             <div class="header-icons-group">
                 @*<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> @currentUser.FullName <span class="caret"></span></a>*@
-                <div class="c-header-icon basket">@*<span class="glyphicon glyphicon-user"></span>*@<h5 style="margin-left:5px; text-align:center"> @user.FirstName</h5></div>
+                <div class="c-header-icon basket">@*<span class="glyphicon glyphicon-user"></span>*@<h6 style="margin-left:5px; text-align:center"> @user.FirstName</h6></div>
                 <div class="c-header-icon logout"><a href="/users/logout"><i class="fa fa-power-off"></i></a></div>
             </div>
         </div>
     </header>
     <div class="l-sidebar">
         <div class="logo">
-            <div class="logo__txt">D</div>
+            <div class="logo__txt">A</div>
         </div>
         <div class="l-sidebar__content">
             <nav class="c-menu js-menu">
                 <ul class="u-list">
 
-                    <li class="c-menu__item is-active" data-toggle="tooltip" title="DASHBOARD">
+                    <li class="c-menu__item is-active" data-toggle="tooltip" title="Users">
                         <a href="/ADMIN/UserManagement">
                             <div class="c-menu__item__inner">
-                                <i class="fa fa-plane"></i>
-                                <div class="c-menu-item__title"><span>DASHBOARD</span></div>
+                                <i class="fa fa-user"></i>
+                                <div class="c-menu-item__title"><span>Users</span></div>
                             </div>
 
                         </a>
@@ -67,40 +62,28 @@
 
 
                     </li>
-                    @*<li class="c-menu__item has-submenu" data-toggle="tooltip" title="Modules">
-                            <div class="c-menu__item__inner">
-                                <i class="fa fa-puzzle-piece"></i>
-                                <div class="c-menu-item__title"><span>Modules</span></div>
-                                <div class="c-menu-item__expand js-expand-submenu"><i class="fa fa-angle-down"></i></div>
-                            </div>
-                            <ul class="c-menu__submenu u-list">
-                                <li>Payments</li>
-                                <li>Maps</li>
-                                <li>Notifications</li>
-                            </ul>
-                        </li>*@
-                    <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Add Products">
+                    <li class="c-menu__item " data-toggle="tooltip" title="Classes">
                         <a href="/Admin/ClassManagement">
                             <div class="c-menu__item__inner">
-                                <i class="fa fa-bar-chart"></i>
+                                <i class="fa fa-paperclip"></i>
 
-                                <div class="c-menu-item__title"><span>Add Products</span></div>
+                                <div class="c-menu-item__title"><span>Classes</span></div>
                             </div>
                         </a>
                     </li>
-                    <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Manage Items">
+                    <li class="c-menu__item " data-toggle="tooltip" title="Subjects">
                         <a href="/Admin/SubjectManagement">
                             <div class="c-menu__item__inner">
-                                <i class="fa fa-cogs"></i>
-                                <div class="c-menu-item__title"><span>Manage Items</span></div>
+                                <i class="fa fa-edit"></i>
+                                <div class="c-menu-item__title"><span>Subjects</span></div>
                             </div>
                         </a>
                     </li>
-                    <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Statistics">
+                    <li class="c-menu__item " data-toggle="tooltip" title="Students">
                         <a href="/Admin/StudentManagement">
                             <div class="c-menu__item__inner">
-                                <i class="fa fa-bar-chart"></i>
-                                <div class="c-menu-item__title"><span>Statistics</span></div>
+                                <i class="fa fa-graduation-cap"></i>
+                                <div class="c-menu-item__title"><span>Students</span></div>
                             </div>
                         </a>
                     </li>
@@ -108,14 +91,22 @@
             </nav>
         </div>
     </div>
+    @if (TempData["UserMessage"] != null)
+    {
+        var message = (MessageVM)TempData["UserMessage"];
+        <div class="alert @message.CssClassName">
+            <strong>@message.Title</strong>
+            @message.Message
+        </div>
+    }
     @RenderBody()
     <script src="~/Scripts/jquery-3.2.1.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
     <script src="~/js/bootstrap.bundle.min.js"></script>
-    <script src='https://production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
-    <script src='https://use.fontawesome.com/2188c74ac9.js'></script>
+    @*<script src='https://production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>*@
+    <script src='~/js/fontawesome.js'></script>
     <script>
-"use strict";
+        "use strict";
 
         var Dashboard = function () {
             var global = {

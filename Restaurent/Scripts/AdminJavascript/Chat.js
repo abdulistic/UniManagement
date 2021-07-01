@@ -103,8 +103,22 @@ var people;
 
 $(document).ready(function () {
     getChatPeople(null);
-
 });
+
+$(document).ready(function () {
+    getChatCount();
+});
+
+function getChatCount() {
+    $.ajax(
+        {
+            url: "/student/GetChatCount"
+        }
+    ).done(function (result) {
+        debugger;
+
+    });
+}
 
 function getSeachSuggest() {
     $.ajax(

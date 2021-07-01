@@ -27,9 +27,10 @@
 $(document).on('click', '.delItem', function (e) {
     debugger;
     e.preventDefault();
-    var subjectId = $(this).attr('data-id');
+    var testId = $(this).attr('data-id');
+    var subjectId = $("#subjectId").val();
 
-    $('#delItemOkBtn').attr('href', '/Teacher/DeleteTestById?id=' + subjectId);
+    $('#delItemOkBtn').attr('href', '/Teacher/DeleteTestById?id=' + testId + '&subjectId=' + subjectId);
     $('#deleteEmployeeModal').modal('toggle');
 });
 

@@ -20,9 +20,9 @@
     <div id="admin" class="col s12">
         <div class="card material-table">
             <div class="table-header">
-                <span class="table-title">Material Datatable</span>
+                <span class="table-title">Subjects Assigned</span>
                 <div class="actions">
-                    <a href="#addEmployeeModal" data-toggle="modal" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">person_add</i></a>
+                    @*<a href="#addEmployeeModal" data-toggle="modal" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">person_add</i></a>*@
                     <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
                 </div>
             </div>
@@ -43,8 +43,8 @@
                             <td>@m.ClassName</td>
                             <td>@m.CreatedOn.ToString("dd MMM yyyy")</td>
                             <td class="td_Action">
-                                <a href="/teacher/testmanagement/@m.SubjectId" data-id="@m.SubjectId"><i class="material-icons" data-toggle="tooltip" title="View Students">&#xE254;</i></a>
-                                <a href="#" data-id="@m.SubjectId" class="delete delItem" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="View Tests">&#xE872;</i></a>
+                                <a href="/teacher/testmanagement/@m.SubjectId" data-id="@m.SubjectId"><i class="material-icons" data-toggle="tooltip" title="View Tests">&#xe417;</i></a>
+                                @*<a href="/teacher/testmanagement/@m.SubjectId" data-id="@m.SubjectId" class="delete delItem" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="View Tests">&#xe417;</i></a>*@
                             </td>
                         </tr>
                     }

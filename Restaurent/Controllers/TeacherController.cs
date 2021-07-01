@@ -1,4 +1,5 @@
 ﻿using Restaurant.ClassLibrary.ViewModel;
+using Restaurent.Models;
 using Restaurent.Service;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace Restaurent.Controllers
             return Redirect("http://localhost/ChatApp/Account/Register");
         }
 
-        public async  Task<ActionResult> Register()
+        public async Task<ActionResult> Register()
         {
             string username = "abdulirehmankhan3333@gmail.com";
             string password = "Password1";
@@ -55,14 +56,23 @@ namespace Restaurent.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> DeleteTestById(int id)
+        public async Task<ActionResult> DeleteTestById(int id, int subjectId)
         {
             UserVM user = (UserVM)Session[WebUtil.CurrentUser];
             if (!(user != null && user.Role.Equals(WebUtil.Teacher))) return RedirectToAction("Login", "Users", new { returnUrl = "teacher/teachermanagement" });
 
-            await service.DeleteTestById(id);
+            Response response = await service.DeleteTestById(id);
 
-            return RedirectToAction("TeacherManagement");
+            if (response.Status == ResponseStatus.OK) // Is User Input Valid?
+            {
+                TempData["UserMessage"] = new MessageVM() { CssClassName = "alert-success", Title = "Success!", Message = response.Message };
+            }
+            else
+            {
+                TempData["UserMessage"] = new MessageVM() { CssClassName = "alert-danger", Title = "Error!", Message = response.Message };
+            }
+
+            return RedirectToAction("TestManagement", new { id = subjectId });
         }
 
         public async Task<ActionResult> TestManagement(int id)
@@ -83,9 +93,18 @@ namespace Restaurent.Controllers
             UserVM user = (UserVM)Session[WebUtil.CurrentUser];
             if (!(user != null && user.Role.Equals(WebUtil.Teacher))) return RedirectToAction("Login", "Users", new { returnUrl = "teacher/teachermanagement" });
 
-            await service.AddTest(data.AddTest);
+            Response response = await service.AddTest(data.AddTest);
 
-            return RedirectToAction("TeacherManagement");
+            if (response.Status == ResponseStatus.OK) // Is User Input Valid?
+            {
+                TempData["UserMessage"] = new MessageVM() { CssClassName = "alert-success", Title = "Success!", Message = response.Message };
+            }
+            else
+            {
+                TempData["UserMessage"] = new MessageVM() { CssClassName = "alert-danger", Title = "Error!", Message = response.Message };
+            }
+
+            return RedirectToAction("TestManagement", new { id = data.AddTest.SubjectId });
         }
 
         [HttpPost]

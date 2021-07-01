@@ -51,10 +51,9 @@ namespace Restaurent.Controllers
         public ActionResult Chat()
         {
             UserVM user = (UserVM)Session[WebUtil.CurrentUser];
-            if (!(user != null)) return RedirectToAction("Login", "Users", new { returnUrl = "student/chat" });
+            if (user == null) return RedirectToAction("Login", "Users", new { returnUrl = "student/chat" });
+
             ViewBag.SubjectId = user.UserId;
-
-
             return View();
         }
 
@@ -84,8 +83,11 @@ namespace Restaurent.Controllers
 
         public async Task<JsonResult> GetChat(int id)
         {
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null)) return null;
+
             List<ChatVM> chatUsers = new List<ChatVM>();
-            chatUsers = await service.GetChatRoomHistory(id);
+            chatUsers = await service.GetChatRoomHistory(id, user.UserId);
 
 
             return Json(chatUsers, JsonRequestBehavior.AllowGet);
@@ -115,6 +117,16 @@ namespace Restaurent.Controllers
             await service.AddChat(model);
 
             return Json("{'message':'Success'}", JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<JsonResult> GetChatCount()
+        {
+            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+            if (!(user != null)) return null;
+
+            int count = await service.GetNewChatCount((int)user.UserId);
+
+            return Json(count, JsonRequestBehavior.AllowGet);
         }
     }
 }

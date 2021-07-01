@@ -20,9 +20,9 @@
     <div id="admin" class="col s12">
         <div class="card material-table">
             <div class="table-header">
-                <span class="table-title">Material Datatable</span>
+                <span class="table-title">Test History</span>
                 <div class="actions">
-                    <a href="#addEmployeeModal" data-toggle="modal" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">person_add</i></a>
+                    @*<a href="#addEmployeeModal" data-toggle="modal" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">person_add</i></a>*@
                     <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
                 </div>
             </div>
@@ -36,14 +36,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var m in Model?.TestList)
+                    @if (Model?.TestList != null)
                     {
-                        <tr>
-                            <td>@m.TestName</td>
-                            <td>@m.TestScore </td>
-                            <td>@m.TotalMarks </td>
-                            <td>@m.CreatedOn.ToString("dd MMM yyyy") </td>
-                        </tr>
+                        foreach (var m in Model?.TestList)
+                        {
+                            <tr>
+                                <td>@m.TestName</td>
+                                <td>@m.TestScore </td>
+                                <td>@m.TotalMarks </td>
+                                <td>@m.CreatedOn.ToString("dd MMM yyyy") </td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>

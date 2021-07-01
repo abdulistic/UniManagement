@@ -21,7 +21,7 @@
     <div id="admin" class="col s12">
         <div class="card material-table">
             <div class="table-header">
-                <span class="table-title">Material Datatable</span>
+                <span class="table-title">Tests</span>
                 <div class="actions">
                     <a href="#addEmployeeModal" data-toggle="modal" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">person_add</i></a>
                     <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
@@ -45,8 +45,8 @@
                             <td class="createdOn" data-createdOn="@m.CreatedOn">@m.CreatedOn.ToString("dd MMM yyyy")</td>
                             <td class="td_Action">
                                 <a href="#" data-id="@m.TestId" class="edit editItem" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="View Students">&#xE254;</i></a>
-                                <a href="#" data-id="@m.TestId" class="delete delItem" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="View Tests">&#xE872;</i></a>
-                                <a href="/teacher/testresults/@m.TestId"><i class="material-icons" data-toggle="tooltip" title="View Students">&#xE254;</i></a>
+                                <a href="#" data-id="@m.TestId" class="delete delItem" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete Test">&#xE872;</i></a>
+                                <a href="/teacher/testresults/@m.TestId"><i class="material-icons" data-toggle="tooltip" title="View Students">&#xe417;</i></a>
                             </td>
                         </tr>
                     }

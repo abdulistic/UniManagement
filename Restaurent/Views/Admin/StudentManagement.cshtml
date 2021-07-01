@@ -23,9 +23,9 @@
     <div id="admin" class="col s12">
         <div class="card material-table">
             <div class="table-header">
-                <span class="table-title">Material Datatable</span>
+                <span class="table-title">Students List</span>
                 <div class="actions">
-                    <a href="#addEmployeeModal" data-toggle="modal" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">person_add</i></a>
+                    @*<a href="#addEmployeeModal" data-toggle="modal" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">person_add</i></a>*@
                     <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
                 </div>
             </div>
@@ -70,14 +70,14 @@
             @using (Html.BeginForm("AssignClass", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 <div class="modal-header">
-                    <h4 class="modal-title">Add Employee</h4>
+                    <h4 class="modal-title">Assign Class</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
                     @Html.TextBoxFor(m => m.AddSubject.SubjectId, new { @class = "form-control hidden", placeholder = "First Name", id = "editId", style = "display: none;" })
                     <div class="form-group">
                         <label>Assign Class *</label>
-                        @Html.DropDownListFor(m => m.AddSubject.ClassId, teachers, "- Select Class -", new { @class = " dropdwn", id = "editClass" })
+                        @Html.DropDownListFor(m => m.AddSubject.ClassId, teachers, "- Select Class -", new { @class = " form-control", id = "editClass" })
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -94,17 +94,17 @@
         <div class="modal-content">
             <form>
                 <div class="modal-header">
-                    <h4 class="modal-title">Delete Employee</h4>
+                    <h4 class="modal-title">Deassign Class</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure you want to delete these Records?</p>
+                    <p>Are you sure you want to deassign class?</p>
                     <p class="text-warning"><small>This action cannot be undone.</small></p>
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
                     @*<input type="submit" class="btn btn-danger" value="Delete">*@
-                    <a href="#" class="btn btn-danger" id="delItemOkBtn">Delete</a>
+                    <a href="#" class="btn btn-danger" id="delItemOkBtn">Deassign</a>
                 </div>
             </form>
         </div>
@@ -117,5 +117,11 @@
 
     <script src="~/Scripts/AdminJavascript/dataTable.js" type="text/javascript"></script>
     <script src="~/Scripts/AdminJavascript/ManageStudents.js" type="text/javascript"></script>
+
+    <script>
+        $(".u-list li").removeClass("is-active");
+
+        $('.u-list li:contains("Students")').addClass("is-active");
+    </script>
 }
 

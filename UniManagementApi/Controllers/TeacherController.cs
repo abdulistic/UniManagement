@@ -111,9 +111,15 @@ namespace UniManagementApi.Controllers
         }
 
         [HttpGet]
-        public async Task<List<ChatVM>> GetChatRoomHistory(int id)
+        public async Task<List<ChatVM>> GetChatRoomHistory(int id, long userId)
         {
-            return await service.GetChatRoomHistory(id);
+            return await service.GetChatRoomHistory(id, userId);
+        }
+
+        [HttpGet]
+        public async Task<int> GetNewChatCount(int id)
+        {
+            return await service.GetNewChatCount(id);
         }
 
     }

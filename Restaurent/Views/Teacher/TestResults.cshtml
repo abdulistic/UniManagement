@@ -21,9 +21,9 @@
     <div id="admin" class="col s12">
         <div class="card material-table">
             <div class="table-header">
-                <span class="table-title">Material Datatable</span>
+                <span class="table-title">Test Results</span>
                 <div class="actions">
-                    <a href="#addEmployeeModal" data-toggle="modal" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">person_add</i></a>
+                    @*<a href="#addEmployeeModal" data-toggle="modal" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">person_add</i></a>*@
                     <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                             <td data-totalmarks="@m.TotalMarks">@m.TotalMarks</td>
                             <td class="td_Action">
                                 <a href="#" data-id="@m.TestResultId" class="edit editItem" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="View Students">&#xE254;</i></a>
-                                <a href="#" data-id="@m.TestResultId" class="delete delItem" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="View Tests">&#xE872;</i></a>
+                                @*<a href="#" data-id="@m.TestResultId" class="delete delItem" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="View Tests">&#xE872;</i></a>*@
                             </td>
                         </tr>
                     }
@@ -111,7 +111,7 @@
             @using (Html.BeginForm("AddTestResult", "Teacher", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 <div class="modal-header">
-                    <h4 class="modal-title">Add Employee</h4>
+                    <h4 class="modal-title">Edit Marks</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">

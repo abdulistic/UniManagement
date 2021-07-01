@@ -42,8 +42,6 @@ namespace Restaurent.Controllers
 
         public ActionResult Test()
         {
-            UserVM user = (UserVM)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.Role.Equals(WebUtil.Admin))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/usermanagement" });
             return View();
         }
 

@@ -15,12 +15,7 @@
     <title>@ViewBag.Title</title>
     <meta charset='UTF-8'>
     <meta name="robots" content="noindex">
-    <link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
-    <link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
-    <link rel="canonical" href="https://codepen.io/jaca90/pen/vZJZMx?depth=everything&order=popularity&page=10&q=statistics&show_forks=false" />
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css'>
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'>
+    <link rel='stylesheet prefetch' href='~/css/twitter-boostrap-min.less'>
     <link href="~/Content/AdminStyleSheet.css" rel="stylesheet" />
 
     @RenderSection("myLink", false)
@@ -38,37 +33,42 @@
                     <div class="c-dropdown__content">Student View</div>
                 </div>
             </div>
+            <div class="c-header-icon has-dropdown">
+                <a href="/student/chat">
+                    <i class="fa fa-comment"></i>
+                </a>
+            </div>
             <div class="c-search">
                 @*<input class="c-search__input u-input" placeholder="Search..." type="text" />*@
-                <div style="text-align:center; margin-top:10px; margin-left:450px" class="c-search"><h2><b><span class="glyphicon glyphicon-user"></span> ADMIN</b></h2></div>
+                <div style="text-align:center; margin-top:10px; margin-left:450px" class="c-search"><h2><b><span class="glyphicon glyphicon-user"></span>Student</b></h2></div>
 
             </div>
-            <div class="header-icons-group">
+            <div style="width:250px" class="header-icons-group">
                 @*<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> @currentUser.FullName <span class="caret"></span></a>*@
-                <div class="c-header-icon basket">@*<span class="glyphicon glyphicon-user"></span>*@<h5 style="margin-left:5px; text-align:center"> @user.FirstName</h5></div>
+                <div style="width:70%" class="c-header-icon basket"><span class="glyphicon glyphicon-user"></span><h6 style="margin-left:5px; text-align:center"> @user.FirstName</h6></div>
                 <div class="c-header-icon logout"><a href="/users/logout"><i class="fa fa-power-off"></i></a></div>
             </div>
         </div>
     </header>
     <div class="l-sidebar">
         <div class="logo">
-            <div class="logo__txt">D</div>
+            <div class="logo__txt">S</div>
         </div>
         <div class="l-sidebar__content">
             <nav class="c-menu js-menu">
                 <ul class="u-list">
 
-                    <li class="c-menu__item is-active" data-toggle="tooltip" title="DASHBOARD">
+                    <li class="c-menu__item is-active" data-toggle="tooltip" title="Subjects">
                         <a href="/STUDENT/SUBJECTSLIST">
                             <div class="c-menu__item__inner">
-                                <i class="fa fa-plane"></i>
-                                <div class="c-menu-item__title"><span>DASHBOARD</span></div>
+                                <i class="fa fa-edit"></i>
+                                <div class="c-menu-item__title"><span>Subjects</span></div>
                             </div>
 
                         </a>
                     </li>
                    
-                    <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Add Products">
+                    @*<li class="c-menu__item has-submenu" data-toggle="tooltip" title="Add Products">
                         <a href="/STUDENT/CHAT">
                             <div class="c-menu__item__inner">
                                 <i class="fa fa-bar-chart"></i>
@@ -76,16 +76,7 @@
                                 <div class="c-menu-item__title"><span>Add Products</span></div>
                             </div>
                         </a>
-                    </li>
-                    <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Manage Items">
-                        <a href="/Admin/ClassManagement">
-                            <div class="c-menu__item__inner">
-                                <i class="fa fa-cogs"></i>
-                                <div class="c-menu-item__title"><span>Manage Items</span></div>
-                            </div>
-                        </a>
-                    </li>
-
+                    </li>*@
                 </ul>
             </nav>
         </div>

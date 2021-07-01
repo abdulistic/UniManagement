@@ -26,7 +26,8 @@ namespace UniManagementApi.Services
         Task<Response> AddChat(ChatVM model);
         Task<Response> AddChatRoom(ChatInfoVM model);
         Task<List<UserVM>> GetChatPeople(int id);
-        Task<List<ChatVM>> GetChatRoomHistory(int id);
+        Task<List<ChatVM>> GetChatRoomHistory(int id, long userId);
+        Task<int> GetNewChatCount(int id);
     }
 
     public class TeacherService : ITeacherService
@@ -86,13 +87,18 @@ namespace UniManagementApi.Services
                             if (registration.SubjectId > 0)
                             {
                                 response.Status = ResponseStatus.OK;
-                                response.Message = "Registration successful.";
+                                response.Message = "Test Registration successful.";
                             }
                             else
                             {
                                 response.Status = ResponseStatus.Error;
-                                response.Message = "Registration failed.";
+                                response.Message = "Test Registration failed.";
                             }
+                        }
+                        else
+                        {
+                            response.Status = ResponseStatus.Error;
+                            response.Message = "Test already exists by that name. Please use different name.";
                         }
                     }
                 }
@@ -196,7 +202,7 @@ namespace UniManagementApi.Services
                         await context.SaveChangesAsync();
 
                         response.Status = ResponseStatus.OK;
-                        response.Message = "User deleted successfully";
+                        response.Message = "Test deleted successfully";
                     }
                     else
                     {
@@ -476,7 +482,7 @@ namespace UniManagementApi.Services
                 List<User> userList = await context.Users.Where(x => x.IsActive ?? false).Where(x => studentIds.Contains(x.UserId)).ToListAsync();
 
                 List<TestResult> resultList = await context.TestResults.Where(x => x.IsActive)
-                    .Where(s => userList.Select(a=>a.UserId).ToList().Contains(s.TestId)).ToListAsync();
+                    .Where(s => userList.Select(a => a.UserId).ToList().Contains(s.TestId)).ToListAsync();
 
                 List<UniTest> uniTests = await context.UniTests.Where(x => x.IsActive).
                     Where(s => resultList.Select(o => o.TestId).ToList().Contains(s.TestId)).ToListAsync();
@@ -562,7 +568,7 @@ namespace UniManagementApi.Services
 
                             });
                     }
-                        
+
                 }
 
                 //subjectMgt = userList
@@ -722,12 +728,13 @@ namespace UniManagementApi.Services
             return userList;
         }
 
-        public async Task<List<ChatVM>> GetChatRoomHistory(int id)
+        public async Task<List<ChatVM>> GetChatRoomHistory(int id, long userId)
         {
             List<ChatVM> chatList = new List<ChatVM>();
 
             try
             {
+
                 List<Chat> myChats = await context.Chats.Where(x => x.ChatRoomId == id).ToListAsync();
 
 
@@ -742,6 +749,13 @@ namespace UniManagementApi.Services
 
                     }).OrderBy(o => o.CreatedOn).ToList();
                 }
+
+                ChatRoomMember room = context.ChatRoomMembers?.Where(x => x.ChatRoomId == id).FirstOrDefault(x => x.MemberUserId == userId);
+
+                room.CreatedOn = DateTime.Now;
+
+                context.ChatRoomMembers.Update(room);
+                context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -749,6 +763,27 @@ namespace UniManagementApi.Services
             }
 
             return chatList;
+        }
+
+        public async Task<int> GetNewChatCount(int id)
+        {
+            int chatCount = 0;
+
+            try
+            {
+                List<ChatRoomMember> chatRooms = await context.ChatRoomMembers?.Where(x => x.MemberUserId == id).ToListAsync();
+
+                List<Chat> myChats = await context.Chats.Where(x => x.RecieverId == id)
+                    .Where(x => chatRooms.Select(s => s.ChatRoomId).ToList().Contains(x.ChatRoomId)).ToListAsync();
+
+                chatRooms.ForEach(f => chatCount += myChats.Where(x => x.ChatRoomId == f.ChatRoomId).Where(x => x.CreatedOn > f.CreatedOn).Count());
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return chatCount;
         }
 
 
@@ -769,5 +804,7 @@ namespace UniManagementApi.Services
 
             return new Guid(ba3);
         }
+
+
     }
 }

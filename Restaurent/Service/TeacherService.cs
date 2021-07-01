@@ -25,7 +25,8 @@ namespace Restaurent.Service
         Task<Response> AddChat(ChatVM model);
         Task<Response> AddChatRoom(ChatInfoVM model);
         Task<List<UserVM>> GetChatPeople(int id);
-        Task<List<ChatVM>> GetChatRoomHistory(int id);
+        Task<List<ChatVM>> GetChatRoomHistory(int id, long userId);
+        Task<int> GetNewChatCount(int id);
     }
 
     public class TeacherService : ITeacherService
@@ -247,12 +248,12 @@ namespace Restaurent.Service
         }
 
 
-         public async Task<List<ChatVM>> GetChatRoomHistory(int id)
+        public async Task<List<ChatVM>> GetChatRoomHistory(int id, long userId)
         {
             List<ChatVM> response = new List<ChatVM>();
             try
             {
-                string json = await httpClient.GetAsync($"{TeacherRoutes.GetChatRoomHistory}?id={id}");
+                string json = await httpClient.GetAsync($"{TeacherRoutes.GetChatRoomHistory}?id={id}&userId={userId}");
                 response = JsonConvert.DeserializeObject<List<ChatVM>>(json);
             }
             catch (Exception ex)
@@ -274,6 +275,21 @@ namespace Restaurent.Service
             {
 
             }
+        }
+
+        public async Task<int> GetNewChatCount(int id)
+        {
+            int response = 0;
+            try
+            {
+                string json = await httpClient.GetAsync($"{TeacherRoutes.GetNewChatCount}?id={id}");
+                response = JsonConvert.DeserializeObject<int>(json);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return response;
         }
     }
 }

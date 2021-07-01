@@ -20,9 +20,9 @@
     <div id="admin" class="col s12">
         <div class="card material-table">
             <div class="table-header">
-                <span class="table-title">Material Datatable</span>
+                <span class="table-title">Students List</span>
                 <div class="actions">
-                    <a href="#addEmployeeModal" data-toggle="modal" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">person_add</i></a>
+                    @*<a href="#addEmployeeModal" data-toggle="modal" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">person_add</i></a>*@
                     <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
                 </div>
             </div>
@@ -52,4 +52,10 @@
 
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="~/Scripts/AdminJavascript/dataTable.js" type="text/javascript"></script>
+
+    <script>
+        $(".u-list li").removeClass("is-active");
+
+        $('.u-list li:contains("Students")').addClass("is-active");
+    </script>
 }

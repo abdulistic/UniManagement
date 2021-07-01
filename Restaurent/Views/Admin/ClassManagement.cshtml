@@ -21,7 +21,7 @@
     <div id="admin" class="col s12">
         <div class="card material-table">
             <div class="table-header">
-                <span class="table-title">Material Datatable</span>
+                <span class="table-title">Classes List</span>
                 <div class="actions">
                     <a href="#addEmployeeModal" data-toggle="modal" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">person_add</i></a>
                     <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
@@ -64,7 +64,7 @@
             @using (Html.BeginForm("AddClass", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 <div class="modal-header">
-                    <h4 class="modal-title">Add Employee</h4>
+                    <h4 class="modal-title">Add Class</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -90,7 +90,7 @@
             @using (Html.BeginForm("AddClass", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 <div class="modal-header">
-                    <h4 class="modal-title">Add Employee</h4>
+                    <h4 class="modal-title">Edit Class</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -115,7 +115,7 @@
         <div class="modal-content">
             <form>
                 <div class="modal-header">
-                    <h4 class="modal-title">Delete Employee</h4>
+                    <h4 class="modal-title">Delete Class</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -138,5 +138,10 @@
 
     <script src="~/Scripts/AdminJavascript/dataTable.js" type="text/javascript"></script>
     <script src="~/Scripts/AdminJavascript/ManageClasses.js" type="text/javascript"></script>
+    <script>
+        $(".u-list li").removeClass("is-active");
+
+        $('.u-list li:contains("Classes")').addClass("is-active");
+    </script>
 }
 
