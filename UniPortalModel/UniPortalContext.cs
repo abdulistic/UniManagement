@@ -32,7 +32,6 @@ namespace UniPortalModel
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source = .; Initial Catalog = UniPortal; User ID = sa; Password = Password1;");
             }
         }
 

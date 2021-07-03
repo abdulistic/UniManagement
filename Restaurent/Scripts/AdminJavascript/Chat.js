@@ -105,20 +105,7 @@ $(document).ready(function () {
     getChatPeople(null);
 });
 
-$(document).ready(function () {
-    getChatCount();
-});
 
-function getChatCount() {
-    $.ajax(
-        {
-            url: "/student/GetChatCount"
-        }
-    ).done(function (result) {
-        debugger;
-
-    });
-}
 
 function getSeachSuggest() {
     $.ajax(
@@ -139,7 +126,6 @@ function getSeachSuggest() {
 
 
 function getChat(userId) {
-    debugger
     $(".chatloaderblock").show();
     $("#chatHistory").hide();
     document.getElementById("chatHistory").innerHTML = "";
@@ -154,7 +140,6 @@ function getChat(userId) {
         var currentUserId = $('#currentUserId').val();
 
         result.forEach(function (item) {
-            debugger
             var d = new Date(parseInt(item.CreatedOn.substr(6)));
             var time = d.getHours() + ":" + d.getMinutes() + ", " + d.toDateString();
 
@@ -195,7 +180,6 @@ function getChat(userId) {
 function getChatPeople(value) {
     $(".loaderblock").show();
     $("#addedPeople").hide();
-    debugger
     if (value) {
 
         $.ajax(
@@ -203,7 +187,6 @@ function getChatPeople(value) {
                 url: "/student/AddChatRoom?id=" + value
             }
         ).done(function (result) {
-
             if (result.length > 0) {
                 document.getElementById("addedPeople").innerHTML = "";
 
@@ -217,7 +200,7 @@ function getChatPeople(value) {
                     document.getElementById("addedPeople").innerHTML
                         += '<li class="clearfix">'
                         + '<a class="chatPerson" data-roomid="' + item.ChatRoomId + '" data-id="' + item.UserId + '" href="">'
-                        + '<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" />'
+                    + '<img height="40" src="/Images/people.png" alt="avatar" />'
                         + '<div class="about">'
                         + '<div style="color:aliceblue" class="name">' + item.FirstName + ' ' + item.LastName + '</div>'
                         + '<div class="status">'
@@ -244,7 +227,6 @@ function getChatPeople(value) {
         ).done(function (result) {
 
             if (result.length > 0) {
-                debugger
                 document.getElementById("addedPeople").innerHTML = "";
                 $("#recieverId").val(result[0].UserId);
                 $("#chatRoomId").val(result[0].ChatRoomId);
@@ -254,7 +236,7 @@ function getChatPeople(value) {
                     document.getElementById("addedPeople").innerHTML
                         += '<li class="clearfix">'
                         + '<a class="chatPerson" data-roomid="' + item.ChatRoomId + '" data-id="' + item.UserId + '" href="">'
-                        + '<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" />'
+                    + '<img height="40" src="/Images/people.png" alt="avatar" />'
                         + '<div class="about">'
                         + '<div style="color:aliceblue" class="name chatPerson">' + item.FirstName + ' ' + item.LastName + '</div>'
                         + '<div class="status">'
@@ -302,13 +284,11 @@ function changeInput(val) {
 }
 
 function setSearch(value) {
-    debugger
     getChatPeople(value);
     document.getElementById("result").innerHTML = "";
 }
 
 $(document).on('click', '.chatPerson', function (e) {
-    debugger;
     e.preventDefault();
     var usertId = $(this).attr('data-id');
     var roomid = $(this).attr('data-roomid');
@@ -326,7 +306,6 @@ $(document).on('click', '.chatPerson', function (e) {
 });
 
 $(document).on('click', '#messageSendBtn', function (e) {
-    debugger;
     e.preventDefault();
 
     var message = $('#message-to-send').val();
@@ -363,7 +342,6 @@ $(document).on('click', '#messageSendBtn', function (e) {
             data: dataObject
         }).done(function (result) {
 
-            debugger
         });
     }
 

@@ -8,7 +8,7 @@
 }
 
 @section myLink{
-
+    <link rel='stylesheet prefetch' href='~/css/twitter-boostrap-min.less'>
     <link rel="stylesheet" type="text/css" href="~/Content/Admincss/datatables.min.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -37,13 +37,13 @@
                 <tbody>
                     @foreach (var m in Model)
                     {
-                    <tr>
-                        <td>@m.SubjectName</td>
-                        <td>@m.Grades %</td>
-                        <td class="td_Action">
-                            <a href="/student/subjecttestresults?subjectId=@m.SubjectId"><i class="material-icons" data-toggle="tooltip" title="View Students">&#xe417;</i></a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>@m.SubjectName</td>
+                            <td>@m.Grades %</td>
+                            <td class="td_Action">
+                                <a href="/student/subjecttestresults?subjectId=@m.SubjectId"><i class="material-icons" data-toggle="tooltip" title="View Students">&#xe417;</i></a>
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>

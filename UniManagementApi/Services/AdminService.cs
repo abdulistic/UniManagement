@@ -567,7 +567,7 @@ namespace UniManagementApi.Services
             Response response = new Response();
             try
             {
-                if (userId > 0)
+                if (userId > 0 && !context.Subjects.Where(x => x.IsActive).Any(x => x.TeacherId == userId))
                 {
                     User user = await context.Users.FirstOrDefaultAsync(x => x.UserId == userId);
 
@@ -590,7 +590,7 @@ namespace UniManagementApi.Services
                 else
                 {
                     response.Status = ResponseStatus.Error;
-                    response.Message = "Task failed.";
+                    response.Message = "Teacher can not be removed because of assigned subjects.";
                 }
             }
             catch (Exception ex)

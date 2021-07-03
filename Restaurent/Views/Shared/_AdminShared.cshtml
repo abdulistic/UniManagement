@@ -91,15 +91,23 @@
             </nav>
         </div>
     </div>
-    @if (TempData["UserMessage"] != null)
-    {
-        var message = (MessageVM)TempData["UserMessage"];
-        <div class="alert @message.CssClassName">
-            <strong>@message.Title</strong>
-            @message.Message
+    <div>
+        @if (TempData["UserMessage"] != null)
+        {
+            var message = (MessageVM)TempData["UserMessage"];
+
+            <div id="infoi">
+                <div class="alert @message.CssClassName alert-dismissible alertDiv">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>@message.Title</strong> @message.Message
+                </div>
+            </div>
+        }
+
+        <div id="navi">
+            @RenderBody()
         </div>
-    }
-    @RenderBody()
+    </div>
     <script src="~/Scripts/jquery-3.2.1.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
     <script src="~/js/bootstrap.bundle.min.js"></script>

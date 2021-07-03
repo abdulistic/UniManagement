@@ -9,23 +9,26 @@ $gray: #92959E;
     box-sizing: border-box;
 }
 
-body {
+/*body {
     background: #C5DDEB;
     font: 14px/20px "Lato", Arial, sans-serif;
     padding: 40px 0;
     color: white;
-}
+}*/
 
-.container {
+.containerChat {
     margin: 0 auto;
-    width: 750px;
+    width: 50%;
+    margin-top:30px;
+    height:100%;
     background: #444753;
     border-radius: 5px;
 }
 
 .people-list {
-    width: 260px;
+    width: 40%;
     float: left;
+    height: 100%;
 
     .search {
         padding: 20px;
@@ -77,8 +80,9 @@ body {
 }
 
 .chat {
-    width: 490px;
+    width: 70%;
     float: left;
+    height: 100%;
     background: #F2F5F8;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -222,7 +226,7 @@ body {
     color: $blue;
 }
 
-.align-left {
+/*.chat-align-left {
     text-align: left;
 }
 
@@ -232,13 +236,84 @@ body {
 
 .float-right {
     float: right;
-}
+}*/
 
 .clearfix:after {
     visibility: hidden;
     display: block;
     font-size: 0;
-    content: " ";
+    /*content: " ";*/
     clear: both;
     height: 0;
+}
+
+
+.loader {
+    margin: 0 0 2em;
+    background-color: antiquewhite;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    padding: 1em;
+    margin: 0 auto 1em;
+    align-items: center;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.loader-span {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+.chatloaderblock {
+    text-align: center;
+    /* May want to do this if there is risk the container may be narrower than the element inside */
+    white-space: nowrap;
+}
+
+/* The ghost, nudged to maintain perfect centering */
+.chatloaderblock:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em; /* Adjusts for spacing */
+}
+
+
+/* This parent can be any width and height */
+.loaderblock {
+    text-align: center;
+    /* May want to do this if there is risk the container may be narrower than the element inside */
+    white-space: nowrap;
+}
+
+/* The ghost, nudged to maintain perfect centering */
+.loaderblock:before {
+    content: '';
+    display: inline-block;
+    height: 50%;
+    vertical-align: middle;
+    margin-right: -0.25em; /* Adjusts for spacing */
+}
+
+/* The element to be centered, can also be of any width and height */
+.loaderblock-centered {
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+}
+
+
+/*
+          Set the color of the icon
+        */
+svg path,
+svg rect {
+    fill: #FF6700;
 }

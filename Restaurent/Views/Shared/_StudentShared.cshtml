@@ -15,7 +15,7 @@
     <title>@ViewBag.Title</title>
     <meta charset='UTF-8'>
     <meta name="robots" content="noindex">
-    <link rel='stylesheet prefetch' href='~/css/twitter-boostrap-min.less'>
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'>
     <link href="~/Content/AdminStyleSheet.css" rel="stylesheet" />
 
     @RenderSection("myLink", false)
@@ -26,26 +26,27 @@
             <div class="c-header-icon js-hamburger">
                 <div class="hamburger-toggle"><span class="bar-top"></span><span class="bar-mid"></span><span class="bar-bot"></span></div>
             </div>
-            <div class="c-header-icon has-dropdown">
+            @*<div class="c-header-icon has-dropdown">
                 <span class="c-badge c-badge--header-icon animated shake">21</span><i class="fa fa-bell"></i>
                 <div class="c-dropdown c-dropdown--notifications">
                     <div class="c-dropdown__header">Student View</div>
                     <div class="c-dropdown__content">Student View</div>
                 </div>
-            </div>
+            </div>*@
             <div class="c-header-icon has-dropdown">
                 <a href="/student/chat">
-                    <i class="fa fa-comment"></i>
+                    @*<i class="fa fa-comment"></i>*@
+                    <span id="notifyCount" style="display:none"  class="c-badge c-badge--header-icon animated shake">21</span><i class="fa fa-comments"></i>
                 </a>
             </div>
             <div class="c-search">
                 @*<input class="c-search__input u-input" placeholder="Search..." type="text" />*@
-                <div style="text-align:center; margin-top:10px; margin-left:450px" class="c-search"><h2><b><span class="glyphicon glyphicon-user"></span>Student</b></h2></div>
+                <div style="text-align:center; margin-left:450px" class="c-search"><h2 style="color:black"><b>Student</b></h2></div>
 
             </div>
             <div style="width:250px" class="header-icons-group">
                 @*<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> @currentUser.FullName <span class="caret"></span></a>*@
-                <div style="width:70%" class="c-header-icon basket"><span class="glyphicon glyphicon-user"></span><h6 style="margin-left:5px; text-align:center"> @user.FirstName</h6></div>
+                <div style="width:70%" class="c-header-icon basket"><span class="glyphicon glyphicon-user"></span><h6 style="margin-left: 5px; color: black; text-align:center"> @user.FirstName</h6></div>
                 <div class="c-header-icon logout"><a href="/users/logout"><i class="fa fa-power-off"></i></a></div>
             </div>
         </div>
@@ -135,7 +136,44 @@
         }();
 
         Dashboard.init();
-//# sourceURL=pen.js
+        $(document).ready(function () {
+            getChatCount();
+            setInterval(getChatCount, 5 * 1000);
+        });
+
+        function getChatCount() {
+            $.ajax(
+                {
+                    url: "/student/GetChatCount"
+                }
+            ).done(function (result) {
+
+                if (parseInt(result) > 0) {
+
+                    if ($("#notifyCount").html() != result) {
+
+                        $("#notifyCount").toggleClass('shake');
+
+                        $('#notifyCount').addClass('shake');
+
+                        setTimeout(function () {
+
+                            $('#notifyCount').removeClass('shake');
+                        }, 300);
+                    }
+
+                    $("#notifyCount").html(result);
+                    $("#notifyCount").show();
+
+
+                    ev.preventDefault();
+
+                }
+                else {
+                    $("#notifyCount").hide();
+                }
+            });
+        }
     </script>
     @RenderSection("myScript", false)
 

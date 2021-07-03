@@ -1,4 +1,5 @@
 ﻿using Restaurant.ClassLibrary.ViewModel;
+using Restaurent.Models;
 using Restaurent.Service;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,8 @@ namespace Restaurent.Controllers
         public ActionResult DashBoard()
         {
             UserVM user = (UserVM)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.Role.Equals(WebUtil.Admin))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/usermanagement" });
+            if (!(user != null && user.Role.Equals(WebUtil.Admin))) return 
+                    RedirectToAction("Login", "Users", new { returnUrl = "admin/usermanagement" });
 
             return View();
         }
@@ -31,7 +33,8 @@ namespace Restaurent.Controllers
         public async Task<ActionResult> UserManagement()
         {
             UserVM user = (UserVM)Session[WebUtil.CurrentUser];
-            if (!(user != null && user.Role.Equals(WebUtil.Admin))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/usermanagement" });
+            if (!(user != null && user.Role.Equals(WebUtil.Admin))) 
+                return RedirectToAction("Login", "Users", new { returnUrl = "admin/usermanagement" });
             UserMgtVM userMgt = new UserMgtVM();
             userMgt = new UserMgtVM();
 
@@ -73,7 +76,16 @@ namespace Restaurent.Controllers
             UserVM user = (UserVM)Session[WebUtil.CurrentUser];
             if (!(user != null && user.Role.Equals(WebUtil.Admin))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/usermanagement" });
 
-            await service.DeleteUserById(userId);
+            Response response = await service.DeleteUserById(userId);
+
+            if (response.Status == ResponseStatus.OK) // Is User Input Valid?
+            {
+                TempData["UserMessage"] = new MessageVM() { CssClassName = "alert-success", Title = "Success!", Message = response.Message };
+            }
+            else
+            {
+                TempData["UserMessage"] = new MessageVM() { CssClassName = "alert-danger", Title = "Error!", Message = response.Message };
+            }
 
             return RedirectToAction("UserManagement");
         }

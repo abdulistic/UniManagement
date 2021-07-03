@@ -9,10 +9,9 @@
 }
 .pfl-wrapper {
     display: block;
-    width: auto;
     height: 100%;
+    width:60%;
     padding: 40px;
-    margin: 50px;
     background-color: #f1deda;
     box-shadow: 0 0 50px rgba(0,0,0,0.08);
     overflow: auto;

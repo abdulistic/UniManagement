@@ -3,107 +3,108 @@
 @Styles.Render("~/Bundle/sass")
 
 @{
-    Layout = null;
+    ViewBag.Title = "Chat";
+    Layout = "~/Views/Shared/_StudentShared.cshtml";
 }
 
-<!DOCTYPE html>
+@section myLink{
 
-<html>
-<head>
-    <link rel='stylesheet prefetch' href="~/Content/Admincss/Chat.css" />
+    <link rel='stylesheet prefetch' href="~/Content/Admincss/Chat.scss"  />
 
-</head>
+}
 
-<body>
-
-    <div class="container clearfix">
-        <div style="height:70%" class="people-list" id="people-list">
-            <div style="height:50px" id="searchView" class="search">
-                <form class="form">
-                    <div class="form-group">
-                        <input style="height:30px; color:antiquewhite" type="text" id="search" onkeyup="changeInput(this.value)" class="form-control form-control-lg" placeholder="Search">
-                    </div>
-                    <div id="result" class="list-group"></div>
-                </form>
-            </div>
-            <h2 style="vertical-align:central; margin-top: 20px; margin-left: 20px" class="special">People</h2>
-            <div class="loaderblock">
-                <div class="loaderblock-centered">
-                    <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                         width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
-                    <path fill="#000" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">
-                    <animateTransform attributeType="xml"
-                                      attributeName="transform"
-                                      type="rotate"
-                                      from="0 25 25"
-                                      to="360 25 25"
-                                      dur="0.6s"
-                                      repeatCount="indefinite" />
+<div class="containerChat clearfix">
+    <div style="height:70%" class="people-list" id="people-list">
+        <div style="height:50px" id="searchView" class="search">
+            <form class="form">
+                <div class="form-group">
+                    <input style="height:30px; color:antiquewhite" type="text" id="search" onkeyup="changeInput(this.value)" class="form-control form-control-lg" placeholder="Search">
+                </div>
+                <div id="result" class="list-group"></div>
+            </form>
+        </div>
+        <h2 style="vertical-align:central; margin-top: 20px; margin-left: 20px" class="special">People</h2>
+        <div class="loaderblock">
+            <div class="loaderblock-centered">
+                <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                     width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                <path fill="#000" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">
+                <animateTransform attributeType="xml"
+                                  attributeName="transform"
+                                  type="rotate"
+                                  from="0 25 25"
+                                  to="360 25 25"
+                                  dur="0.6s"
+                                  repeatCount="indefinite" />
     </path>
   </svg>
-                </div>
             </div>
-
-
-            <ul hidden id="addedPeople" class="list"> </ul>
         </div>
 
-        <input type="text" id="currentUserId" style="display: none;" value=@ViewBag.SubjectId>
 
-        <div class="chat">
-            <div style="height:50px" class="chat-header clearfix">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" />
+        <ul hidden id="addedPeople" class="list"> </ul>
+    </div>
 
-                <div class="chat-about">
-                    <div id="selectedPersonName" class="chat-with"></div>
-                    @*<div class="chat-num-messages">already 1 902 messages</div>*@
-                </div>
-                <i class="fa fa-star"></i>
-            </div> <!-- end chat-header -->
+    <input type="text" id="currentUserId" style="display: none;" value=@ViewBag.SubjectId>
 
-            <div style="height:70%" class="chat-history">
-                <div class="chatloaderblock">
-                    <div class="loaderblock-centered">
-                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                             width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
-                        <rect x="0" y="10" width="4" height="10" fill="#333" opacity="0.2">
-                        <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0s" dur="0.6s" repeatCount="indefinite" />
-                        <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0s" dur="0.6s" repeatCount="indefinite" />
-                        <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0s" dur="0.6s" repeatCount="indefinite" />
+    <div class="chat">
+        <div style="height:50px" class="chat-header clearfix">
+            <img height="70" src="~/Images/user.png" alt="avatar" />
+
+            <div class="chat-about">
+                <div id="selectedPersonName" class="chat-with"></div>
+                @*<div class="chat-num-messages">already 1 902 messages</div>*@
+            </div>
+            <i class="fa fa-star"></i>
+        </div> <!-- end chat-header -->
+
+        <div style="height:70%" class="chat-history">
+            <div class="chatloaderblock">
+                <div class="loaderblock-centered">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                         width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                    <rect x="0" y="10" width="4" height="10" fill="#333" opacity="0.2">
+                    <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0s" dur="0.6s" repeatCount="indefinite" />
+                    <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0s" dur="0.6s" repeatCount="indefinite" />
+                    <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0s" dur="0.6s" repeatCount="indefinite" />
     </rect>
-                        <rect x="8" y="10" width="4" height="10" fill="#333" opacity="0.2">
-                        <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
-                        <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
-                        <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+                    <rect x="8" y="10" width="4" height="10" fill="#333" opacity="0.2">
+                    <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+                    <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+                    <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
     </rect>
-                        <rect x="16" y="10" width="4" height="10" fill="#333" opacity="0.2">
-                        <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
-                        <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
-                        <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+                    <rect x="16" y="10" width="4" height="10" fill="#333" opacity="0.2">
+                    <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+                    <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+                    <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
     </rect>
   </svg>
-                    </div>
                 </div>
-                <ul hidden id="chatHistory"></ul>
+            </div>
+            <ul hidden id="chatHistory"></ul>
 
-            </div> <!-- end chat-history -->
+        </div> <!-- end chat-history -->
 
-            <div class="chat-message clearfix">
-                <textarea name="message-to-send" id="message-to-send" placeholder="Type your message" rows="2"></textarea>
-                <input type="text" id="recieverId" style="display: none;">
-                <input type="text" id="chatRoomId" style="display: none;">
+        <div class="chat-message clearfix">
+            <textarea name="message-to-send" id="message-to-send" placeholder="Type your message" rows="2"></textarea>
+            <input type="text" id="recieverId" style="display: none;">
+            <input type="text" id="chatRoomId" style="display: none;">
 
-                <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
-                <i class="fa fa-file-image-o"></i>
+            <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
+            <i class="fa fa-file-image-o"></i>
 
-                <button id="messageSendBtn">Send</button>
+            <button id="messageSendBtn">Send</button>
 
-            </div> <!-- end chat-message -->
+        </div> <!-- end chat-message -->
 
-        </div> <!-- end chat -->
+    </div> <!-- end chat -->
 
-    </div> <!-- end container -->
+</div> <!-- end container -->
 
+
+
+@section myScript{
+ 
     <script id="message-template" type="text/x-handlebars-template">
         <li class="clearfix">
             <div class="message-data align-right">
@@ -133,7 +134,4 @@
     <script src="~/js/bootstrap.min.js"></script>
 
     <script src="~/Scripts/AdminJavascript/Chat.js"></script>
-
-
-</body>
-</html>
+}
