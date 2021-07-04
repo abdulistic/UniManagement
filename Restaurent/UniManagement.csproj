@@ -256,6 +256,7 @@
     <Content Include="Scripts\AdminJavascript\CloudFlareTwitter337JavaScript.js" />
     <Content Include="Scripts\AdminJavascript\dataTable.js" />
     <Content Include="Scripts\AdminJavascript\FontAwesomeJavaScript.js" />
+    <Content Include="Scripts\AdminJavascript\jquery.dataTables.min.js" />
     <Content Include="Scripts\AdminJavascript\ManageClasses.js" />
     <Content Include="Scripts\AdminJavascript\ManageProduct.js" />
     <Content Include="Scripts\AdminJavascript\ManageStudents.js" />

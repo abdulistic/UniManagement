@@ -78,6 +78,7 @@
     <Compile Include="ViewModel\AuthenticateResponse.cs" />
     <Compile Include="ViewModel\ChatVM.cs" />
     <Compile Include="ViewModel\ClassVM.cs" />
+    <Compile Include="ViewModel\GradesListVM.cs" />
     <Compile Include="ViewModel\SubjectVM.cs" />
     <Compile Include="ViewModel\TestVM.cs" />
     <Compile Include="ViewModel\UserMgtVM.cs" />

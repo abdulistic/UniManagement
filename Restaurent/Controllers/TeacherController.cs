@@ -1,9 +1,13 @@
-﻿using Restaurant.ClassLibrary.ViewModel;
+﻿using Newtonsoft.Json;
+using Restaurant.ClassLibrary.ViewModel;
 using Restaurent.Models;
 using Restaurent.Service;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -155,5 +159,80 @@ namespace Restaurent.Controllers
         }
 
 
+
+        [HttpPost]
+        public void Index(HttpPostedFileBase postedFile)
+        {
+            try
+            {
+                if (postedFile != null)
+                {
+                    string temp = Path.GetTempPath();
+                    string path = Path.Combine(temp, "Uploads");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+                    List<GradesListVM> grades = new List<GradesListVM>();
+
+                    string fileName = Path.GetFileName(postedFile.FileName);
+                    string filePath = Path.Combine(path, fileName);
+                    postedFile.SaveAs(filePath);
+
+
+                    string csvData = System.IO.File.ReadAllText(filePath);
+                    DataTable dt = new DataTable();
+                    bool firstRow = true;
+                    foreach (string row in csvData.Split('\n'))
+                    {
+                        if (!string.IsNullOrEmpty(row))
+                        {
+                            if (!string.IsNullOrEmpty(row))
+                            {
+                                if (firstRow)
+                                {
+                                    foreach (string cell in row.Split(','))
+                                    {
+                                        dt.Columns.Add(cell.Trim());
+                                    }
+                                    firstRow = false;
+                                }
+                                else
+                                {
+                                    dt.Rows.Add();
+                                    int i = 0;
+                                    foreach (string cell in row.Split(','))
+                                    {
+                                        dt.Rows[dt.Rows.Count - 1][i] = cell.Trim();
+                                        i++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        if (row != null)
+                        {
+                            GradesListVM gradeRow = new GradesListVM();
+                            gradeRow.ID = JsonConvert.DeserializeObject<int>(row.ItemArray[0].ToString());
+                            gradeRow.StudentName = JsonConvert.DeserializeObject<string>(row.ItemArray[1].ToString());
+                            gradeRow.TestMarks = JsonConvert.DeserializeObject<int>(row.ItemArray[2].ToString());
+
+
+                            grades.Add(gradeRow);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            //return RedirectToAction("");
+        }
     }
 }
