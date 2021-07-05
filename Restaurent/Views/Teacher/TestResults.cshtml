@@ -14,52 +14,190 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <link href="~/Content/Admincss/DataTable.css" rel="stylesheet" />
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <style>
+        /****** IGNORE ******/
+
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+            width: 60%;
+        }
+
+        .file-upload {
+            display: block;
+            text-align: center;
+            width: 90%;
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 12px;
+        }
+
+            .file-upload .file-select {
+                display: block;
+                border: 2px solid #dce4ec;
+                color: #34495e;
+                cursor: pointer;
+                height: 40px;
+                line-height: 40px;
+                text-align: left;
+                background: #FFFFFF;
+                overflow: hidden;
+                position: relative;
+            }
+
+                .file-upload .file-select .file-select-button {
+                    background: #dce4ec;
+                    padding: 0 10px;
+                    display: inline-block;
+                    height: 40px;
+                    line-height: 40px;
+                }
+
+                .file-upload .file-select .file-select-name {
+                    line-height: 40px;
+                    display: inline-block;
+                    padding: 0 10px;
+                }
+
+                .file-upload .file-select:hover {
+                    border-color: #34495e;
+                    transition: all .2s ease-in-out;
+                    -moz-transition: all .2s ease-in-out;
+                    -webkit-transition: all .2s ease-in-out;
+                    -o-transition: all .2s ease-in-out;
+                }
+
+                    .file-upload .file-select:hover .file-select-button {
+                        background: #34495e;
+                        color: #FFFFFF;
+                        transition: all .2s ease-in-out;
+                        -moz-transition: all .2s ease-in-out;
+                        -webkit-transition: all .2s ease-in-out;
+                        -o-transition: all .2s ease-in-out;
+                    }
+
+            .file-upload.active .file-select {
+                border-color: #3fa46a;
+                transition: all .2s ease-in-out;
+                -moz-transition: all .2s ease-in-out;
+                -webkit-transition: all .2s ease-in-out;
+                -o-transition: all .2s ease-in-out;
+            }
+
+                .file-upload.active .file-select .file-select-button {
+                    background: #3fa46a;
+                    color: #FFFFFF;
+                    transition: all .2s ease-in-out;
+                    -moz-transition: all .2s ease-in-out;
+                    -webkit-transition: all .2s ease-in-out;
+                    -o-transition: all .2s ease-in-out;
+                }
+
+            .file-upload .file-select input[type=file] {
+                z-index: 100;
+                cursor: pointer;
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                top: 0;
+                left: 0;
+                opacity: 0;
+                filter: alpha(opacity=0);
+            }
+
+            .file-upload .file-select.file-select-disabled {
+                opacity: 0.65;
+            }
+
+                .file-upload .file-select.file-select-disabled:hover {
+                    cursor: default;
+                    display: block;
+                    border: 2px solid #dce4ec;
+                    color: #34495e;
+                    cursor: pointer;
+                    height: 40px;
+                    line-height: 40px;
+                    margin-top: 5px;
+                    text-align: left;
+                    background: #FFFFFF;
+                    overflow: hidden;
+                    position: relative;
+                }
+
+                    .file-upload .file-select.file-select-disabled:hover .file-select-button {
+                        background: #dce4ec;
+                        color: #666666;
+                        padding: 0 10px;
+                        display: inline-block;
+                        height: 40px;
+                        line-height: 40px;
+                    }
+
+                    .file-upload .file-select.file-select-disabled:hover .file-select-name {
+                        line-height: 40px;
+                        display: inline-block;
+                        padding: 0 10px;
+                    }
+    </style>
 }
 
 
 
-<div style="margin:100px" class="row">
-    @using (Html.BeginForm("Index", "Teacher", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        <input type="file" name="postedFile" />
-        <input type="submit" value="Import" />
-    }
-        <div id="admin" class="col s12">
-            <div class="card material-table">
-                <div class="table-header">
-                    <span class="table-title">Test Results</span>
-                    <div class="actions">
-                        @*<a href="#addEmployeeModal" data-toggle="modal" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">person_add</i></a>*@
-                        <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
-                    </div>
+<div style="margin:100px">
+
+    <div id="admin" class="col s12">
+        <div class="card material-table">
+            <div class="table-header">
+                <span class="table-title">Test Results</span>
+                <div class="actions">
+                    @*<a href="#addEmployeeModal" data-toggle="modal" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">person_add</i></a>*@
+                    <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
                 </div>
-                <table id="datatable">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Student Name</th>
-                            <th>Test Marks</th>
-                            <th class="ten td_Action">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var m in Model.TestList)
-                        {
-                            <tr>
-                                <td>@m.SubjectId</td>
-                                <td data-studentid="@m.SubjectId">@m.SubjectName</td>
-                                <td data-totalmarks="@m.TotalMarks">@m.TotalMarks</td>
-                                <td class="td_Action">
-                                    <a href="#" data-id="@m.TestResultId" class="edit editItem" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="View Students">&#xE254;</i></a>
-                                    @*<a href="#" data-id="@m.TestResultId" class="delete delItem" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="View Tests">&#xE872;</i></a>*@
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
             </div>
+            <table id="datatable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Student Name</th>
+                        <th>Test Marks</th>
+                        <th class="ten td_Action">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var m in Model.TestList)
+                    {
+                        <tr>
+                            <td>@m.SubjectId</td>
+                            <td data-studentid="@m.SubjectId">@m.SubjectName</td>
+                            <td data-totalmarks="@m.TotalMarks">@m.TotalMarks</td>
+                            <td class="td_Action">
+                                <a href="#" data-id="@m.TestResultId" class="edit editItem" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="View Students">&#xE254;</i></a>
+                                @*<a href="#" data-id="@m.TestResultId" class="delete delItem" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="View Tests">&#xE872;</i></a>*@
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
+    @using (Html.BeginForm("Index", "Teacher", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @*<input type="file" name="postedFile" />*@
+        <div style="margin-top:20px" class="row center">
+
+            <div class="file-upload">
+                <div class="file-select">
+                    <div class="file-select-button" id="fileName">Choose File</div>
+                    <div class="file-select-name" id="noFile">No file chosen...</div>
+                    <input type="file" name="chooseFile" id="chooseFile">
+                </div>
+
+            </div>
+            <input type="submit" value="Import" />
+        </div>
+
+    }
+</div>
 
 
 
@@ -123,7 +261,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
-                    @Html.TextBoxFor(m => m.AddTest.SubjectId, new {  id = "editStudentId", style = "display: none;" })
+                    @Html.TextBoxFor(m => m.AddTest.SubjectId, new { id = "editStudentId", style = "display: none;" })
                     @Html.TextBoxFor(m => m.AddTest.TestResultId, new { id = "editId", style = "display: none;" })
                     @Html.TextBoxFor(m => m.AddTest.TestId, new { @Value = ViewBag.SubjectId, style = "display: none;" })
                     <div class="form-group">
@@ -169,5 +307,19 @@
     <script src="~/Scripts/AdminJavascript/dataTable.js" type="text/javascript"></script>
     <script src="~/Scripts/AdminJavascript/ManageTestResults.js" type="text/javascript"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" type="text/javascript"></script>
+
+    <script>
+        $('#chooseFile').bind('change', function () {
+            var filename = $("#chooseFile").val();
+            if (/^\s*$/.test(filename)) {
+                $(".file-upload").removeClass('active');
+                $("#noFile").text("No file chosen...");
+            }
+            else {
+                $(".file-upload").addClass('active');
+                $("#noFile").text(filename.replace("C:\\fakepath\\", ""));
+            }
+        });
+    </script>
 }
 
