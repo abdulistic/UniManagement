@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Restaurant.ClassLibrary\UniManagement.ClassLibrary.csproj" />
+    <ProjectReference Include="..\UniManagement.ViewModel\UniManagement.ClassLibrary.csproj" />
     <ProjectReference Include="..\UniPortalModel\UniPortalModel.csproj" />
   </ItemGroup>
 
