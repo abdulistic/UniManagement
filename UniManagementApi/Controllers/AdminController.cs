@@ -135,5 +135,6 @@ namespace UniManagementApi.Controllers
             return await service.GetUser(model);
         }
 
+
     }
 }

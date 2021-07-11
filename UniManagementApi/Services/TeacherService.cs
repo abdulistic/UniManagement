@@ -28,6 +28,7 @@ namespace UniManagementApi.Services
         Task<List<UserVM>> GetChatPeople(int id);
         Task<List<ChatVM>> GetChatRoomHistory(int id, long userId);
         Task<int> GetNewChatCount(int id);
+        Task<Response> AddResults(List<GradesListVM> grades);
     }
 
     public class TeacherService : ITeacherService
@@ -374,9 +375,9 @@ namespace UniManagementApi.Services
                     }
                     else
                     {
-                        TestResult uniClass = await context.TestResults?.FirstOrDefaultAsync(x => x.TestId == model.TestId && x.StudentId == model.SubjectId);
+                        TestResult uniTest = await context.TestResults?.Where(x => x.StudentId == model.SubjectId).FirstOrDefaultAsync(x => x.TestId == model.TestId);
 
-                        if (uniClass == null)
+                        if (uniTest == null)
                         {
                             TestResult registration = new TestResult()
                             {
@@ -402,12 +403,52 @@ namespace UniManagementApi.Services
                                 response.Message = "Registration failed.";
                             }
                         }
+                        else
+                        {
+                            uniTest.StudentMarks = model.TotalMarks.ToString();
+
+                            context.TestResults.Update(uniTest);
+                            await context.SaveChangesAsync();
+
+                            response.Status = ResponseStatus.OK;
+                            response.Message = "Updated successfully.";
+                        }
                     }
                 }
                 else
                 {
                     response.Status = ResponseStatus.Error;
                     response.Message = "Registration failed.";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = ResponseStatus.Error;
+                response.Message = ex.Message;
+            }
+
+            return response;
+        }
+
+
+        public async Task<Response> AddResults(List<GradesListVM> grades)
+        {
+            Response response = new Response();
+            try
+            {
+                if (grades.Count > 0)
+                {
+                    foreach (var item in grades)
+                    {
+                        TestVM model = new TestVM()
+                        {
+                            SubjectId = (int)item.StudentId,
+                            TestId = item.TestId,
+                            TotalMarks = item.TestMarks,
+                        };
+
+                        response = await AddTestResult(model);
+                    }
                 }
             }
             catch (Exception ex)
@@ -482,7 +523,7 @@ namespace UniManagementApi.Services
                 List<User> userList = await context.Users.Where(x => x.IsActive ?? false).Where(x => studentIds.Contains(x.UserId)).ToListAsync();
 
                 List<TestResult> resultList = await context.TestResults.Where(x => x.IsActive)
-                    .Where(s => userList.Select(a => a.UserId).ToList().Contains(s.TestId)).ToListAsync();
+                    .Where(s => userList.Select(a => a.UserId).ToList().Contains(s.StudentId)).ToListAsync();
 
                 List<UniTest> uniTests = await context.UniTests.Where(x => x.IsActive).
                     Where(s => resultList.Select(o => o.TestId).ToList().Contains(s.TestId)).ToListAsync();
@@ -634,9 +675,9 @@ namespace UniManagementApi.Services
                 AssignClassStudent studentClass = context.AssignClassStudents.FirstOrDefault(x => x.StudentId == id);
                 List<Subject> subject = await context.Subjects.Where(x => x.IsActive).Where(s => s.ClassId == studentClass.ClassId).ToListAsync();
 
-                List<TestResult> resultList = await context.TestResults.Where(x => x.IsActive).Where(s => s.StudentId == id).ToListAsync();
+                List<TestResult> resultList = await context.TestResults.Where(s => s.StudentId == id).ToListAsync();
 
-                List<UniTest> uniTests = await context.UniTests.Where(x => x.IsActive).
+                List<UniTest> uniTests = await context.UniTests.
                     Where(s => resultList.Select(o => o.TestId).ToList().Contains(s.TestId)).ToListAsync();
 
                 if (subject?.Count > 0)
@@ -665,7 +706,8 @@ namespace UniManagementApi.Services
 
             try
             {
-                List<UniTest> testList = await context.UniTests.Where(x => x.IsActive).Where(s => s.TestId == subjectId).ToListAsync();
+                List<UniTest> testList = await context.UniTests
+                    .Where(s => s.SubjectId == subjectId).ToListAsync();
 
                 List<TestResult> resultList = await context.TestResults.Where(x => x.StudentId == studentId).ToListAsync();
 

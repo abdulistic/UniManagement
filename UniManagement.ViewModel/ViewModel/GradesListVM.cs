@@ -8,7 +8,8 @@ namespace Restaurant.ClassLibrary.ViewModel
 {
     public class GradesListVM
     {
-        public long ID { get; set; }
+        public long StudentId { get; set; }
+        public int TestId { get; set; }
         public string StudentName { get; set; }
         public int TestMarks { get; set; }
     }

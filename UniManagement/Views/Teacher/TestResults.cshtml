@@ -183,6 +183,7 @@
     @using (Html.BeginForm("Index", "Teacher", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @*<input type="file" name="postedFile" />*@
+        TempData["TestId"] = ViewBag.SubjectId;
         <div style="margin-top:20px" class="row center">
 
             <div class="file-upload">
@@ -196,7 +197,9 @@
             <input type="submit" value="Import" />
         </div>
 
-    }
+
+
+}
 </div>
 
 

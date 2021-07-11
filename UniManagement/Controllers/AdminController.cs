@@ -173,7 +173,17 @@ namespace Restaurent.Controllers
             UserVM user = (UserVM)Session[WebUtil.CurrentUser];
             if (!(user != null && user.Role.Equals(WebUtil.Admin))) return RedirectToAction("Login", "Users", new { returnUrl = "admin/usermanagement" });
 
-            await service.DeleteSubjectById(subjectId);
+            Response response = await service.DeleteSubjectById(subjectId);
+
+            if (response.Status == ResponseStatus.OK) // Is User Input Valid?
+            {
+                TempData["UserMessage"] = new MessageVM() { CssClassName = "alert-success", Title = "Success!", Message = response.Message };
+            }
+            else
+            {
+                TempData["UserMessage"] = new MessageVM() { CssClassName = "alert-danger", Title = "Error!", Message = response.Message };
+            }
+
 
             return RedirectToAction("SubjectManagement");
         }

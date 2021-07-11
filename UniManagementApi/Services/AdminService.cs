@@ -34,7 +34,6 @@ namespace UniManagementApi.Services
         Task<Response> DeleteClassById(long classId);
         Task<Response> DeleteSubjectById(long subjectId);
         Task<Response> DeassignClass(long userId);
-
         Task<UserVM> GetUser(UserVM model);
     }
 
@@ -684,22 +683,32 @@ namespace UniManagementApi.Services
             {
                 if (subjectId > 0)
                 {
-                    Subject subject = await context.Subjects.FirstOrDefaultAsync(x => x.SubjectId == subjectId);
+                    List<UniTest> tests = await context.UniTests.Where(x => x.SubjectId == subjectId).ToListAsync();
 
-                    if (subject != null)
+                    if (tests == null)
                     {
-                        subject.IsActive = false;
+                        Subject subject = await context.Subjects.FirstOrDefaultAsync(x => x.SubjectId == subjectId);
 
-                        context.Subjects.Update(subject);
-                        await context.SaveChangesAsync();
+                        if (subject != null)
+                        {
+                            subject.IsActive = false;
 
-                        response.Status = ResponseStatus.OK;
-                        response.Message = "User deleted successfully";
+                            context.Subjects.Update(subject);
+                            await context.SaveChangesAsync();
+
+                            response.Status = ResponseStatus.OK;
+                            response.Message = "User deleted successfully";
+                        }
+                        else
+                        {
+                            response.Status = ResponseStatus.Error;
+                            response.Message = "Task Failed";
+                        }
                     }
                     else
                     {
                         response.Status = ResponseStatus.Error;
-                        response.Message = "Task Failed";
+                        response.Message = "Subject has ongoing tests therefore, it can not be removed.";
                     }
                 }
                 else

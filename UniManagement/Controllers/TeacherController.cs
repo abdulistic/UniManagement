@@ -23,27 +23,13 @@ namespace Restaurent.Controllers
             this.service = new TeacherService();
         }
 
-        public ActionResult Index()
-        {
-            return Redirect("http://localhost/ChatApp/Account/Register");
-        }
-
-        public async Task<ActionResult> Register()
-        {
-            string username = "abdulirehmankhan3333@gmail.com";
-            string password = "Password1";
-            await service.LoginForChat(username, password);
-
-            return RedirectToAction("TeacherManagement");
-        }
-
         public async Task<ActionResult> TeacherManagement()
         {
             UserVM user = (UserVM)Session[WebUtil.CurrentUser];
             if (!(user != null && user.Role.Equals(WebUtil.Teacher))) return RedirectToAction("Login", "Users", new { returnUrl = "teacher/teachermanagement" });
 
             List<SubjectVM> userMgt = new List<SubjectVM>();
-            userMgt = await service.GetSubjectList(3);
+            userMgt = await service.GetSubjectList((int)user.UserId);
 
             return View(userMgt);
         }
@@ -161,12 +147,15 @@ namespace Restaurent.Controllers
 
 
         [HttpPost]
-        public void Index(HttpPostedFileBase postedFile)
+        public async Task<ActionResult> Index(HttpPostedFileBase file)
         {
+            int testId = Convert.ToInt32(TempData["TestId"]);
+
             try
             {
-                if (postedFile != null)
+                if (Request.Files.Count > 0)
                 {
+                    var postedFile = Request.Files[0];
                     string temp = Path.GetTempPath();
                     string path = Path.Combine(temp, "Uploads");
                     if (!Directory.Exists(path))
@@ -212,18 +201,24 @@ namespace Restaurent.Controllers
                         }
                     }
 
+
                     foreach (DataRow row in dt.Rows)
                     {
                         if (row != null)
                         {
                             GradesListVM gradeRow = new GradesListVM();
-                            gradeRow.ID = JsonConvert.DeserializeObject<int>(row.ItemArray[0].ToString());
-                            gradeRow.StudentName = JsonConvert.DeserializeObject<string>(row.ItemArray[1].ToString());
+                            gradeRow.StudentId = JsonConvert.DeserializeObject<int>(row.ItemArray[0].ToString());
+                            gradeRow.StudentName = row.ItemArray[1].ToString();//JsonConvert.DeserializeObject<string>(row.ItemArray[1].ToString());
                             gradeRow.TestMarks = JsonConvert.DeserializeObject<int>(row.ItemArray[2].ToString());
-
+                            gradeRow.TestId = testId;
 
                             grades.Add(gradeRow);
                         }
+                    }
+
+                    if (grades.Count > 0)
+                    {
+                        await service.AddResults(grades);
                     }
                 }
             }
@@ -232,7 +227,7 @@ namespace Restaurent.Controllers
 
             }
 
-            //return RedirectToAction("");
+            return RedirectToAction("TestResults", new { id = testId });
         }
     }
 }

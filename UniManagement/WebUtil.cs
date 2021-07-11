@@ -85,5 +85,6 @@ namespace Restaurent
         public const string AddChatRoom = BaseURL + "AddChatRoom";
         public const string AddChat = BaseURL + "AddChat";
         public const string GetNewChatCount = BaseURL + "GetNewChatCount";
+        public const string AddResults = BaseURL + "AddResults";
     }
 }

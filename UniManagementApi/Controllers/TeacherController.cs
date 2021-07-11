@@ -122,5 +122,12 @@ namespace UniManagementApi.Controllers
             return await service.GetNewChatCount(id);
         }
 
+        [HttpPost]
+        public async Task<Response> AddResults([FromBody] List<GradesListVM> grades)
+        {
+            return await service.AddResults(grades);
+        }
+
+
     }
 }
