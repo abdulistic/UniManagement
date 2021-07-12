@@ -12,10 +12,8 @@
     <title>@ViewBag.Title</title>
     <meta charset='UTF-8'>
     <meta name="robots" content="noindex">
-    <link rel='stylesheet prefetch' href='~/css/twitter-boostrap-min.less'>
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'>
     <link href="~/Content/AdminStyleSheet.css" rel="stylesheet" />
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 
     @RenderSection("myLink", false)
 </head>
@@ -25,22 +23,27 @@
             <div class="c-header-icon js-hamburger">
                 <div class="hamburger-toggle"><span class="bar-top"></span><span class="bar-mid"></span><span class="bar-bot"></span></div>
             </div>
-            <div class="c-header-icon has-dropdown">
-                <span class="c-badge c-badge--header-icon animated shake">21</span><i class="fa fa-bell"></i>
-
-            </div>
+            @*<div class="c-header-icon has-dropdown">
+                    <span class="c-badge c-badge--header-icon animated shake">21</span><i class="fa fa-bell"></i>
+                    <div class="c-dropdown c-dropdown--notifications">
+                        <div class="c-dropdown__header">Student View</div>
+                        <div class="c-dropdown__content">Student View</div>
+                    </div>
+                </div>*@
             <div class="c-header-icon has-dropdown">
                 <a href="/student/chat">
-                    <i class="fa fa-comment"></i>
+                    @*<i class="fa fa-comment"></i>*@
+                    <span id="notifyCount" style="display:none" class="c-badge c-badge--header-icon animated shake">21</span><i class="fa fa-comments"></i>
                 </a>
             </div>
             <div class="c-search">
-                <div style="text-align:center; margin-top:30px;  width:450px;margin-left:450px" class="c-search"><h2><b><span class="glyphicon glyphicon-user"></span>Teacher</b></h2></div>
+                @*<input class="c-search__input u-input" placeholder="Search..." type="text" />*@
+                <div style="text-align:center; margin-left:450px" class="c-search"><h2 style="color:black"><b>Teacher</b></h2></div>
 
             </div>
             <div style="width:250px" class="header-icons-group">
                 @*<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> @currentUser.FullName <span class="caret"></span></a>*@
-                <div style="width:70%" class="c-header-icon basket">@*<span class="glyphicon glyphicon-user"></span>*@<h6 style="margin-left:5px; text-align:center"> @user.FirstName</h6></div>
+                <div style="width:70%" class="c-header-icon basket"><a href="/users/userprofile"><h6 style="margin-left: 5px; color: black; text-align:center"> @user.FirstName</h6></a></div>
                 <div class="c-header-icon logout"><a href="/users/logout"><i class="fa fa-power-off"></i></a></div>
             </div>
         </div>
@@ -87,31 +90,38 @@
         </div>
     </div>
 
+    @if (@ViewBag.Title == "Chat")
+    {
+        @RenderBody()
+
+    }
+    else
+    {
+
     <div>
-        @if (TempData["UserMessage"] != null)
-        {
-            var message = (MessageVM)TempData["UserMessage"];
+            @if (TempData["UserMessage"] != null)
+            {
+                var message = (MessageVM)TempData["UserMessage"];
 
-            <div id="infoi">
-                <div class="alert @message.CssClassName alert-dismissible alertDiv">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>@message.Title</strong> @message.Message
+                <div id="infoi">
+                    <div class="alert @message.CssClassName alert-dismissible alertDiv">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>@message.Title</strong> @message.Message
+                    </div>
                 </div>
+            }
+
+            <div id="navi">
+                @RenderBody()
             </div>
-        }
-
-        <div id="navi">
-            @RenderBody()
         </div>
-    </div>
 
+    }
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
 
     <script src="~/Scripts/jquery-3.2.1.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
-    @*<script src="~/js/bootstrap.bundle.min.js"></script>*@
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
     <script src='https://production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
     <script src='https://use.fontawesome.com/2188c74ac9.js'></script>
     <script>
@@ -162,15 +172,53 @@
         }();
 
         Dashboard.init();
-        //# sourceURL=pen.js
+        $(document).ready(function () {
+            getChatCount();
+            setInterval(getChatCount, 5 * 1000);
+        });
+
+        function getChatCount() {
+            $.ajax(
+                {
+                    url: "/student/GetChatCount"
+                }
+            ).done(function (result) {
+                debugger
+
+                if (parseInt(result) > 0) {
+
+                    if ($("#notifyCount").html() != result) {
+
+                        $("#notifyCount").toggleClass('shake');
+
+                        $('#notifyCount').addClass('shake');
+
+                        setTimeout(function () {
+
+                            $('#notifyCount').removeClass('shake');
+                        }, 300);
+                    }
+
+                    $("#notifyCount").html(result);
+                    $("#notifyCount").show();
+
+
+                    ev.preventDefault();
+
+                }
+                else {
+                    $("#notifyCount").hide();
+                }
+            });
+        }
     </script>
     @RenderSection("myScript", false)
 
 
     <!-- This is data table -->
-    @*<script src="~/Scripts/AdminJavascript/jquery.dataTables.min.js"></script>*@
+    <script src="~/Scripts/AdminJavascript/jquery.dataTables.min.js"></script>
     <!-- start - This is for export functionality only -->
-    @*<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" type="text/javascript"></script>*@
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" type="text/javascript"></script>
 
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
@@ -179,7 +227,7 @@
     <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
-    <!-- end - This is for export functionality only -->
+     end - This is for export functionality only 
     <script>
         $(document).ready(function () {
             $('#myTable').DataTable();

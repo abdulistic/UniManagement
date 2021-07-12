@@ -1,15 +1,18 @@
 ﻿@using System.Web.Optimization
-
+@using Restaurant.ClassLibrary.ViewModel
+@{
+    UserVM user = (UserVM)Session[WebUtil.CurrentUser];
+}
 @Styles.Render("~/Bundle/sass")
 
 @{
     ViewBag.Title = "Chat";
-    Layout = "~/Views/Shared/_StudentShared.cshtml";
+    Layout = user.Role == "Teacher" ? "~/Views/Shared/_TeacherShared.cshtml" : "~/Views/Shared/_StudentShared.cshtml";
 }
 
 @section myLink{
 
-    <link rel='stylesheet prefetch' href="~/Content/Admincss/Chat.scss"  />
+    <link rel='stylesheet prefetch' href="~/Content/Admincss/Chat.scss" />
 
 }
 
@@ -104,7 +107,7 @@
 
 
 @section myScript{
- 
+
     <script id="message-template" type="text/x-handlebars-template">
         <li class="clearfix">
             <div class="message-data align-right">
