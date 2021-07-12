@@ -315,9 +315,9 @@ namespace UniManagementApi.Services
 
             try
             {
-                UniTest testList = context.UniTests.FirstOrDefault(x => x.IsActive && x.TestId == id);
-                Subject subject = context.Subjects.FirstOrDefault(x => x.IsActive && x.SubjectId == testList.SubjectId);
-                UniClass testClass = context.UniClasses.FirstOrDefault(x => x.IsActive ?? false && x.ClassId == subject.ClassId);
+                UniTest testList = context.UniTests.Where(x => x.IsActive).FirstOrDefault(x => x.TestId == id);
+                Subject subject = context.Subjects.Where(x => x.IsActive).FirstOrDefault(x => x.SubjectId == testList.SubjectId);
+                UniClass testClass = context.UniClasses.Where(x => x.IsActive ?? false).FirstOrDefault(x => x.ClassId == subject.ClassId);
                 List<AssignClassStudent> classStudents = await context.AssignClassStudents.Where(x => x.ClassId == testClass.ClassId).ToListAsync();
 
                 List<long> studentIds = classStudents.Select(x => x.StudentId).ToList();
@@ -326,7 +326,7 @@ namespace UniManagementApi.Services
 
                 List<User> testUsers = userList.Where(x => studentIds.Contains(x.UserId)).ToList();
 
-                List<TestResult> resultList = await context.TestResults.Where(x => x.IsActive && x.TestId == id).ToListAsync();
+                List<TestResult> resultList = await context.TestResults.Where(x => x.IsActive).Where(x => x.TestId == id).ToListAsync();
 
                 string marks;
 
